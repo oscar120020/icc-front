@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const rankingApi = axios.create({
-    baseURL: 'http://localhost:3006/api/v1'
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
 })

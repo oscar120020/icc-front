@@ -28,7 +28,7 @@ export const DefaultLayout = ({title, children, pageDescription, imageFullUrl}: 
         </nav>
 
         <main style={{
-            margin: "80px auto",
+            margin: "70px auto",
             maxWidth: 1440,
             padding: "0px 30px"
         }} >

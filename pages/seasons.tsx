@@ -1,16 +1,46 @@
 import { useQuery, useQueryClient } from "react-query";
+import { GetStaticProps } from 'next'
 import { rankingApi } from "../api/rankingApi";
 import { DefaultLayout } from "../components/layouts";
+import { Loading } from "../components/ui";
+import { ErrorPage } from "../components/ui/ErrorPage";
 
-const getSeasons = async() => {
-  const response = await rankingApi.get('/season');
-  return response.data
+const getSeasons = () => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      rankingApi.get('/season')
+      .then(response => {
+        res(response.data)
+      })
+      .catch(err => {
+        console.log(err);
+        rej(err)
+      })
+    }, 3000)
+  })
 }
 
 const Seasons = () => {
 
-  const { data, error, isLoading } = useQuery(['seasons'], getSeasons);
-  console.log(data);
+  const { data, error, isLoading } = useQuery(['seasons'], getSeasons, {
+    retry: 1
+  });
+
+  if(error){
+    return (
+      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+        <ErrorPage/>
+      </DefaultLayout>
+    )
+  }
+
+  if(isLoading){
+    return (
+      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+        <Loading/>
+      </DefaultLayout>
+    )
+  }
   
 
   return (
@@ -24,5 +54,6 @@ const Seasons = () => {
     </DefaultLayout>
   )
 }
+
 
 export default Seasons;
