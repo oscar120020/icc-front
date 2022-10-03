@@ -1,11 +1,28 @@
+import { useQuery, useQueryClient } from "react-query";
+import { rankingApi } from "../api/rankingApi";
 import { DefaultLayout } from "../components/layouts";
 
-const seasons = () => {
+const getSeasons = async() => {
+  const response = await rankingApi.get('/season');
+  return response.data
+}
+
+const Seasons = () => {
+
+  const { data, error, isLoading } = useQuery(['seasons'], getSeasons);
+  console.log(data);
+  
+
   return (
-    <DefaultLayout title={"Seasons"} pageDescription={"Seasons details"}>
-        <h1>Seasons</h1>
+    <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+        <pre>
+          {
+            JSON.stringify(data, null, 2)
+          }
+        </pre>
+        
     </DefaultLayout>
   )
 }
 
-export default seasons;
+export default Seasons;

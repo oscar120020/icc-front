@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
     //   <h1>Intellisys Coding Challenge</h1>
     // </div>
-    <DefaultLayout title='ICC' pageDescription='Intellisys Coding Challenge' >
+    <DefaultLayout title='Intellisys Coding Challenge' pageDescription='Intellisys Coding Challenge' >
       <h1>Hola</h1>
     </DefaultLayout>
   )
