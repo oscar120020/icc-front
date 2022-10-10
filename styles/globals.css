@@ -1,11 +1,19 @@
 @keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-} 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .fadeIn {
@@ -18,7 +26,7 @@
   animation-name: fadeIn;
 }
 
-.btn{
+.btn {
   background-color: #ffffff;
   color: black;
   border-radius: 0;
@@ -26,26 +34,26 @@
   transition: all 0.3s ease-in-out;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #f7feff;
 }
 
-.btn-active{
+.btn-active {
   background-color: #ffffff;
-  color: #1985A1;
+  color: #1985a1;
   border-radius: 0;
-  border-bottom: 1px solid #1985A1;
+  border-bottom: 1px solid #1985a1;
   transition: all 0.3s ease-in-out;
 }
 
-.btn-active:hover{
+.btn-active:hover {
   background-color: #f7feff;
 }
 
-.btn-active-admin{
-  background-color: #1985A1;
+.btn-active-admin {
+  background-color: #1985a1;
 }
 
-.transition{
-  transition: all .3s ease-out;
+.transition {
+  transition: all 0.3s ease-out;
 }

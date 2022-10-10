@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import NextLink from "next/link";
 import { AppBar, Box, Button, Link, Toolbar, useScrollTrigger } from "@mui/material";
 import { LogoImage } from "../SVG/Logo";
 import { useRouter } from "next/router";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import MenuIcon from '@mui/icons-material/Menu';
+import { UIContext } from "../../context";
 
 interface Props {
   window: () => Window | undefined;
@@ -34,6 +36,7 @@ const currentWindow = () => {
 
 export const Navbar = () => {
   const { pathname } = useRouter();
+  const { changeMenuState } = useContext(UIContext)
 
   return (
     <ElevationScroll window={currentWindow}>
@@ -47,7 +50,7 @@ export const Navbar = () => {
 
           <Box sx={{ flex: 1 }} />
 
-          <Box sx={{ display: "flex" }} className="fadeIn">
+          <Box sx={{ display: {xs: 'none', sm: 'flex'} }} className="fadeIn">
             <NextLink href={"/seasons"} passHref>
               <Link display="flex" alignItems="center">
                 <Button
@@ -82,22 +85,28 @@ export const Navbar = () => {
 
           <Box sx={{ flex: 1 }} />
 
-          <NextLink href={"/admin"} passHref>
-            <Link>
-              <Button
-                className={pathname === "/admin" ? "btn-active-admin" : "btn"}
-                startIcon={
-                <AdminPanelSettingsIcon
-                  color={pathname === "/admin" ? 'inherit' : 'primary'}
-                  fontSize='large'
-                  sx={{fontSize: 30}} 
-                />
-                }
-              >
-                Admin
-              </Button>
-            </Link>
-          </NextLink>
+          <Box sx={{ display: {xs: 'none', sm: 'flex'} }}>
+            <NextLink href={"/admin"} passHref>
+              <Link>
+                <Button
+                  className={pathname === "/admin" ? "btn-active-admin" : "btn"}
+                  startIcon={
+                  <AdminPanelSettingsIcon
+                    color={pathname === "/admin" ? 'inherit' : 'primary'}
+                    fontSize='large'
+                    sx={{fontSize: 30}} 
+                  />
+                  }
+                >
+                  Admin
+                </Button>
+              </Link>
+            </NextLink>
+          </Box>
+
+          <Box sx={{ display: {xs: 'flex', sm: 'none'}, alignItems: 'center', cursor: "pointer" }} onClick={changeMenuState} >
+            <MenuIcon fontSize="large" color="primary" />
+          </Box>
         </Toolbar>
       </AppBar>
     </ElevationScroll>

@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from "react-query";
-import { GetStaticProps } from 'next'
-import { rankingApi } from "../api/rankingApi";
-import { DefaultLayout } from "../components/layouts";
-import { Loading } from "../components/ui";
-import { ErrorPage } from "../components/ui/ErrorPage";
+import { useQuery } from "react-query";
+import { rankingApi } from "../../api/rankingApi";
+import { DefaultLayout } from "../../components/layouts";
+import { Loading } from "../../components/ui";
+import { ErrorPage } from "../../components/ui/ErrorPage";
 
 const getSeasons = () => {
   return new Promise((res, rej) => {

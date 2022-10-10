@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Navbar } from "../ui";
+import { Navbar, SideMenu } from "../ui";
 
 interface Props {
   title: string;
@@ -33,6 +33,9 @@ export const DefaultLayout = ({
       <nav>
         <Navbar />
       </nav>
+
+      <SideMenu/>
+
       <Box
         sx={{
           width: "100%",
