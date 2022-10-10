@@ -45,3 +45,7 @@
 .btn-active-admin{
   background-color: #1985A1;
 }
+
+.transition{
+  transition: all .3s ease-out;
+}
