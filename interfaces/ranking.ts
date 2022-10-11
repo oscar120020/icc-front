@@ -7,3 +7,11 @@ export interface UserRank {
     penalty: number,
     image: string;
 }
+
+
+export interface Competitor {
+    username: string,
+    fullname: string,
+    score: number,
+    penalty: number
+}

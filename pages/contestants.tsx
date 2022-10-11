@@ -1,3 +1,4 @@
+import RankingCard from "../components/cards/RankingCard";
 import { DefaultLayout } from "../components/layouts";
 
 const contestants = () => {
