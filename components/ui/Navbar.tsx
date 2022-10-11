@@ -21,7 +21,7 @@ const ElevationScroll = (props: Props) => {
   });
 
   return React.cloneElement(children, {
-    elevation: trigger ? 3 : 1,
+    elevation: trigger ? 3 : 0,
     sx: {
       height: trigger ? 70 : 60
     }

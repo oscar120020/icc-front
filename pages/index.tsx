@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import Landing from "../assets/landing.svg";
+import { LandingImage } from "../components/SVG/LandingIlustration";
 
 const Home: NextPage = () => {
   return (
@@ -30,9 +31,10 @@ const Home: NextPage = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} sx={{display: 'flex', justifyContent: 'center'}}>
-          <Image src={Landing} alt="Landing" />
+          <LandingImage/>
         </Grid>
       </Grid>
+      
     </DefaultLayout>
   );
 };
