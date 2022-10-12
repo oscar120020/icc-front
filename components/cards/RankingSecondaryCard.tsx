@@ -9,14 +9,14 @@ export default function RankingSecondaryCard({competitor, index=4}: {competitor:
     const classes = useStyles()
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center' }}>
-            <Card sx={{ background: '#FFFFF', width: '95%', height: '50px', borderRadius: '5px', boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)', marginTop: '20px' }}>
+            <Card sx={{ background: '#FFFFF', width: '95%', height: '5.5vh', borderRadius: '5px', boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)', marginTop: '20px' }}>
                 <CardContent sx={{ padding: '0' }}>
                     <Container className={classes.secondaryContainer}>
                         <Box className={classes.secondaryLeftContainer}>
                             <Typography>{index}th</Typography>
                             <CardMedia
                                 component="img"
-                                height="44"
+                                height="42"
                                 sx={{ maxWidth: 44, borderRadius: '50%', margin: '2px' }}
                                 image='profile.png'
                                 alt="Paella dish"
@@ -26,11 +26,12 @@ export default function RankingSecondaryCard({competitor, index=4}: {competitor:
                             </Typography>
                         </Box>
                         <Box className={classes.secondaryRightContainer}>
+                            <StarsIcon sx={{marginBottom: '-10px'}}/>
                             <Typography className={classes.text}>
-                                <StarsIcon sx={{marginBottom: '-3px', marginRight: '1.5px'}}/>
                                 {competitor.score}</Typography>
+                                <CancelIcon sx={{marginBottom: '-10px', marginLeft: '4px'}}/>
                             <Typography className={classes.text}>
-                                <CancelIcon sx={{marginBottom: '-3px', marginRight: '1.5px'}}/>
+                                
                                 {competitor.penalty}
                             </Typography>
                         </Box>

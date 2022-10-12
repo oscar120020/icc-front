@@ -19,7 +19,7 @@ export const useStyles = makeStyles({
         marginBottom: '50px'
     },
     text: {
-        fontSize: '21px',
+        fontSize: '18px',
         paddingTop: '12px',
         textAlign: 'center',
         
@@ -39,18 +39,21 @@ export const useStyles = makeStyles({
 
     },
     secondaryLeftContainer: {
-        width: '25%',
+        width: '20%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
+        marginTop: '3px'
+     
     },
     secondaryRightContainer: {
         width: '20%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-end',
+
     },
     
     })
