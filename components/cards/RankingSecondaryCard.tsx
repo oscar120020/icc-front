@@ -43,19 +43,13 @@ export default function RankingSecondaryCard({
           </Box>
           <Box className={classes.secondaryRightContainer}>
             <Box className={classes.infoContent}>
-              <Typography className={classes.text}>Puntos</Typography>
-              <Box className={classes.scoreInfo}>
-                <StarsIcon sx={{marginTop: '3.5px'}}/>
-                <Typography variant="h6">{competitor.score}</Typography>
-              </Box>
-          
+              <StarsIcon sx={{ marginTop: '3.5px' }} />
+              <Typography variant="h6">{competitor.score}</Typography>
             </Box>
             <Box className={classes.infoContent}>
-              <Typography className={classes.text}>Penalty</Typography>
-              <Box className={classes.scoreInfo}>
-                <CancelIcon sx={{marginTop: '3.5px'}}/>
-                <Typography variant="h6">{competitor.score}</Typography>
-              </Box>
+              <CancelIcon sx={{ marginTop: '3.5px' }} />
+              <Typography variant="h6">{competitor.score}</Typography>
+
             </Box>
           </Box>
         </Container>
