@@ -14,6 +14,9 @@ export const defaultTheme = createTheme({
       main: '#dbdbdb'
     }
   },
+  typography: {
+    fontFamily: "Nunito, sans-serif",
+  },
   components: {
     MuiLink: {
       defaultProps: {
