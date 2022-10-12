@@ -40,7 +40,7 @@ export const defaultTheme = createTheme({
           fontWeight: 'bold'
         },
         h2: {
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: 400
         },
         h3: {

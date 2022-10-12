@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
-import Landing from "../assets/landing.svg";
 import { LandingImage } from "../components/SVG/LandingIlustration";
 
 const Home: NextPage = () => {
@@ -31,10 +29,15 @@ const Home: NextPage = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} sx={{display: 'flex', justifyContent: 'center'}}>
-          <LandingImage/>
+          <LandingImage />
         </Grid>
       </Grid>
-      
+      {/* Instrucciones */}
+      <Box sx={{mt: 15}} >
+        <Typography variant="h2">
+          Instrucciones
+        </Typography>
+      </Box>
     </DefaultLayout>
   );
 };
