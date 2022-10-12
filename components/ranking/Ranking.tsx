@@ -1,14 +1,15 @@
 import { Box } from '@mui/material'
+import dynamic from 'next/dynamic';
 import React from 'react'
 import { RankingProps } from '../../interfaces/ranking'
-import RankingCard from '../cards/RankingCard'
-import RankingSecondaryCard from '../cards/RankingSecondaryCard'
+const RankingSecondaryCard = dynamic(() => import('../cards/RankingSecondaryCard'), {ssr: false});
+const RankingCard = dynamic(() => import('../cards/RankingCard'), {ssr: false});
 
 export default function Ranking({ competitors }: RankingProps) {
 
     return (
         <>
-            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+            <Box sx={{width: '100',display: 'flex', flexDirection: 'row'}}>
                 {competitors.map((competitor, index) => {
                     {
                         if (index < 3) {
@@ -19,7 +20,7 @@ export default function Ranking({ competitors }: RankingProps) {
                     }
                 })}
             </Box>
-            <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 {competitors.map((competitor, index) => {
                     {
                         if (index > 2) {

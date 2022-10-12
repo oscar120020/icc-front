@@ -3,8 +3,7 @@ import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
 import Ranking from "../components/ranking/Ranking";
 import { Competitor } from "../interfaces/ranking";
-const RankingSecondaryCard = dynamic(() => import('../components/cards/RankingSecondaryCard'), {ssr: false});
-const RankingCard = dynamic(() => import('../components/cards/RankingCard'), {ssr: false});
+
 
 const data: Competitor[] = [
   {

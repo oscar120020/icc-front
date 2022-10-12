@@ -77,8 +77,17 @@ export const useStyles = makeStyles({
   infoContent: {
     flex: 1,
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: '10px',
+  },
+  scoreInfo: {
+    display: 'flex',
+    flexDirection: "row",
+  },
+  text: {
+    fontSize: '14px',
+    fontFamily: 'Georgia, serif'
   }
 });
