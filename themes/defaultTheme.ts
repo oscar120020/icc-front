@@ -14,6 +14,9 @@ export const defaultTheme = createTheme({
       main: '#dbdbdb'
     }
   },
+  typography: {
+    fontFamily: "Nunito, sans-serif",
+  },
   components: {
     MuiLink: {
       defaultProps: {
@@ -40,7 +43,7 @@ export const defaultTheme = createTheme({
           fontWeight: 'bold'
         },
         h2: {
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: 400
         },
         h3: {
