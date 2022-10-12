@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
-import Ranking from "../components/ranking/Ranking";
 import { Competitor } from "../interfaces/ranking";
+const Ranking = dynamic(() => import('../components/ranking/Ranking'), { ssr: false });
 
 
 const data: Competitor[] = [

@@ -77,7 +77,7 @@ export const useStyles = makeStyles({
   infoContent: {
     flex: 1,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: '10px',
