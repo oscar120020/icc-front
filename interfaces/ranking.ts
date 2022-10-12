@@ -15,3 +15,8 @@ export interface Competitor {
     score: number,
     penalty: number
 }
+
+
+export interface RankingProps {
+    competitors: Competitor[],
+}
