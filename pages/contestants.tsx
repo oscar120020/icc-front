@@ -7,22 +7,22 @@ const Ranking = dynamic(() => import('../components/ranking/Ranking'), { ssr: fa
 
 const data: Competitor[] = [
   {
-      username: 'Vladimir',
-      fullname: '',
-      score: 25,
-      penalty: 560
+    username: 'Vladimir',
+    fullname: '',
+    score: 25,
+    penalty: 560
   },
   {
-      username: 'Juan',
-      fullname: '',
-      score: 25,
-      penalty: 560
+    username: 'Juan',
+    fullname: '',
+    score: 25,
+    penalty: 560
   },
   {
-      username: 'Pedro',
-      fullname: '',
-      score: 25,
-      penalty: 560
+    username: 'Pedro',
+    fullname: '',
+    score: 25,
+    penalty: 560
   },
   {
     username: 'Pedro',
@@ -48,9 +48,9 @@ const data: Competitor[] = [
 const contestants = () => {
   return (
     <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
-        <h1>Participarntes</h1>
-        <Ranking competitors={data}/>
-        
+      <h1>Participarntes</h1>
+      <Ranking competitors={data} />
+
     </DefaultLayout>
   )
 }

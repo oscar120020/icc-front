@@ -3,8 +3,8 @@ import { makeStyles } from "@mui/styles";
 export const useStyles = makeStyles({
   contentContainer: {
     width: "100%",
-    height: "25vh",
     display: "flex",
+    height: '244px',
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end"
@@ -61,7 +61,6 @@ export const useStyles = makeStyles({
   cardContainer: {
     background: "#FFFFF",
     width: "95%",
-    height: "250px",
     borderRadius: "15px",
     boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
   },
