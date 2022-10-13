@@ -1,11 +1,23 @@
+* {
+  font-family: 'Nunito Sans';
+}
+
 @keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-} 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .fadeIn {
@@ -18,30 +30,34 @@
   animation-name: fadeIn;
 }
 
-.btn{
-  background-color: #ffffff;
-  color: black;
-  border-radius: 0;
+.btn {
+  background-color: #ffffff !important;
+  color: black !important;
+  border-radius: 0 !important;
 
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out !important;
 }
 
-.btn:hover{
-  background-color: #f7feff;
+.btn:hover {
+  background-color: #f7feff !important;
 }
 
-.btn-active{
-  background-color: #ffffff;
-  color: #1985A1;
-  border-radius: 0;
-  border-bottom: 1px solid #1985A1;
-  transition: all 0.3s ease-in-out;
+.btn-active {
+  background-color: #ffffff !important;
+  color: #1985a1 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #1985a1 !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
-.btn-active:hover{
-  background-color: #f7feff;
+.btn-active:hover {
+  background-color: #f7feff !important;
 }
 
-.btn-active-admin{
-  background-color: #1985A1;
+.btn-active-admin {
+  background-color: #1985a1 !important;
+}
+
+.transition {
+  transition: all 0.3s ease-out !important;
 }

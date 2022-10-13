@@ -5,7 +5,7 @@ export const defaultTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1985A1'
+      main: '#0ba7ce'
     },
     secondary: {
       main: '#1a2324'
@@ -13,6 +13,9 @@ export const defaultTheme = createTheme({
     info: {
       main: '#dbdbdb'
     }
+  },
+  typography: {
+    fontFamily: "Nunito, sans-serif",
   },
   components: {
     MuiLink: {
@@ -36,12 +39,16 @@ export const defaultTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         h1: {
-          fontSize: 30,
-          fontWeight: 600
+          fontSize: 45,
+          fontWeight: 'bold'
         },
         h2: {
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: 400
+        },
+        h3: {
+          fontSize: 16,
+          fontWeight: 300
         },
         subtitle1: {
           fontSize: 18,
