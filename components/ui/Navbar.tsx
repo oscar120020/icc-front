@@ -23,7 +23,8 @@ const ElevationScroll = (props: Props) => {
   return React.cloneElement(children, {
     elevation: trigger ? 3 : 0,
     sx: {
-      height: trigger ? 70 : 60
+      height: trigger ? 70 : 60,
+      backgroundColor: trigger ? 'white' : 'transparent'
     }
   });
 }
@@ -89,7 +90,7 @@ export const Navbar = () => {
             <NextLink href={"/admin"} passHref>
               <Link>
                 <Button
-                  className={pathname === "/admin" ? "btn-active-admin" : "btn"}
+                  className={pathname === "/admin" ? "btn-active-admin" : "btn-admin"}
                   startIcon={
                   <AdminPanelSettingsIcon
                     color={pathname === "/admin" ? 'inherit' : 'primary'}

@@ -8,6 +8,7 @@ interface Props {
   pageDescription: string;
   imageFullUrl?: string;
   children: JSX.Element | JSX.Element[];
+  noApplySpacing?: boolean;
 }
 
 export const DefaultLayout = ({
@@ -15,6 +16,7 @@ export const DefaultLayout = ({
   children,
   pageDescription,
   imageFullUrl,
+  noApplySpacing,
 }: Props) => {
   const { pathname } = useRouter();
 
@@ -34,7 +36,7 @@ export const DefaultLayout = ({
         <Navbar />
       </nav>
 
-      <SideMenu/>
+      <SideMenu />
 
       <Box
         sx={{
@@ -45,16 +47,20 @@ export const DefaultLayout = ({
         }}
       >
         <main
-          style={{
-            margin: "70px auto",
-            maxWidth: 1440,
-            padding: "0px 30px",
-          }}
+          style={
+            noApplySpacing
+              ? {}
+              : {
+                margin: "70px auto",
+                maxWidth: 1440,
+                padding: "0px 30px",
+              }
+          }
         >
           {children}
         </main>
         <Box sx={{ flex: 1 }} />
-        <footer style={{display: pathname === '/admin' ? 'none' : ''}} >
+        <footer style={{ display: pathname === "/admin" ? "none" : "" }}>
           <Box
             sx={{ backgroundColor: "#1985A1", width: "100%", height: 150 }}
           ></Box>

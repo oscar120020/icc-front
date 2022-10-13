@@ -30,22 +30,26 @@
   animation-name: fadeIn;
 }
 
-.btn {
-  background-color: #ffffff !important;
-  color: black !important;
-  border-radius: 0 !important;
+.bg-landing {
+  background-image: url(../public/bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
+.btn {
+  border-radius: 0px;
   transition: all 0.3s ease-in-out !important;
 }
 
 .btn:hover {
-  background-color: #f7feff !important;
+  background-color: transparent !important;
+  border-bottom: 1px solid #1985a1 !important;
 }
 
 .btn-active {
   background-color: #ffffff !important;
   color: #1985a1 !important;
-  border-radius: 0 !important;
+  border-radius: 0px;
   border-bottom: 1px solid #1985a1 !important;
   transition: all 0.3s ease-in-out !important;
 }
@@ -54,10 +58,26 @@
   background-color: #f7feff !important;
 }
 
+.btn-admin {
+  transition: all 0.3s ease-in-out !important;
+}
+
+.btn-admin:hover {
+  background-color: #1986a14d !important;
+  border-radius: 5px;
+}
+
 .btn-active-admin {
   background-color: #1985a1 !important;
+  color: white !important;
 }
 
 .transition {
   transition: all 0.3s ease-out !important;
+  
 }
+
+/* .probar{
+  background-color: red;
+  transform: matrix(0.2,0.3,0,1,0,0);
+} */
