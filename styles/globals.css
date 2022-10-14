@@ -34,6 +34,7 @@
   background-image: url(../public/bg.png);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 .btn {
@@ -74,10 +75,17 @@
 
 .transition {
   transition: all 0.3s ease-out !important;
-  
 }
 
-/* .probar{
-  background-color: red;
-  transform: matrix(0.2,0.3,0,1,0,0);
+/* .card-transalate {
+  transition: all 0.5s ease-out;
+  transform: translateY(250px);
+  margin-bottom: 250px;
+}
+
+.card-transalate.animated {
+  transform: translateY(0);
+  margin-bottom: 0px;
 } */
+
+/* transform: 'matrix(1,-0.1,0,1,0,0)' */

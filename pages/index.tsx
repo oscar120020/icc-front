@@ -6,6 +6,9 @@ import { InfoItem } from "../components/landing/InfoItem";
 import discordIcon from "../assets/landing/discord-liner3.png";
 import vjudgedIcon from "../assets/landing/vjudge-liner2.png";
 import intellisysIcon from "../assets/landing/intellisys-linear2.png";
+import { SectionHeader } from "../components/landing/SectionHeader";
+import { QuestionImage } from "../components/SVG/Question";
+import CookieIcon from "@mui/icons-material/Cookie";
 
 const Home: NextPage = () => {
   return (
@@ -16,17 +19,15 @@ const Home: NextPage = () => {
     >
       {/* Header */}
       <Box
-        sx={{ height: '100vh', width: '100%' }}
+        sx={{ height: "100vh", width: "100%" }}
         className="fadeIn bg-landing"
       >
         <Grid
           container
-          // spacing={5}
           sx={{
             display: "flex",
             alignItems: "center",
-            // justifyContent: 'space-between',
-            margin: 'auto',
+            margin: "auto",
             maxWidth: 1440,
             padding: "100px 30px 0 30px",
           }}
@@ -63,42 +64,23 @@ const Home: NextPage = () => {
         </Grid>
       </Box>
 
+      {/* Instrucciones */}
       <Box
         sx={{
           margin: "20px auto",
           maxWidth: 1440,
           padding: "0px 30px",
         }}
-        className="probar"
       >
-        {/* Instrucciones */}
         <Box>
-          <Box>
-            <Typography fontWeight="500" textAlign="center" variant="h2">
-              ¿Como Participar?
-            </Typography>
-            <Box
-              sx={{
-                width: "150px",
-                height: "2px",
-                background:
-                  "linear-gradient(to left, transparent, #0ba7ce, transparent);",
-                margin: "15px auto 0 auto",
-              }}
-            />
-            <Typography
-              color="#646262"
-              textAlign="center"
-              sx={{ maxWidth: "90%", margin: "15px auto 0 auto" }}
-            >
-              Instrucciones para formar parte de los canales y grupos necesarios
-              para poder participar
-            </Typography>
-          </Box>
+          <SectionHeader
+            title="¿Como Participar?"
+            description="Instrucciones para formar parte de los canales y grupos necesarios para
+            poder participar"
+          />
           <Grid
             container
             sx={{
-              margin: "0",
               mt: 10,
               justifyContent: "center",
               width: "100%",
@@ -136,6 +118,83 @@ const Home: NextPage = () => {
             />
           </Grid>
         </Box>
+      </Box>
+      {/* Como funciona */}
+      <Box sx={{ mt: 15, mb: 15, backgroundColor: "#cddce26a" }}>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            margin: "auto",
+            maxWidth: 1440,
+            padding: "80px 30px 80px 30px",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <Grid
+            item
+            sm={12}
+            lg={6}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              position: { xs: "absolute", sm: "absolute", lg: "relative" },
+              opacity: { xs: 0.1, sm: 0.1, lg: 1 },
+            }}
+          >
+            <QuestionImage width={550} height={400} />
+          </Grid>
+          <Grid
+            item
+            sm={12}
+            lg={6}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Typography sx={{ mb: 2 }} variant="h2">
+              ¿Como funciona el concurso?
+            </Typography>
+            <Box sx={{ mb: 1 }} display="flex">
+              <CookieIcon color="primary" fontSize="medium" />
+              <Typography variant="subtitle1" fontWeight={300}>
+                La participación es individual.
+              </Typography>
+            </Box>
+            <Box sx={{ mb: 1 }} display="flex">
+              <CookieIcon color="primary" fontSize="medium" />
+              <Typography variant="subtitle1" fontWeight={300}>
+                Sus challenges (competencias) se realizan el primer viernes de
+                cada mes, de 3:00pm a 4:30pm en la plataforma online vjudge.net.
+              </Typography>
+            </Box>
+            <Box sx={{ mb: 1 }} display="flex">
+              <CookieIcon color="primary" fontSize="medium" />
+              <Typography variant="subtitle1" fontWeight={300}>
+                Lenguajes permitidos incluyen: C/C++, Java, Python, JavaScript, entre otros.
+              </Typography>
+            </Box>
+            <Box sx={{ mb: 1 }} display="flex">
+              <CookieIcon color="primary" fontSize="medium" />
+              <Typography variant="subtitle1" fontWeight={300}>
+                En cada challenge, al estilo ICPC, se proponen 3 ejercicios de
+                variadas complejidades.
+              </Typography>
+            </Box>
+            <Box sx={{ mb: 1 }} display="flex">
+              <CookieIcon color="primary" fontSize="medium" />
+              <Typography variant="subtitle1" fontWeight={300}>
+                En el ranking de posiciones se ubica primero quien resuelva la
+                mayor cantidades de desafíos; en caso de empates, entonces se
+                ubica primero el que acumule menor penalidad (penalty).
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </DefaultLayout>
   );
