@@ -1,8 +1,7 @@
-import { Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
 import { Competitor } from "../interfaces/ranking";
-const Ranking = dynamic(() => import('../components/ranking/Ranking'), { ssr: false });
+const SeasonCard = dynamic(() => import('../components/cards/SeasonCard'), { ssr: false });
 
 
 const data: Competitor[] = [
@@ -45,11 +44,19 @@ const data: Competitor[] = [
 
 ]
 
+
+const data1 ={
+  name: 'Intellisys Coding Chanllenge 1-2',
+  chanllenges: 25,
+  beginning: 'Jan, 2022',
+  end: 'Jun, 2022'
+}
+
 const contestants = () => {
   return (
     <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
       <h1>Participarntes</h1>
-      <Ranking competitors={data} />
+      <SeasonCard season={data1}/>
 
     </DefaultLayout>
   )
