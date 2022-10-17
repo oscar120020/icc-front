@@ -1,10 +1,13 @@
+import { Box } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
+import { AdminLayout } from "../components/layouts/AdminLayout";
+import { SidebarAdmin } from "../components/ui/SidebarAdmin";
 
 const admin = () => {
   return (
-    <DefaultLayout title={"Administration | ICC"} pageDescription={"Panel de administración"} >
-        <h1>Admin</h1>
-    </DefaultLayout>
+    <AdminLayout title={"Administration | ICC"} pageDescription={"Panel de administración"} >
+      
+    </AdminLayout>
   )
 }
 

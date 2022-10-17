@@ -1,33 +1,12 @@
 import React, { useContext } from "react";
 import NextLink from "next/link";
-import { AppBar, Box, Button, Link, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Box, Button, Link, Toolbar } from "@mui/material";
 import { LogoImage } from "../SVG/Logo";
 import { useRouter } from "next/router";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import MenuIcon from '@mui/icons-material/Menu';
 import { UIContext } from "../../context";
-
-interface Props {
-  window: () => Window | undefined;
-  children: React.ReactElement;
-}
-
-const ElevationScroll = (props: Props) => {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 3 : 0,
-    sx: {
-      height: trigger ? 70 : 60,
-      backgroundColor: trigger ? 'white' : 'transparent'
-    }
-  });
-}
+import { ElevationScroll } from "./ElevationScroll";
 
 const currentWindow = () => {
   if(typeof window !== 'undefined'){
@@ -35,13 +14,17 @@ const currentWindow = () => {
   }
 }
 
-export const Navbar = () => {
+interface Props {
+  noDinamicElevation?: boolean
+}
+
+export const Navbar = ({noDinamicElevation}: Props) => {
   const { pathname } = useRouter();
   const { changeMenuState } = useContext(UIContext)
 
   return (
-    <ElevationScroll window={currentWindow}>
-      <AppBar className="transition" >
+    <ElevationScroll window={currentWindow} noDinamicElevation={noDinamicElevation}>
+      <AppBar className="transition" elevation={1} >
         <Toolbar>
           <NextLink href={"/"} passHref>
             <Link>

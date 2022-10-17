@@ -1,7 +1,10 @@
-import { Box } from "@mui/material";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { Box } from "@mui/material";
+import React from "react";
 import { Navbar, SideMenu } from "../ui";
+import { SidebarAdmin } from "../ui/SidebarAdmin";
+
+const drawerWidth = "300px";
 
 interface Props {
   title: string;
@@ -10,13 +13,12 @@ interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-export const DefaultLayout = ({
+export const AdminLayout = ({
   title,
   children,
   pageDescription,
   imageFullUrl,
 }: Props) => {
-
   return (
     <>
       <Head>
@@ -30,7 +32,7 @@ export const DefaultLayout = ({
       </Head>
 
       <nav>
-        <Navbar />
+        <Navbar noDinamicElevation />
       </nav>
 
       <SideMenu />
@@ -43,15 +45,19 @@ export const DefaultLayout = ({
           flexDirection: "column",
         }}
       >
-        <main
-          style={{marginTop: '70px'}}
-        >
-          {children}
+        <main style={{ marginTop: "70px" }}>
+          <SidebarAdmin />
+          <Box
+            sx={{
+              width: `calc(100% - ${drawerWidth})`,
+              marginLeft: drawerWidth,
+              marginTop: 10,
+              padding: 5,
+            }}
+          >
+            {children}
+          </Box>
         </main>
-        <Box sx={{ flex: 1 }} />
-        <footer>
-          <Box className="curved"></Box>
-        </footer>
       </Box>
     </>
   );
