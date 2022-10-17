@@ -43,13 +43,15 @@ const data: Competitor[] = [
   },
 
 ]
-
+const start = new Date('August 19, 2022 23:15:30')
+const end = new Date('october 19, 2022 23:15:30')
 
 const data1 ={
   name: 'Intellisys Coding Chanllenge 1-2',
-  chanllenges: 25,
-  beginning: 'Jan, 2022',
-  end: 'Jun, 2022'
+  numberchanllenges: 25,
+  numberCompetitors: 10,
+  beginning: start,
+  end: end
 }
 
 const contestants = () => {
