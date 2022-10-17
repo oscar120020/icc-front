@@ -5,7 +5,7 @@ interface Props {
     description?: string;
 }
 
-export const SectionHeader = ({title, description}: Props) => {
+export const LandingSection = ({title, description}: Props) => {
   return (
     <Box>
       <Typography fontWeight="500" textAlign="center" variant="h2">

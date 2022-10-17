@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
 import { Competitor } from "../interfaces/ranking";
@@ -47,9 +47,17 @@ const data: Competitor[] = [
 
 const contestants = () => {
   return (
-    <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
-      <h1>Participarntes</h1>
-      <Ranking competitors={data} />
+    <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"} >
+      <Box
+        sx={{
+          margin: "20px auto",
+          maxWidth: 1440,
+          padding: "0px 30px",
+        }}
+        className="fadeIn"
+      >
+        <Ranking competitors={data} />
+      </Box>
 
     </DefaultLayout>
   )
