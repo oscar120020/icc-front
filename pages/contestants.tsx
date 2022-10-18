@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
 import { Competitor } from "../interfaces/ranking";
-const Ranking = dynamic(() => import('../components/ranking/Ranking'), { ssr: false });
+const SeasonCard = dynamic(() => import('../components/cards/SeasonCard'), { ssr: false });
 
 
 const data: Competitor[] = [
@@ -44,10 +44,22 @@ const data: Competitor[] = [
   },
 
 ]
+const start = new Date('August 19, 2022 23:15:30')
+const end = new Date('october 19, 2022 23:15:30')
+
+const data1 ={
+  name: 'Intellisys Coding Chanllenge 1-2',
+  numberchanllenges: 25,
+  numberCompetitors: 10,
+  beginning: start,
+  end: end
+}
 
 const contestants = () => {
   return (
-    <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"} >
+    <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
+      <h1>Participarntes</h1>
+      <SeasonCard season={data1}/>
       <Box
         sx={{
           margin: "20px auto",
@@ -56,7 +68,6 @@ const contestants = () => {
         }}
         className="fadeIn"
       >
-        <Ranking competitors={data} />
       </Box>
 
     </DefaultLayout>
