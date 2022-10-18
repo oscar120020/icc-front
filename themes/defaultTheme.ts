@@ -69,6 +69,7 @@ export const defaultTheme = createTheme({
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 5,
+          backgroundColor: 'transparent'
         }
       }
     },

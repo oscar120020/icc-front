@@ -1,3 +1,4 @@
+import { Box, Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { DefaultLayout } from "../components/layouts";
 import { Competitor } from "../interfaces/ranking";
@@ -59,6 +60,15 @@ const contestants = () => {
     <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
       <h1>Participarntes</h1>
       <SeasonCard season={data1}/>
+      <Box
+        sx={{
+          margin: "20px auto",
+          maxWidth: 1440,
+          padding: "0px 30px",
+        }}
+        className="fadeIn"
+      >
+      </Box>
 
     </DefaultLayout>
   )

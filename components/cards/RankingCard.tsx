@@ -4,6 +4,7 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Grid,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -13,19 +14,22 @@ import { useStyles } from "./style";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-export default function RankingCard({
-  competitor,
-  index,
-}: {
+interface Props {
   competitor: Competitor;
   index: number;
-}) {
+}
+
+export default function RankingCard({ competitor, index }: Props) {
   const classes = useStyles();
 
   return (
-    <Box
-      key={competitor.username}
+    <Grid
       className={classes.container}
+      item
+      xs={12}
+      sm={5}
+      lg={3}
+      sx={{ width: { xs: "80vw", sm: "20vw" } }}
     >
       <Box className={classes.insigniaContainer}>
         <Image
@@ -35,7 +39,7 @@ export default function RankingCard({
           height={140}
         />
       </Box>
-      <Card className={classes.cardContainer} >
+      <Card className={classes.cardContainer}>
         <CardContent sx={{ padding: "0" }}>
           <Box className={classes.contentContainer}>
             <Box className={classes.centerContainer}>
@@ -52,20 +56,20 @@ export default function RankingCard({
             </Box>
             <Container className={classes.downContainer}>
               <Box className={classes.infoContent}>
-                <StarsIcon />
+                <StarsIcon color="primary" />
                 <Typography variant="h6">{competitor.score}</Typography>
               </Box>
               <Box
                 className={classes.infoContent}
-                sx={{borderLeft: "1px solid #C6C6C6",}}
+                sx={{ borderLeft: "1px solid #C6C6C6" }}
               >
-                <CancelIcon />
+                <CancelIcon color="primary" />
                 <Typography variant="h6">{competitor.penalty}</Typography>
               </Box>
             </Container>
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Grid>
   );
 }

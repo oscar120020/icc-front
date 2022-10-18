@@ -21,39 +21,38 @@ export default function RankingSecondaryCard({
   const classes = useStyles();
   return (
     <Card className={classes.secondCardContainer}>
-      <Box sx={{ paddingY: "5px" }}>
-        <Container className={classes.secondaryContainer}>
-          <Box className={classes.secondaryLeftContainer}>
-            <Typography>{index}th</Typography>
-            <CardMedia
-              component="img"
-              height="42"
-              sx={{
-                width: "45px",
-                height: "45px",
-                borderRadius: "50%",
-                margin: "2px",
-              }}
-              image="profile.png"
-              alt="Paella dish"
-            />
-            <Typography sx={{ fontSize: 18.5 }}>
-              {competitor.username}
-            </Typography>
+      <Container className={classes.secondaryContainer}>
+        <Box className={classes.secondaryLeftContainer}>
+          <Typography color="GrayText" sx={{marginRight: 1}} >{index}th</Typography>
+          <CardMedia
+            component="img"
+            height="42"
+            sx={{
+              width: "45px",
+              height: "45px",
+              borderRadius: "50%",
+              marginRight: 1
+            }}
+            image="profile.png"
+            alt="Profile"
+          />
+          <Typography variant="h6">
+            {competitor.username}
+          </Typography>
+        </Box>
+        <Box sx={{flex: 1}} />
+        <Box className={classes.secondaryRightContainer}>
+          <Box sx={{marginRight: '2vw'}} className={classes.infoContent}>
+            <StarsIcon color="primary" />
+            <Typography variant="h6">{competitor.score}</Typography>
           </Box>
-          <Box className={classes.secondaryRightContainer}>
-            <Box className={classes.infoContent}>
-              <StarsIcon />
-              <Typography variant="h6">{competitor.score}</Typography>
-            </Box>
-            <Box className={classes.infoContent}>
-              <CancelIcon />
-              <Typography variant="h6">{competitor.score}</Typography>
+          <Box sx={{marginRight: '2vw'}} className={classes.infoContent}>
+            <CancelIcon color="primary" />
+            <Typography variant="h6" color="secondary">{competitor.score}</Typography>
 
-            </Box>
           </Box>
-        </Container>
-      </Box>
+        </Box>
+      </Container>
     </Card>
   );
 }

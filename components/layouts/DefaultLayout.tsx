@@ -34,7 +34,7 @@ export const DefaultLayout = ({
         <Navbar />
       </nav>
 
-      <SideMenu/>
+      <SideMenu />
 
       <Box
         sx={{
@@ -45,19 +45,13 @@ export const DefaultLayout = ({
         }}
       >
         <main
-          style={{
-            margin: "70px auto",
-            maxWidth: 1440,
-            padding: "0px 30px",
-          }}
+          style={{marginTop: '70px'}}
         >
           {children}
         </main>
         <Box sx={{ flex: 1 }} />
-        <footer style={{display: pathname === '/admin' ? 'none' : ''}} >
-          <Box
-            sx={{ backgroundColor: "#1985A1", width: "100%", height: 150 }}
-          ></Box>
+        <footer style={{ display: pathname === "/admin" ? "none" : "" }}>
+          <Box className="curved"></Box>
         </footer>
       </Box>
     </>

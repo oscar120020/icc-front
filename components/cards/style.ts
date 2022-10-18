@@ -25,7 +25,7 @@ export const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    padding: 10
   },
   secondaryLeftContainer: {
     width: "20%",
@@ -36,19 +36,18 @@ export const useStyles = makeStyles({
     marginTop: "3px",
   },
   secondaryRightContainer: {
-    width: "20%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end",
   },
 
   container: {
-    width: 345,
+    width: '20vw',
     height: 250,
+    minWidth: '200px',
     position: "relative",
     display: "flex",
-    marginLeft: "2px",
+    margin: '10px 20px'
   },
 
   insigniaContainer: {
@@ -79,7 +78,6 @@ export const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: '10px',
   },
   scoreInfo: {
     display: 'flex',
