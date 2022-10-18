@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Typography } from '@mui/material'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupsIcon from '@mui/icons-material/Groups';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -43,7 +43,10 @@ export default function SeasonCard({ season }: SeasonProps) {
                             </Box>
                             <Box className={classes.typographyContent}>
                                 <CalendarMonthIcon sx={{ marginRight: '50px', fontSize: '29px' }} />
-                                <Typography sx={{ whiteSpace: 'nowrap', marginLeft: '-45px' }} className={classes.seasonText}>{firstmoth.current} - {secondMoth.current}</Typography>
+                                <Typography
+                                    sx={{ whiteSpace: 'nowrap', marginLeft: '-45px' }}
+                                    className={classes.seasonText}>
+                                    {firstmoth.current} - {secondMoth.current}</Typography>
                             </Box>
                             <Box className={classes.buttonBox}>
                                 <Button className={classes.buttonStyles}>Ver Detalles</Button>
