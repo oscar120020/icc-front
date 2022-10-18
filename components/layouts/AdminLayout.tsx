@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import React from "react";
 import { Navbar, SideMenu } from "../ui";
-import { SidebarAdmin } from "../ui/SidebarAdmin";
+import { SidebarAdmin } from "../ui/sidebar/SidebarAdmin";
 
 const drawerWidth = "300px";
 
@@ -51,7 +51,6 @@ export const AdminLayout = ({
             sx={{
               width: `calc(100% - ${drawerWidth})`,
               marginLeft: drawerWidth,
-              marginTop: 10,
               padding: 5,
             }}
           >

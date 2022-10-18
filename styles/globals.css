@@ -48,15 +48,11 @@
 }
 
 .btn-active {
-  background-color: #ffffff !important;
+  background-color: transparent !important;
   color: #1985a1 !important;
   border-radius: 0px;
   border-bottom: 1px solid #1985a1 !important;
   transition: all 0.3s ease-in-out !important;
-}
-
-.btn-active:hover {
-  background-color: #f7feff !important;
 }
 
 .btn-admin {
@@ -93,4 +89,28 @@
   background: #1985A1;
   border-top-left-radius: 50% 15%;
   border-top-right-radius: 50% 15%;
+}
+
+.simple-button {
+  background-color: transparent;
+  color: #0ba7ce
+}
+
+.simple-button:hover {
+  background-color: #0ba7ce18;
+  color: #0ba7ce
+}
+
+.no-styles{
+  text-decoration: none;
+  color: #0ba7ce;
+}
+
+.modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
