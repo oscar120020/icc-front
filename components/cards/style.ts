@@ -105,7 +105,6 @@ export const useStyles = makeStyles({
   },
   triangleBox: {
     width: '100%', 
-    borderRight: '90px solid transparent', 
     borderTop: '220px solid transparent', 
     borderLeft: '350px solid #1985A1', 
     transform: 'rotateX(180deg)' 

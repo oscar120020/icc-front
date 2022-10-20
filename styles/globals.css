@@ -90,7 +90,7 @@
 
 /* transform: 'matrix(1,-0.1,0,1,0,0)' */
 .curved {
-  width: 100%;
+  min-width: 600px;
   height: 200px;
   position: relative;
   background: #1985A1;
