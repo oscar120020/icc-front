@@ -20,3 +20,15 @@ export interface Competitor {
 export interface RankingProps {
     competitors: Competitor[],
 }
+
+export interface Season {
+    name: string,
+    numberCompetitors: number,
+    numberchanllenges: number,
+    beginning: string,
+    end: string
+}
+
+export interface SeasonProps {
+    season: Season
+}
