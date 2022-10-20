@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { UIContext } from "../../../context";
+import { UIContext } from "../../context";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BallotIcon from "@mui/icons-material/Ballot";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { LogoImage } from "../../SVG/Logo";
+import { LogoImage } from "../SVG/Logo";
 
 export const SideMenu = () => {
   const router = useRouter();

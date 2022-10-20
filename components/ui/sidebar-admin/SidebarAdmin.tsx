@@ -19,12 +19,8 @@ export const SidebarAdmin = () => {
       <SidebarSection title="Seasons" iconSidebar={<EmojiEventsOutlinedIcon />} to="/admin/seasons" />
       <SidebarSection title="Rankings" iconSidebar={<GroupOutlinedIcon />} to="/admin/rankings" />
       <SidebarSection title="Users" iconSidebar={<GroupOutlinedIcon />}>
-        <SidebarLink label="Home" to="/" />
-        <SidebarLink label="Home" to="/" />
-        <SidebarLink label="Home" to="/" />
-        <SidebarLink label="Home" to="/" />
-        <SidebarLink label="Home" to="/" />
-        <SidebarLink label="Home" to="/" />
+        <SidebarLink label="Participantes" to="/admin/contestants" />
+        <SidebarLink label="Administradores" to="/admin/admin-users" />
       </SidebarSection>
       <Box sx={{ marginTop: 5 }} />
     </Drawer>

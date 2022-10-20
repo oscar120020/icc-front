@@ -1,5 +1,5 @@
 * {
-  font-family: 'Nunito Sans';
+  font-family: "Nunito Sans";
 }
 
 @keyframes fadeIn {
@@ -44,14 +44,14 @@
 
 .btn:hover {
   background-color: transparent !important;
-  border-bottom: 1px solid #1985a1 !important;
+  border-bottom: 1px solid #0ba7ce !important;
 }
 
 .btn-active {
   background-color: transparent !important;
-  color: #1985a1 !important;
+  color: #0ba7ce !important;
   border-radius: 0px;
-  border-bottom: 1px solid #1985a1 !important;
+  border-bottom: 1px solid #0ba7ce !important;
   transition: all 0.3s ease-in-out !important;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .btn-active-admin {
-  background-color: #1985a1 !important;
+  background-color: #0ba7ce !important;
   color: white !important;
 }
 
@@ -86,22 +86,22 @@
   width: 100%;
   height: 200px;
   position: relative;
-  background: #1985A1;
+  background: #0ba7ce;
   border-top-left-radius: 50% 15%;
   border-top-right-radius: 50% 15%;
 }
 
 .simple-button {
   background-color: transparent;
-  color: #0ba7ce
+  color: #0ba7ce;
 }
 
 .simple-button:hover {
   background-color: #0ba7ce18;
-  color: #0ba7ce
+  color: #0ba7ce;
 }
 
-.no-styles{
+.no-styles {
   text-decoration: none;
   color: #0ba7ce;
 }

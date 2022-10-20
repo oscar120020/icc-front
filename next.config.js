@@ -4,4 +4,6 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig
+const withTM = require('next-transpile-modules')(['@vespaiach/axios-fetch-adapter']);
+
+module.exports = withTM(nextConfig)

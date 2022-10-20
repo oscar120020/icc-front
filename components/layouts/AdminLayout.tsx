@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import React from "react";
 import { Navbar, SideMenu } from "../ui";
-import { SidebarAdmin } from "../ui/sidebar/SidebarAdmin";
+import { SidebarAdmin } from "../ui/sidebar-admin/SidebarAdmin";
 
 const drawerWidth = "300px";
 

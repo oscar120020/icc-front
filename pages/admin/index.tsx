@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DefaultLayout } from "../../components/layouts";
 import { AdminLayout } from "../../components/layouts";
-import { SidebarAdmin } from "../../components/ui/sidebar/SidebarAdmin";
+import { SidebarAdmin } from "../../components/ui/sidebar-admin/SidebarAdmin";
 
 const admin = () => {
   return (

@@ -11,7 +11,7 @@ interface Props {
 export const SidebarLink = ({ label, to }: Props) => {
 
   const { pathname } = useRouter();
-  const currentColor = pathname === '/admin' ? '#0ba7ce' : 'black'
+  const currentColor = pathname === to ? '#0ba7ce' : 'black'
 
   return (
     <NextLink href={to} passHref style={{ textDecoration: "none" }}>

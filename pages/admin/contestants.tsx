@@ -2,61 +2,56 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getSeasons } from "../../api/rankingApi";
-import { SeasonFormValues } from "../../components/form/formInterfaces";
-import { FormModal } from "../../components/form/FormModal";
-import { SeasonForm } from "../../components/form/SeasonForm";
+import { getContestants, getRankings } from "../../api/rankingApi";
+import { ContestantFormValues } from "../../components/form/formInterfaces";
+import { FormModal, ContestantForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
-import { getDatePlusOneDay } from "../../helpers/dateHelpers";
 
-const initialValues: SeasonFormValues = {
-  name: "",
-  beginning: new Date(),
-  end: getDatePlusOneDay(new Date()),
+const initialValues: ContestantFormValues = {
+  username: "",
+  imageUrl: "",
+  fullName: "",
+  socialLink: "",
 };
 
-const Seasons = () => {
+const Contestants = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const [currentValues, setCurrentValues] =
-    useState<SeasonFormValues>(initialValues);
-  const { data, error, isLoading } = useQuery(["seasons"], getSeasons, {
+  const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
     retry: 1,
   });
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 150 },
-    { field: "name", headerName: "Nombre", width: 270 },
-    { field: "beginning", headerName: "Empieza en", width: 170 },
-    { field: "end", headerName: "Termina en", width: 170 },
+    { field: "id", headerName: "ID", width: 100 },
+    { field: "username", headerName: "Nombre de usuario", width: 300 },
+    { field: "imageUrl", headerName: "Url de imagen", width: 300 },
+    { field: "fullName", headerName: "Nombre completo", width: 300 },
+    { field: "socialLink", headerName: "Url de red social", width: 300 },
     {
-      field: "edit",
-      headerName: "Editar",
+      field: "editar",
+      headerName: "Editar participante",
       width: 170,
       renderCell: (params) => (
         <Button
           fullWidth
           variant="outlined"
           color="primary"
-          onClick={() => openModalToEdit({
-            name: params.row.name,
-            beginning: params.row.beginning,
-            end: params.row.end,
-          })}
+          onClick={() => deleteRanking(params.row.seasonId)}
         >
-          Editar temporada
+          Editar participante
         </Button>
       ),
     },
   ];
 
-  const rows = data?.map((season) => {
+  const rows = data?.map((contestant) => {
     return {
-      id: season.id,
-      name: season.name,
-      beginning: season.beginning,
-      end: season.end,
+      id: contestant.id,
+      username: contestant.userName,
+      imageUrl: contestant.imageUrl,
+      fullName: contestant.fullName,
+      socialLink: contestant.socialLink,
     };
   });
 
@@ -64,25 +59,23 @@ const Seasons = () => {
     setOpen(false);
   };
 
-  const openModalToEdit = (values: SeasonFormValues) => {
-    setCurrentValues(values);
+  const deleteRanking = (id: string) => {
     setOpen(true);
   };
 
   const openModalToCreate = () => {
-    setCurrentValues(initialValues);
     setOpen(true);
   };
 
   return (
     <AdminLayout
-      title={"Seasons | Admin"}
-      pageDescription={"Panel de administración - seasons"}
+      title={"Participantes | Admin"}
+      pageDescription={"Panel de administración - rankings"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Temporadas - Admin
+        Participantes - Admin
       </Typography>
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={rows || []}
           columns={columns}
@@ -101,14 +94,14 @@ const Seasons = () => {
           sx={{ backgroundColor: "#0ba7ce", color: "white" }}
           onClick={openModalToCreate}
         >
-          Crear temporada
+          Crear participante
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <SeasonForm initialValues={currentValues} />
+        <ContestantForm initialValues={initialValues} handleClose={handleCloseModal} />
       </FormModal>
     </AdminLayout>
   );
 };
 
-export default Seasons;
+export default Contestants;

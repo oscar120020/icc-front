@@ -3,29 +3,29 @@ import { Modal, Box } from "@mui/material";
 interface Props {
   open: boolean;
   handleClose: () => void;
+  children: JSX.Element | JSX.Element[]
 }
 
-export const FormModal = ({ open, handleClose }: Props) => {
+export const FormModal = ({ open, handleClose, children }: Props) => {
   return (
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
       className="modal"
+      sx={{}}
     >
       <Box
         sx={{
-          width: "90%",
-          maxWidth: "1000px",
-          height: "90vh",
+          width: "500px",
+          maxWidth: "90%",
           backgroundColor: "white",
-          padding: 2,
-          overflow: "scroll",
+          borderRadius: 2,
+          overflow: 'hidden',
+          outline: 'none'
         }}
 
       >
-        
+        {children}
       </Box>
     </Modal>
   );

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import NextLink from "next/link";
 import { AppBar, Box, Button, Link, Toolbar } from "@mui/material";
 import { LogoImage } from "../SVG/Logo";
@@ -7,6 +7,8 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import MenuIcon from "@mui/icons-material/Menu";
 import { UIContext } from "../../context";
 import { ElevationScroll } from "../maretial-ui/ElevationScroll";
+import { FormModal, LoginForm } from "../form";
+import Cookie from 'js-cookie'
 
 const currentWindow = () => {
   if (typeof window !== "undefined") {
@@ -19,8 +21,23 @@ interface Props {
 }
 
 export const Navbar = ({ noDinamicElevation }: Props) => {
-  const { pathname } = useRouter();
+  const [open, setOpen] = useState(false);
+  const { pathname, push: routerPush } = useRouter();
   const { changeMenuState } = useContext(UIContext);
+
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+  
+  const openLoginModal = () => {
+    const token = Cookie.get('token')
+    if(!token){
+      setOpen(true);
+      return;
+    }
+    routerPush('/admin')
+  }
 
   return (
     <ElevationScroll
@@ -83,29 +100,22 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
           <Box sx={{ flex: 1 }} />
 
           <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-            <NextLink href={"/admin"} passHref>
-              <Link>
-                <Button
-                  className={
-                    pathname.includes("/admin")
-                      ? "btn-active-admin"
-                      : "btn-admin"
-                  }
-                  sx={{fontSize: 16}}
-                  startIcon={
-                    <AdminPanelSettingsIcon
-                      color={
-                        pathname.includes("/admin") ? "inherit" : "primary"
-                      }
-                      fontSize="large"
-                      sx={{ fontSize: 40 }}
-                    />
-                  }
-                >
-                  Admin
-                </Button>
-              </Link>
-            </NextLink>
+            <Button
+              className={
+                pathname.includes("/admin") ? "btn-active-admin" : "btn-admin"
+              }
+              sx={{ fontSize: 16 }}
+              startIcon={
+                <AdminPanelSettingsIcon
+                  color={pathname.includes("/admin") ? "inherit" : "primary"}
+                  fontSize="large"
+                  sx={{ fontSize: 40 }}
+                />
+              }
+              onClick={openLoginModal}
+            >
+              Admin
+            </Button>
           </Box>
 
           <Box
@@ -119,6 +129,9 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
             <MenuIcon fontSize="large" color="primary" />
           </Box>
         </Toolbar>
+        <FormModal open={open} handleClose={handleCloseModal} >
+          <LoginForm handleClose={handleCloseModal} />
+        </FormModal>
       </AppBar>
     </ElevationScroll>
   );

@@ -17,7 +17,7 @@ export const SidebarSection = ({
   iconSidebar,
   to = "",
 }: Props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
     setOpen(!open);
