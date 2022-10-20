@@ -88,8 +88,15 @@ export const useStyles = makeStyles({
     fontFamily: 'Georgia, serif'
   },
   //seasonStyles
+  seasonContainer: {
+    width: '20vw',
+    height: 380,
+    minWidth: '444px',
+    position: "relative",
+    display: "flex",
+  },
   seasonBox: {
-    boxShadow: '1px 1px 3px', 
+    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px', 
     width: '80%', 
     borderRadius: '10px', 
     position: 'relative', 
@@ -112,7 +119,10 @@ export const useStyles = makeStyles({
   titleStyles: {
     color: '#FFFFFF', 
     fontSize: '24px', 
-    textAlign: 'left' 
+    textAlign: 'left',
+    marginTop: '-13px',
+    marginLeft: '12px',
+    fontWeight: 'bold' 
   },
   cardContentBox: {
     width: '100%', 
@@ -127,13 +137,13 @@ export const useStyles = makeStyles({
   },
   typographyContent:{
     display: 'flex', 
-    flexDirection: 'row' 
+    flexDirection: 'row', 
 
   },
   seasonText: {
-    fontSize: '17.9px', 
+    fontSize: '17px', 
     color: '#3C5777', 
-    fontWeight: 'bold'
+    fontWeight: '600'
   },
   buttonBox: {
     marginTop: '30px', 
@@ -145,6 +155,8 @@ export const useStyles = makeStyles({
     background: '#1985A1', 
     width: '100%', 
     height: '30px', 
-    fontSize: '16px' 
+    fontSize: '16px',
+    fontWeight: 'bold'
+
   }
 });
