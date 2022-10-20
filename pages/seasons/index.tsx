@@ -8,7 +8,6 @@ import { ErrorPage } from "../../components/ui/ErrorPage";
 import { Season } from "../../interfaces/ranking";
 const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
 
-
 const Seasons = () => {
 
   const { data, error, isLoading }: UseQueryResult<Season[]> = useQuery(['seasons'], getSeasons, {
