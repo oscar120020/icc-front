@@ -1,23 +1,12 @@
+import { Box, Grid } from "@mui/material";
+import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
-import { rankingApi } from "../../api/rankingApi";
+import { getSeasons } from "../../api/rankingApi";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";
+const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
 
-const getSeasons = () => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      rankingApi.get('/season')
-      .then(response => {
-        res(response.data)
-      })
-      .catch(err => {
-        console.log(err);
-        rej(err)
-      })
-    }, 3000)
-  })
-}
 
 const Seasons = () => {
 
@@ -25,31 +14,47 @@ const Seasons = () => {
     retry: 1
   });
 
-  if(error){
+  if (error) {
     return (
       <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
-        <ErrorPage/>
+        <ErrorPage />
       </DefaultLayout>
     )
   }
 
-  if(isLoading){
+  if (isLoading) {
     return (
       <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
-        <Loading/>
+        <Loading />
       </DefaultLayout>
     )
   }
-  
+
 
   return (
     <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
-        <pre>
-          {
-            JSON.stringify(data, null, 2)
-          }
-        </pre>
-        
+      <Grid
+        container
+        sx={{
+          width: '100%',
+          padding: '50px 80px',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}
+      >
+
+        {data.map((season) => (
+          <Box key={season.name} sx={{
+            marginBottom: '40px', margin: "20px auto",
+            maxWidth: 1440,
+            padding: "0px 30px",
+          }}>
+            <SeasonCard season={season} />
+          </Box>
+        ))}
+      </Grid>
+
     </DefaultLayout>
   )
 }
