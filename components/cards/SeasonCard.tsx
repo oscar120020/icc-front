@@ -5,17 +5,8 @@ import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import { useStyles } from './style';
 import { getDateFormat } from '../../helpers/getDateFormat';
-interface Season {
-    name: string,
-    numberCompetitors: number,
-    numberchanllenges: number,
-    beginning: string,
-    end: string
-}
+import { SeasonProps } from '../../interfaces/ranking';
 
-interface SeasonProps {
-    season: Season
-}
 
 export default function SeasonCard({ season }: SeasonProps) {
     const classes = useStyles();

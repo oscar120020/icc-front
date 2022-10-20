@@ -1,16 +1,17 @@
 import { Box, Grid } from "@mui/material";
 import dynamic from "next/dynamic";
-import { useQuery } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 import { getSeasons } from "../../api/rankingApi";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";
+import { Season } from "../../interfaces/ranking";
 const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
 
 
 const Seasons = () => {
 
-  const { data, error, isLoading } = useQuery(['seasons'], getSeasons, {
+  const { data, error, isLoading }: UseQueryResult<Season[]> = useQuery(['seasons'], getSeasons, {
     retry: 1
   });
 
@@ -44,7 +45,7 @@ const Seasons = () => {
         }}
       >
 
-        {data.map((season) => (
+        {data!.map((season) => (
           <Box key={season.name} sx={{
             marginBottom: '40px', margin: "20px auto",
             maxWidth: 1440,
