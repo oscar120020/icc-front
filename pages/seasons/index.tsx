@@ -33,27 +33,27 @@ const Seasons = () => {
 
   return (
     <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
-      <Grid
-        container
+      <Box
         sx={{
-          width: '100%',
-          padding: '50px 80px',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between'
+          margin: '20px auto',
+          maxWidth: 1440,
+          padding: "0 30px",
         }}
       >
+        <Grid
+          container
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start',
+          }}
+        >
 
-        {data!.map((season) => (
-          <Box key={season.name} sx={{
-            marginBottom: '40px', margin: "20px auto",
-            maxWidth: 1440,
-            padding: "0px 30px",
-          }}>
-            <SeasonCard season={season} />
-          </Box>
-        ))}
-      </Grid>
+          {data!.map((season) => (
+            <SeasonCard key={season.name} season={season} />
+          ))}
+        </Grid>
+      </Box>
 
     </DefaultLayout>
   )

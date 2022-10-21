@@ -90,14 +90,14 @@ export const useStyles = makeStyles({
   //seasonStyles
   seasonContainer: {
     width: '20vw',
-    height: 380,
-    minWidth: '444px',
+    minWidth: '200px',
+    maxWidth: '350px',
     position: "relative",
     display: "flex",
   },
   seasonBox: {
     boxShadow: 'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px', 
-    width: '80%', 
+    width: '100%', 
     borderRadius: '10px', 
     position: 'relative', 
     overflow: 'hidden' 
@@ -106,38 +106,33 @@ export const useStyles = makeStyles({
   triangleBox: {
     width: '100%', 
     borderTop: '220px solid transparent', 
-    borderLeft: '350px solid #1985A1', 
-    transform: 'rotateX(180deg)' 
+    borderLeft: '350px solid #1985A1',
+    position: 'absolute',
+    transform: 'rotateX(180deg)',
+    zIndex: -1
   },
   cardTitleBox: {
-    position: 'absolute', 
-    top: '20px', 
-    width: '80%', 
-    margin: '11px' 
+    padding: '25px 20px',
+    width: '90%', 
   },
   titleStyles: {
     color: '#FFFFFF', 
     fontSize: '24px', 
     textAlign: 'left',
-    marginTop: '-13px',
-    marginLeft: '12px',
     fontWeight: 'bold' 
   },
   cardContentBox: {
-    width: '100%', 
-    height: '210px', 
-    position: 'absolute', 
+    width: '100%',
     display: 'flex', 
     flexDirection: 'column', 
-    alignItems: 'flex-end', 
-    bottom: '20px', 
-    right: '30px', 
-    justifyContent: 'space-between' 
+    alignItems: 'flex-end',
+    paddingRight: '15px'
   },
   typographyContent:{
     display: 'flex', 
     flexDirection: 'row', 
-
+    marginTop: '20px',
+    alignItems: 'center'
   },
   seasonText: {
     fontSize: '17px', 
@@ -146,14 +141,13 @@ export const useStyles = makeStyles({
   },
   buttonBox: {
     marginTop: '30px', 
-    width: '50%', 
-    paddingBottom: '10px' 
+    width: '50%',
+    paddingBottom: '30px'
   },
   buttonStyles: {
     color: '#FFFFFF', 
     background: '#1985A1', 
-    width: '100%', 
-    height: '30px', 
+    width: '100%',
     fontSize: '16px',
     fontWeight: 'bold'
 
