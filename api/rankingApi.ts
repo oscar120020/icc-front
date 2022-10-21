@@ -1,9 +1,13 @@
 import fetchAdapter from "@vespaiach/axios-fetch-adapter";
 import axios, { AxiosError } from "axios";
-import { LoginFormValues } from "../components/form/formInterfaces";
+import {
+  LoginFormValues,
+  SeasonFormValues,
+} from "../components/form/formInterfaces";
+import { AdminUserResponse } from "../interfaces/adminUsersResponse";
 import { ContestantsResponse } from "../interfaces/contestansResponse";
 import { RankingResponse } from "../interfaces/rankingsResponse";
-import { SeasonsResponse } from "../interfaces/seasonsResponse";
+import { SeasonCreatedResponse, SeasonsResponse } from "../interfaces/seasonsResponse";
 
 export const rankingApi = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
@@ -33,6 +37,20 @@ export const getRankings = async () => {
 export const getContestants = async () => {
   try {
     const response = await rankingApi.get<ContestantsResponse[]>("/competitor");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error al cargar los participantes");
+  }
+};
+
+export const getAdminUsers = async (token: string) => {
+  try {
+    const response = await rankingApi.get<AdminUserResponse[]>("/auth/users", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -72,6 +90,23 @@ export const revalidateToken = async (token: string) => {
       throw new Error("Token invalido");
     } else {
       throw new Error("Error al validar la información");
+    }
+  }
+};
+
+export const createSeason = async (body: SeasonFormValues, token: string) => {
+  try {
+    const response = await rankingApi.post<SeasonCreatedResponse>("season", body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error instanceof AxiosError) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error("Error al logearse - intente más tarde");
     }
   }
 };

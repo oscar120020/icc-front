@@ -21,7 +21,7 @@ const Seasons = () => {
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<SeasonFormValues>(initialValues);
-  const { data, error, isLoading } = useQuery(["seasons"], getSeasons, {
+  const { data, error, isLoading, refetch } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
 
@@ -105,7 +105,7 @@ const Seasons = () => {
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <SeasonForm initialValues={currentValues} />
+        <SeasonForm revalidate={refetch} handleClose={handleCloseModal} initialValues={currentValues} />
       </FormModal>
     </AdminLayout>
   );

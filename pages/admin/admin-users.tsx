@@ -2,51 +2,56 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getRankings } from "../../api/rankingApi";
-import { RankingFormValues } from "../../components/form/formInterfaces";
-import { RankingForm, FormModal } from "../../components/form";
+import { getAdminUsers, getRankings } from "../../api/rankingApi";
+import {
+  AdminUserFormValues,
+  RankingFormValues,
+} from "../../components/form/formInterfaces";
+import { FormModal, AdminUserForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
+import Cookie from "js-cookie";
 
-const initialValues: RankingFormValues = {
-  url: "",
-  seasonId: "",
+const initialValues: AdminUserFormValues = {
+  username: "",
+  password: "",
 };
 
 const AdminUsers = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading } = useQuery(["rankings"], getRankings, {
-    retry: 1,
-  });
+  const { data, error, isLoading } = useQuery(
+    ["rankings"],
+    () => getAdminUsers(Cookie.get("token") || ""),
+    {
+      retry: 1,
+    }
+  );
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
-    { field: "url", headerName: "Url del ranking", width: 300 },
-    { field: "season", headerName: "Temporada", width: 300 },
+    { field: "username", headerName: "Nombre de usuario", width: 200 },
     {
-      field: "seasonId",
-      headerName: "Eliminar ranking",
+      field: "userId",
+      headerName: "Eliminar usuario",
       width: 170,
       renderCell: (params) => (
         <Button
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteRanking(params.row.seasonId)}
+          onClick={() => deleteRanking(params.row.userId)}
         >
-          Eliminar ranking
+          Eliminar usuario
         </Button>
       ),
     },
   ];
 
-  const rows = data?.map((ranking) => {
+  const rows = data?.map((user) => {
     return {
-      id: ranking.id,
-      url: ranking.url,
-      season: ranking.season.name,
-      seasonId: ranking.season.id,
+      id: user.id,
+      username: user.username,
     };
   });
 
@@ -65,7 +70,7 @@ const AdminUsers = () => {
   return (
     <AdminLayout
       title={"Admin Users | Admin"}
-      pageDescription={"Panel de administración - rankings"}
+      pageDescription={"Panel de administración - Admin Users"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>
         Admin Users - Admin
@@ -89,11 +94,14 @@ const AdminUsers = () => {
           sx={{ backgroundColor: "#0ba7ce", color: "white" }}
           onClick={openModalToCreate}
         >
-          Crear ranking
+          Crear usuario administrador
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <RankingForm initialValues={initialValues} />
+        <AdminUserForm
+          handleClose={handleCloseModal}
+          initialValues={initialValues}
+        />
       </FormModal>
     </AdminLayout>
   );

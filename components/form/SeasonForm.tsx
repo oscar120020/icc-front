@@ -1,13 +1,18 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import { useState } from "react";
 import * as Yup from "yup";
+import { createSeason } from "../../api/rankingApi";
 import { getDatePlusOneDay } from "../../helpers/dateHelpers";
 import { SeasonFormValues } from "./formInterfaces";
 
 interface Props {
   initialValues: SeasonFormValues;
+  handleClose: () => void;
+  revalidate: () => void;
 }
 
 const validationSchema = Yup.object().shape({
@@ -21,16 +26,32 @@ const validationSchema = Yup.object().shape({
     .required("Ingrese la fecha de fin"),
 });
 
-export const SeasonForm = ({ initialValues }: Props) => {
+export const SeasonForm = ({ initialValues, handleClose, revalidate }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { handleSubmit, handleChange, setFieldValue, values, touched, errors } =
     useFormik({
       initialValues,
       validationSchema,
       onSubmit: (values) => {
-        console.log({ values });
-        alert(JSON.stringify(values, null, 2));
+        create(values)
       },
     });
+  
+  const create = (values: SeasonFormValues) => {
+    setLoading(true);
+    const token = Cookies.get('token') || ''
+    createSeason(values, token)
+    .then(res => {
+      setLoading(false);
+      revalidate();
+      handleClose();
+    })
+    .catch(err => {
+      setLoading(false);
+      setError(err.message);
+    })
+  }
 
   return (
     <Box>
@@ -92,6 +113,11 @@ export const SeasonForm = ({ initialValues }: Props) => {
             />
           </Stack>
         </LocalizationProvider>
+        {!!error && (
+          <Alert severity="error" sx={{ width: "90%", mt: 2 }}>
+            <AlertTitle>{error}</AlertTitle>
+          </Alert>
+        )}
         <Box
           sx={{
             mt: 2,
@@ -111,7 +137,11 @@ export const SeasonForm = ({ initialValues }: Props) => {
               width: "150px",
             }}
           >
-            Guardar
+            {loading ? (
+              <CircularProgress color="inherit" size={25} />
+            ) : (
+              "Guardar"
+            )}
           </Button>
         </Box>
       </form>

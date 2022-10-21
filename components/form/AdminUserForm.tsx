@@ -10,12 +10,7 @@ import {
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
-import { LoginFormValues } from "./formInterfaces";
-
-const initialValues: LoginFormValues = {
-  username: "",
-  password: "",
-};
+import { AdminUserFormValues } from "./formInterfaces";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -27,18 +22,18 @@ const validationSchema = Yup.object().shape({
 });
 
 interface Props {
-    handleClose: () => void;
+  handleClose: () => void;
+  initialValues: AdminUserFormValues;
 }
 
-export const AdminUserForm = ({handleClose}: Props) => {
+export const AdminUserForm = ({ handleClose, initialValues }: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const { handleSubmit, handleChange, values, touched, errors } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-    },
+    onSubmit: (values) => {},
   });
 
   return (
@@ -47,7 +42,7 @@ export const AdminUserForm = ({handleClose}: Props) => {
         variant="h2"
         sx={{ px: 3, py: 2, backgroundColor: "#0ba7ce", color: "white" }}
       >
-        Autorizarse
+        Crear administrador
       </Typography>
       <form
         onSubmit={handleSubmit}
@@ -61,7 +56,7 @@ export const AdminUserForm = ({handleClose}: Props) => {
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="username"
-          label="Username"
+          label="Username*"
           type="text"
           value={values.username}
           onChange={handleChange}
@@ -72,7 +67,7 @@ export const AdminUserForm = ({handleClose}: Props) => {
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="password"
-          label="Contraseña"
+          label="Contraseña*"
           type="password"
           value={values.password}
           onChange={handleChange}
@@ -108,7 +103,7 @@ export const AdminUserForm = ({handleClose}: Props) => {
             {loading ? (
               <CircularProgress color="inherit" size={25} />
             ) : (
-              "Acceder"
+              "Guardar"
             )}
           </Button>
         </Box>
