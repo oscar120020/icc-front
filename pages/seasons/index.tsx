@@ -1,22 +1,22 @@
-import { Box } from "@mui/material";
-import { useQuery } from "react-query";
+import { Box, Grid } from "@mui/material";
+import dynamic from "next/dynamic";
+import { useQuery, UseQueryResult } from "react-query";
 import { getSeasons } from "../../api/rankingApi";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
-import { ErrorPage } from "../../components/ui";
-
+import { ErrorPage } from "../../components/ui/ErrorPage";
+import { Season } from "../../interfaces/ranking";
+const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
 
 const Seasons = () => {
-  const { data, error, isLoading } = useQuery(["seasons"], getSeasons, {
-    retry: 1,
+
+  const { data, error, isLoading }: UseQueryResult<Season[]> = useQuery(['seasons'], getSeasons, {
+    retry: 1
   });
 
   if (error) {
     return (
-      <DefaultLayout
-        title={"Seasons | ICC"}
-        pageDescription={"Seasons details"}
-      >
+      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
         <ErrorPage />
       </DefaultLayout>
     );
@@ -24,28 +24,37 @@ const Seasons = () => {
 
   if (isLoading) {
     return (
-      <DefaultLayout
-        title={"Seasons | ICC"}
-        pageDescription={"Seasons details"}
-      >
+      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
         <Loading />
       </DefaultLayout>
     );
   }
 
+
   return (
     <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
       <Box
         sx={{
-          margin: "20px auto",
+          margin: '20px auto',
           maxWidth: 1440,
-          padding: "0px 30px",
-          overflow: 'hidden'
+          padding: "0 30px",
         }}
-        className="fadeIn"
       >
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <Grid
+          container
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start',
+          }}
+        >
+
+          {data!.map((season) => (
+            <SeasonCard key={season.name} season={season} />
+          ))}
+        </Grid>
       </Box>
+
     </DefaultLayout>
   );
 };
