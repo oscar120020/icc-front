@@ -1,5 +1,5 @@
 import Image, { ImageProps } from 'next/image'
-import ICCLogo from '../../assets/icc/logo-icc.svg';
+import ICCLogo from '../../assets/icc/logo-icc2.svg';
 
 type Props = Omit<ImageProps, 'src' | 'alt'>
 

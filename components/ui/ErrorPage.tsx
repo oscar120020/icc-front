@@ -1,5 +1,4 @@
-import { Link, Typography } from '@mui/material'
-import NextLink from 'next/link'
+import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { ErrorImage } from '../SVG/Error'

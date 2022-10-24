@@ -42,7 +42,7 @@ export default function SeasonCard({ season }: SeasonProps) {
                 sx={{ marginRight: "7px", fontSize: "29px" }}
               />
               <Typography className={classes.seasonText}>
-                {season.numberchanllenges} Challenges
+                {season.numberChanllenges} Challenges
               </Typography>
             </Box>
             <Box className={classes.typographyContent}>

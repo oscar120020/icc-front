@@ -8,7 +8,7 @@ export const defaultTheme = createTheme({
       main: '#0ba7ce'
     },
     secondary: {
-      main: '#1a2324'
+      main: '#D3DB14'
     },
     info: {
       main: '#dbdbdb'
@@ -16,6 +16,15 @@ export const defaultTheme = createTheme({
   },
   typography: {
     fontFamily: "Nunito, sans-serif",
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 785,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    }
   },
   components: {
     MuiLink: {
@@ -47,7 +56,7 @@ export const defaultTheme = createTheme({
           fontWeight: 400
         },
         h3: {
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 300
         },
         subtitle1: {
@@ -81,7 +90,7 @@ export const defaultTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+          boxShadow: '0px 5px 5px rgba(0,0,0,0.2)',
           borderRadius: '10px',
         }
       }

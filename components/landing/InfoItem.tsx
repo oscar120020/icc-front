@@ -15,7 +15,7 @@ interface Link {
 
 export const InfoItem = ({ image, title, description, link }: Props) => {
   return (
-    <Grid item xs={12} sm={6} lg={4} sx={{padding: '20px'}}>
+    <Grid item xs={12} sm={5} lg={3} sx={{padding: '20px', position: 'relative'}}>
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >

@@ -24,7 +24,7 @@ export interface RankingProps {
 export interface Season {
     name: string,
     numberCompetitors: number,
-    numberchanllenges: number,
+    numberChanllenges: number,
     beginning: string,
     end: string
 }

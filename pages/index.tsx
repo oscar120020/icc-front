@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import { Box } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
-import { HeaderSection } from "../components/landing/HeaderSection";
-import { InstructionsSection } from "../components/landing/InstructionsSection";
-import { HowWorksSection } from "../components/landing/HowWorksSection";
+import { HeaderSection, InstructionsSection, HowWorksSection } from "../components/landing";
 
 const Home: NextPage = () => {
   return (
@@ -27,12 +25,12 @@ const Home: NextPage = () => {
           padding: "0px 30px",
         }}
       >
-        <InstructionsSection/>
+        <HowWorksSection/>
       </Box>
 
       {/* Como funciona */}
-      <Box sx={{ mt: 15, mb: 15, backgroundColor: "#cddce26a" }}>
-        <HowWorksSection/>
+      <Box sx={{ mt: 15, mb: 15, padding: '80px 30px', backgroundColor: "#cddce26a" }}>
+        <InstructionsSection/>
       </Box>
     </DefaultLayout>
   );
