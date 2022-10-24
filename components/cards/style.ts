@@ -113,7 +113,8 @@ export const useStyles = makeStyles({
   },
   cardTitleBox: {
     padding: '25px 20px',
-    width: '90%', 
+    width: '90%',
+    minHeight: '120px',
   },
   titleStyles: {
     color: '#FFFFFF', 
