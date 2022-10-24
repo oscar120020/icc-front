@@ -1,12 +1,25 @@
-import { Box, Button, MenuItem, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  CircularProgress,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import * as Yup from "yup";
-import { getSeasons } from "../../api/rankingApi";
+import { addRankingToSeason, getSeasons } from "../../api";
 import { RankingFormValues } from "./formInterfaces";
 
 interface Props {
   initialValues: RankingFormValues;
+  handleClose: () => void;
+  revalidate: () => void;
 }
 
 const validationSchema = Yup.object().shape({
@@ -16,21 +29,42 @@ const validationSchema = Yup.object().shape({
       /^https:\/\/vjudge\.net\/contest\/.*[\w\0,9]/,
       "Url no coincide con torneo de Vjudge"
     ),
-  seasonId: Yup.string().required("Seleccione una temporada")
+  seasonId: Yup.string().required("Seleccione una temporada"),
 });
 
-export const RankingForm = ({ initialValues }: Props) => {
-  const { data } = useQuery(["seasons"], getSeasons, {
+export const RankingForm = ({
+  initialValues,
+  handleClose,
+  revalidate,
+}: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { data: seasonsData } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
   const { handleSubmit, handleChange, values, touched, errors } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log({ values });
-      alert(JSON.stringify(values, null, 2));
+      create(values)
     },
   });
+
+  const create = (values: RankingFormValues) => {
+    setLoading(true);
+    setError('');
+    const token = Cookies.get("token") || "";
+    addRankingToSeason(values, token)
+      .then((res) => {
+        setLoading(false);
+        revalidate();
+        handleClose();
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
+  };
 
   return (
     <Box>
@@ -69,14 +103,24 @@ export const RankingForm = ({ initialValues }: Props) => {
           error={touched.seasonId && !!errors.seasonId}
           helperText={touched.seasonId && errors.seasonId}
         >
-          {
-            data?.map(season => (
-              <MenuItem key={season.id} value={season.id}>
-                {season.name}
-              </MenuItem>
-            ))
-          }
+          {seasonsData?.map((season) => (
+            <MenuItem key={season.id} value={season.id}>
+              {season.name}
+            </MenuItem>
+          ))}
         </TextField>
+
+        {!!error && (
+          <Alert severity="error" sx={{ width: "90%", mt: 2 }}>
+            <AlertTitle>{error}</AlertTitle>
+          </Alert>
+        )}
+
+        {!!loading && (
+          <Alert severity="warning" sx={{ width: "90%", mt: 2 }}>
+            <AlertTitle>Esta acción puede tardar unos segundos</AlertTitle>
+          </Alert>
+        )}
 
         <Box
           sx={{
@@ -97,7 +141,11 @@ export const RankingForm = ({ initialValues }: Props) => {
               width: "150px",
             }}
           >
-            Guardar
+            {loading ? (
+              <CircularProgress color="inherit" size={25} />
+            ) : (
+              "Guardar"
+            )}
           </Button>
         </Box>
       </form>

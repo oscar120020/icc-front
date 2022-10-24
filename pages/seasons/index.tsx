@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import dynamic from "next/dynamic";
 import { useQuery, UseQueryResult } from "react-query";
-import { getSeasons } from "../../api/rankingApi";
+import { getSeasons } from "../../api";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";

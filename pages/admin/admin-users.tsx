@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getAdminUsers, getRankings } from "../../api/rankingApi";
+import { getAdminUsers, getRankings, removeAdmin } from "../../api";
 import {
   AdminUserFormValues,
   RankingFormValues,
@@ -11,6 +11,7 @@ import { FormModal, AdminUserForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 const initialValues: AdminUserFormValues = {
   username: "",
@@ -20,7 +21,7 @@ const initialValues: AdminUserFormValues = {
 const AdminUsers = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading } = useQuery(
+  const { data, error, isLoading, refetch } = useQuery(
     ["admin"],
     () => getAdminUsers(Cookie.get("token") || ""),
     {
@@ -32,7 +33,7 @@ const AdminUsers = () => {
     { field: "id", headerName: "ID", width: 100 },
     { field: "username", headerName: "Nombre de usuario", width: 200 },
     {
-      field: "userId",
+      field: "delete",
       headerName: "Eliminar usuario",
       width: 170,
       renderCell: (params) => (
@@ -40,7 +41,7 @@ const AdminUsers = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteRanking(params.row.userId)}
+          onClick={() => deleteAdmin(params.row.id)}
         >
           Eliminar usuario
         </Button>
@@ -59,8 +60,16 @@ const AdminUsers = () => {
     setOpen(false);
   };
 
-  const deleteRanking = (id: string) => {
-    setOpen(true);
+  const deleteAdmin = (id: string) => {
+    const token = Cookies.get('token') || ''
+    removeAdmin(id, token)
+    .then(res => {
+      console.log(res);
+      refetch()
+    })
+    .catch(err => {
+      console.log(err)
+    })
   };
 
   const openModalToCreate = () => {
@@ -101,6 +110,7 @@ const AdminUsers = () => {
         <AdminUserForm
           handleClose={handleCloseModal}
           initialValues={initialValues}
+          revalidate={refetch}
         />
       </FormModal>
     </AdminLayout>

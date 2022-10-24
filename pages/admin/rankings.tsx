@@ -2,11 +2,12 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getRankings } from "../../api/rankingApi";
+import { getRankings, removeRanking } from "../../api";
 import { RankingFormValues } from "../../components/form/formInterfaces";
 import { RankingForm, FormModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
+import Cookies from "js-cookie";
 
 const initialValues: RankingFormValues = {
   url: "",
@@ -16,7 +17,7 @@ const initialValues: RankingFormValues = {
 const Rankings = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading } = useQuery(["rankings"], getRankings, {
+  const { data, error, isLoading, refetch } = useQuery(["rankings"], getRankings, {
     retry: 1,
   });
 
@@ -33,7 +34,7 @@ const Rankings = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteRanking(params.row.seasonId)}
+          onClick={() => deleteRanking(params.row.id)}
         >
           Eliminar ranking
         </Button>
@@ -55,7 +56,14 @@ const Rankings = () => {
   };
 
   const deleteRanking = (id: string) => {
-    setOpen(true);
+    const token = Cookies.get('token') || ''
+    removeRanking(id, token)
+    .then(res => {
+      refetch()
+    })
+    .catch(err => {
+      console.log(err);
+    })
   };
 
   const openModalToCreate = () => {
@@ -93,7 +101,7 @@ const Rankings = () => {
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <RankingForm initialValues={initialValues} />
+        <RankingForm revalidate={refetch} handleClose={handleCloseModal} initialValues={initialValues} />
       </FormModal>
     </AdminLayout>
   );

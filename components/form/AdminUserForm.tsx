@@ -8,8 +8,10 @@ import {
   AlertTitle,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import * as Yup from "yup";
+import { createUserAdmin } from "../../api";
 import { AdminUserFormValues } from "./formInterfaces";
 
 const validationSchema = Yup.object().shape({
@@ -24,17 +26,34 @@ const validationSchema = Yup.object().shape({
 interface Props {
   handleClose: () => void;
   initialValues: AdminUserFormValues;
+  revalidate: () => void;
 }
 
-export const AdminUserForm = ({ handleClose, initialValues }: Props) => {
+export const AdminUserForm = ({ handleClose, initialValues, revalidate }: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const { handleSubmit, handleChange, values, touched, errors } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      create(values)
+    },
   });
+
+  const create = (values: AdminUserFormValues) => {
+    const token = Cookies.get('token') || '';
+    createUserAdmin(values, token)
+    .then(res => {
+      setLoading(false);
+      revalidate();
+      handleClose();
+    })
+    .catch(err => {
+      setLoading(false);
+      setError(err.message);
+    })
+  }
 
   return (
     <Box>

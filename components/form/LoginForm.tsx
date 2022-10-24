@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import * as Yup from "yup";
-import { loginToAdmin } from "../../api/rankingApi";
+import { loginToAdmin } from "../../api";
 import { LoginFormValues } from "./formInterfaces";
 import Cookie from "js-cookie";
 

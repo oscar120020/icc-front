@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import * as Yup from "yup";
-import { createSeason, updateSeason } from "../../api/rankingApi";
+import { createSeason, updateSeason } from "../../api";
 import { getDatePlusOneDay } from "../../helpers/dateHelpers";
 import { SeasonFormValues } from "./formInterfaces";
 

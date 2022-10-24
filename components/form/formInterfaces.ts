@@ -17,7 +17,7 @@ export interface LoginFormValues {
 }
 
 export interface ContestantFormValues {
-    username: string;
+    id?: string;
     imageUrl: string;
     fullName?: string;
     socialLink?: string

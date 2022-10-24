@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { string } from "yup/lib/locale";
-import { deleteSeason, getSeasons } from "../../api/rankingApi";
+import { deleteSeason, getSeasons } from "../../api";
 import { SeasonFormValues } from "../../components/form/formInterfaces";
 import { FormModal } from "../../components/form/FormModal";
 import { SeasonForm } from "../../components/form/SeasonForm";

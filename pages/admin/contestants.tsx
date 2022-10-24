@@ -2,14 +2,14 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getContestants, getRankings } from "../../api/rankingApi";
+import { getContestants, getRankings, removeCompetitor } from "../../api";
 import { ContestantFormValues } from "../../components/form/formInterfaces";
 import { FormModal, ContestantForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
+import Cookies from "js-cookie";
 
 const initialValues: ContestantFormValues = {
-  username: "",
   imageUrl: "",
   fullName: "",
   socialLink: "",
@@ -18,7 +18,9 @@ const initialValues: ContestantFormValues = {
 const Contestants = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
+  const [currentValues, setCurrentValues] =
+    useState<ContestantFormValues>(initialValues);
+  const { data, error, isLoading, refetch } = useQuery(["contestants"], getContestants, {
     retry: 1,
   });
 
@@ -37,9 +39,29 @@ const Contestants = () => {
           fullWidth
           variant="outlined"
           color="primary"
-          onClick={() => deleteRanking(params.row.seasonId)}
+          onClick={() => openModalToEdit({
+            id: params.row.id,
+            imageUrl: params.row.imageUrl,
+            fullName: params.row.fullName,
+            socialLink: params.row.socialLink,
+          })}
         >
           Editar participante
+        </Button>
+      ),
+    },
+    {
+      field: "delete",
+      headerName: "Eliminar participante",
+      width: 170,
+      renderCell: (params) => (
+        <Button
+          fullWidth
+          variant="outlined"
+          color="error"
+          onClick={() => deleteCompetitor(params.row.id)}
+        >
+          Eliminar participante
         </Button>
       ),
     },
@@ -59,18 +81,31 @@ const Contestants = () => {
     setOpen(false);
   };
 
-  const deleteRanking = (id: string) => {
+  const deleteCompetitor = (id: string) => {
+    const token = Cookies.get('token') || ''
+    removeCompetitor(id, token)
+    .then(res => {
+      refetch()
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  };
+
+  const openModalToEdit = (values: ContestantFormValues) => {
+    setCurrentValues(values);
     setOpen(true);
   };
 
   const openModalToCreate = () => {
+    setCurrentValues(initialValues);
     setOpen(true);
   };
 
   return (
     <AdminLayout
       title={"Participantes | Admin"}
-      pageDescription={"Panel de administración - rankings"}
+      pageDescription={"Panel de administración - Participantes"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>
         Participantes - Admin
@@ -98,7 +133,7 @@ const Contestants = () => {
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <ContestantForm initialValues={initialValues} handleClose={handleCloseModal} />
+        <ContestantForm initialValues={currentValues} handleClose={handleCloseModal} revalidate={refetch} />
       </FormModal>
     </AdminLayout>
   );

@@ -8,37 +8,56 @@ import {
   AlertTitle,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import * as Yup from "yup";
+import { updateCompetitor } from "../../api";
 import { ContestantFormValues } from "./formInterfaces";
 
 
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .required("Ingrese el nombre de la temporada")
-    .min(2, "El username debe tener por lo menos 2 carácteres"),
   imageUrl: Yup.string()
     .min(6, "La contraseña debe tener por lo menos 8 carácteres")
     .required("Ingrese la contraseña"),
-  fullName: Yup.string(),
-  socialLink: Yup.string(),
+  fullName: Yup.string().nullable().notRequired(),
+  socialLink: Yup.string().nullable().notRequired(),
 });
 
 interface Props {
-  handleClose: () => void;
   initialValues: ContestantFormValues;
+  handleClose: () => void;
+  revalidate: () => void;
 }
 
-export const ContestantForm = ({ handleClose, initialValues }: Props) => {
+export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const { handleSubmit, handleChange, values, touched, errors } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      update(values)
+    },
   });
+
+  const update = (values: ContestantFormValues) => {
+    console.log('adasdsadsadsadsa');
+    
+    const { id, ...rest } = values;
+    const token = Cookies.get('token') || '';
+    updateCompetitor(id!, rest, token)
+    .then(res => {
+      setLoading(false);
+      revalidate();
+      handleClose();
+    })
+    .catch(err => {
+      setLoading(false);
+      setError(err.message);
+    })
+  }
 
   return (
     <Box>
@@ -46,7 +65,7 @@ export const ContestantForm = ({ handleClose, initialValues }: Props) => {
         variant="h2"
         sx={{ px: 3, py: 2, backgroundColor: "#0ba7ce", color: "white" }}
       >
-        {initialValues.username ? "Editar" : "Crear"} participante
+        {initialValues.id ? "Editar" : "Crear"} participante
       </Typography>
       <form
         onSubmit={handleSubmit}
@@ -57,17 +76,6 @@ export const ContestantForm = ({ handleClose, initialValues }: Props) => {
           padding: "30px 0px",
         }}
       >
-        <TextField
-          sx={{ width: "90%", mb: 2 }}
-          name="username"
-          label="Username*"
-          type="text"
-          value={values.username}
-          onChange={handleChange}
-          error={touched.username && !!errors.username}
-          helperText={touched.username && errors.username}
-        />
-
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="imageUrl"
