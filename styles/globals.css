@@ -45,12 +45,13 @@
 .btn:hover {
   background-color: transparent !important;
   border-bottom: 1px solid #0ba7ce !important;
+  border-radius: 0px !important;
 }
 
 .btn-active {
   background-color: transparent !important;
   color: #0ba7ce !important;
-  border-radius: 0px;
+  border-radius: 0px !important;
   border-bottom: 1px solid #0ba7ce !important;
   transition: all 0.3s ease-in-out !important;
 }
