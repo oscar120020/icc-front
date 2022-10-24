@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import * as Yup from "yup";
-import { createSeason } from "../../api/rankingApi";
+import { createSeason, updateSeason } from "../../api/rankingApi";
 import { getDatePlusOneDay } from "../../helpers/dateHelpers";
 import { SeasonFormValues } from "./formInterfaces";
 
@@ -18,7 +18,7 @@ interface Props {
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Ingrese el nombre de la temporada")
-    .min(3, "El nombre debe tener por lo menos 3 carácteres"),
+    .min(5, "El nombre debe tener por lo menos 5 carácteres"),
   beginning: Yup.date().nullable(true).required("Ingrese la fecha de inicio"),
   end: Yup.date()
     .nullable(true)
@@ -34,7 +34,11 @@ export const SeasonForm = ({ initialValues, handleClose, revalidate }: Props) =>
       initialValues,
       validationSchema,
       onSubmit: (values) => {
-        create(values)
+        if(!values.id){
+          create(values)
+        }else{
+          update(values)
+        }
       },
     });
   
@@ -42,6 +46,22 @@ export const SeasonForm = ({ initialValues, handleClose, revalidate }: Props) =>
     setLoading(true);
     const token = Cookies.get('token') || ''
     createSeason(values, token)
+    .then(res => {
+      setLoading(false);
+      revalidate();
+      handleClose();
+    })
+    .catch(err => {
+      setLoading(false);
+      setError(err.message);
+    })
+  }
+
+  const update = (values: SeasonFormValues) => {
+    setLoading(true);
+    const token = Cookies.get('token') || ''
+    const { id, ...rest } = values;
+    updateSeason(id!, rest, token)
     .then(res => {
       setLoading(false);
       revalidate();

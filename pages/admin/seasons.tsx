@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getSeasons } from "../../api/rankingApi";
+import { string } from "yup/lib/locale";
+import { deleteSeason, getSeasons } from "../../api/rankingApi";
 import { SeasonFormValues } from "../../components/form/formInterfaces";
 import { FormModal } from "../../components/form/FormModal";
 import { SeasonForm } from "../../components/form/SeasonForm";
@@ -43,9 +45,25 @@ const Seasons = () => {
             name: params.row.name,
             beginning: params.row.beginning,
             end: params.row.end,
+            id: params.row.id
           })}
         >
           Editar temporada
+        </Button>
+      ),
+    },
+    {
+      field: "delete",
+      headerName: "Eliminar",
+      width: 170,
+      renderCell: (params) => (
+        <Button
+          fullWidth
+          variant="outlined"
+          color="error"
+          onClick={() => removeSeason(params.row.id)}
+        >
+          Eliminar temporada
         </Button>
       ),
     },
@@ -73,6 +91,17 @@ const Seasons = () => {
     setCurrentValues(initialValues);
     setOpen(true);
   };
+
+  const removeSeason = (seasonId: string) => {
+    const token = Cookies.get('token') || ''
+    deleteSeason(seasonId, token)
+    .then(res => {
+      refetch()
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   return (
     <AdminLayout

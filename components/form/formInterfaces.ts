@@ -1,5 +1,6 @@
 
 export interface SeasonFormValues {
+    id?: string;
     name: string;
     beginning: Date;
     end: Date;

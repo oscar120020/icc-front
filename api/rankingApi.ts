@@ -67,7 +67,7 @@ export const loginToAdmin = async (body: LoginFormValues) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error instanceof AxiosError) {
-      throw new Error(error.response?.data.message);
+      throw new Error((error as any).response?.data.message);
     } else {
       throw new Error("Error al logearse - intente más tarde");
     }
@@ -104,9 +104,43 @@ export const createSeason = async (body: SeasonFormValues, token: string) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error instanceof AxiosError) {
-      throw new Error(error.response?.data.message);
+      throw new Error((error as any).response?.data.message);
     } else {
-      throw new Error("Error al logearse - intente más tarde");
+      throw new Error("Error al crear - intente más tarde");
+    }
+  }
+};
+
+export const updateSeason = async (seasonId: string, body: SeasonFormValues, token: string) => {
+  try {
+    const response = await rankingApi.put<SeasonCreatedResponse>(`season/${seasonId}`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error instanceof AxiosError) {
+      throw new Error((error as any).response?.data.message);
+    } else {
+      throw new Error("Error al actualizar - intente más tarde");
+    }
+  }
+};
+
+export const deleteSeason = async (seasonId: string, token: string) => {
+  try {
+    const response = await rankingApi.delete<SeasonCreatedResponse>(`season/${seasonId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error instanceof AxiosError) {
+      throw new Error((error as any).response?.data.message);
+    } else {
+      throw new Error("Error al eliminar - intente más tarde");
     }
   }
 };

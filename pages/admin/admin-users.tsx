@@ -21,7 +21,7 @@ const AdminUsers = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
   const { data, error, isLoading } = useQuery(
-    ["rankings"],
+    ["admin"],
     () => getAdminUsers(Cookie.get("token") || ""),
     {
       retry: 1,
