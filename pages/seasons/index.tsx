@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import dynamic from "next/dynamic";
 import { useQuery, UseQueryResult } from "react-query";
-import { getSeasons } from "../../api/rankingApi";
+import { getSeasons } from "../../api";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";
@@ -20,7 +20,7 @@ const Seasons = () => {
       <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
         <ErrorPage />
       </DefaultLayout>
-    )
+    );
   }
 
   if (isLoading) {
@@ -28,7 +28,7 @@ const Seasons = () => {
       <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
         <Loading />
       </DefaultLayout>
-    )
+    );
   }
 
 
@@ -46,7 +46,7 @@ const Seasons = () => {
           sx={{
             width: '100%',
             display: 'flex',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
           }}
         >
 
@@ -57,8 +57,7 @@ const Seasons = () => {
       </Box>
 
     </DefaultLayout>
-  )
-}
-
+  );
+};
 
 export default Seasons;

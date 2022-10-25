@@ -61,13 +61,6 @@ export const SideMenu = () => {
             </ListItemIcon>
             <ListItemText primary={"Calendario"} />
           </ListItem>
-
-          <ListItem button onClick={() => navigateTo("/admin")}>
-            <ListItemIcon>
-              <AdminPanelSettingsIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary={"Admin"} />
-          </ListItem>
         </List>
       </Box>
     </Drawer>

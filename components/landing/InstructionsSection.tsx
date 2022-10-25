@@ -1,17 +1,19 @@
+import Image from "next/image";
 import { Box, Grid } from "@mui/material";
 import { InfoItem } from "./InfoItem";
 import { LandingSection } from "./LandingSection";
 import discordIcon from "../../assets/landing/discord-liner3.png";
 import vjudgedIcon from "../../assets/landing/vjudge-liner2.png";
 import intellisysIcon from "../../assets/landing/intellisys-linear2.png";
+import ArrowFirst from '../../assets/arrow-next.png';
+import ArrowSecond from '../../assets/arrow-next2.png';
+
 
 export const InstructionsSection = () => {
   return (
     <Box>
       <LandingSection
-        title="¿Como Participar?"
-        description="Instrucciones para formar parte de los canales y grupos necesarios para
-            poder participar"
+        title="Pasos para participar en la iniciativa"
       />
       <Grid
         container
@@ -31,6 +33,12 @@ export const InstructionsSection = () => {
             url: "https://discord.gg/aSDvMjRe",
           }}
         />
+        <Box sx={{display: {xs: 'none', sm: 'flex'}, alignItems: 'center'}}>
+          <Image
+            src={ArrowFirst}
+            alt="asda"
+          />
+        </Box>
         <InfoItem
           image={vjudgedIcon}
           title="Crear una cuenta en Vjudge"
@@ -41,16 +49,30 @@ export const InstructionsSection = () => {
             url: "https://vjudge.net/",
           }}
         />
+        <Box sx={{display: {xs: 'none', sm: 'none', lg: 'flex'}, alignItems: 'center'}}>
+          <Image
+            src={ArrowSecond}
+            alt="asda"
+          />
+        </Box>
         <InfoItem
           image={intellisysIcon}
           title="Unirse al grupo 'Intellisys'"
           description="Para poder entrar a los diferentes concursos es necesario unirse al grupo
-              privado de Intellisys, donde se listan todos los integrantes y competancias"
+              privado de Intellisys, donde se listan todos los integrantes y competancias."
           link={{
             label: "Unirse",
             url: "https://vjudge.net/group/intellisys?r=05od4RPUN5c99GzI27mY",
           }}
         />
+        <Box sx={{display: {xs: 'none', sm: 'block', lg: 'none'}}}>
+          <Box sx={{transform: 'rotate(130deg)', marginTop: 10}}>
+            <Image
+              src={ArrowFirst}
+              alt="asda"
+            />
+          </Box>
+        </Box>
       </Grid>
     </Box>
   );

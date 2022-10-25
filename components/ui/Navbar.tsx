@@ -1,47 +1,50 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import NextLink from "next/link";
-import { AppBar, Box, Button, Link, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Box, Button, Link, Toolbar } from "@mui/material";
 import { LogoImage } from "../SVG/Logo";
 import { useRouter } from "next/router";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import MenuIcon from '@mui/icons-material/Menu';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import MenuIcon from "@mui/icons-material/Menu";
 import { UIContext } from "../../context";
-
-interface Props {
-  window: () => Window | undefined;
-  children: React.ReactElement;
-}
-
-const ElevationScroll = (props: Props) => {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 3 : 0,
-    sx: {
-      height: trigger ? 70 : 60,
-      backgroundColor: trigger ? 'white' : 'transparent'
-    }
-  });
-}
+import { ElevationScroll } from "../maretial-ui/ElevationScroll";
+import { FormModal, LoginForm } from "../form";
+import Cookie from 'js-cookie'
 
 const currentWindow = () => {
-  if(typeof window !== 'undefined'){
-    return window as Window
+  if (typeof window !== "undefined") {
+    return window as Window;
   }
+};
+
+interface Props {
+  noDinamicElevation?: boolean;
 }
 
-export const Navbar = () => {
-  const { pathname } = useRouter();
-  const { changeMenuState } = useContext(UIContext)
+export const Navbar = ({ noDinamicElevation }: Props) => {
+  const [open, setOpen] = useState(false);
+  const { pathname, push: routerPush } = useRouter();
+  const { changeMenuState } = useContext(UIContext);
+
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+  
+  const openLoginModal = () => {
+    const token = Cookie.get('token')
+    if(!token){
+      setOpen(true);
+      return;
+    }
+    routerPush('/admin')
+  }
 
   return (
-    <ElevationScroll window={currentWindow}>
-      <AppBar className="transition" >
+    <ElevationScroll
+      window={currentWindow}
+      noDinamicElevation={noDinamicElevation}
+    >
+      <AppBar className="transition" elevation={1}>
         <Toolbar>
           <NextLink href={"/"} passHref>
             <Link>
@@ -51,12 +54,22 @@ export const Navbar = () => {
 
           <Box sx={{ flex: 1 }} />
 
-          <Box sx={{ display: {xs: 'none', sm: 'flex'} }} className="fadeIn">
+          <Box sx={{ display: { xs: "none", sm: "flex" } }} className="fadeIn">
+            <NextLink href={"/"} passHref>
+              <Link display="flex" alignItems="center">
+                <Button
+                  className={pathname === "/" ? "btn-active" : "btn"}
+                  sx={{ marginX: 2, fontSize: 16 }}
+                >
+                  Home
+                </Button>
+              </Link>
+            </NextLink>
             <NextLink href={"/seasons"} passHref>
               <Link display="flex" alignItems="center">
                 <Button
                   className={pathname === "/seasons" ? "btn-active" : "btn"}
-                  sx={{ marginX: 2 }}
+                  sx={{ marginX: 2, fontSize: 16 }}
                 >
                   Temporadas
                 </Button>
@@ -66,7 +79,7 @@ export const Navbar = () => {
               <Link display="flex" alignItems="center">
                 <Button
                   className={pathname === "/contestants" ? "btn-active" : "btn"}
-                  sx={{ marginX: 2 }}
+                  sx={{ marginX: 2, fontSize: 16 }}
                 >
                   Participantes
                 </Button>
@@ -76,7 +89,7 @@ export const Navbar = () => {
               <Link display="flex" alignItems="center">
                 <Button
                   className={pathname === "/calendar" ? "btn-active" : "btn"}
-                  sx={{ marginX: 2 }}
+                  sx={{ marginX: 2, fontSize: 16 }}
                 >
                   Calendario
                 </Button>
@@ -86,29 +99,39 @@ export const Navbar = () => {
 
           <Box sx={{ flex: 1 }} />
 
-          <Box sx={{ display: {xs: 'none', sm: 'flex'} }}>
-            <NextLink href={"/admin"} passHref>
-              <Link>
-                <Button
-                  className={pathname === "/admin" ? "btn-active-admin" : "btn-admin"}
-                  startIcon={
-                  <AdminPanelSettingsIcon
-                    color={pathname === "/admin" ? 'inherit' : 'primary'}
-                    fontSize='large'
-                    sx={{fontSize: 30}} 
-                  />
-                  }
-                >
-                  Admin
-                </Button>
-              </Link>
-            </NextLink>
+          <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+            <Button
+              className={
+                pathname.includes("/admin") ? "btn-active-admin" : "btn-admin"
+              }
+              sx={{ fontSize: 16 }}
+              startIcon={
+                <AdminPanelSettingsIcon
+                  color={pathname.includes("/admin") ? "inherit" : "primary"}
+                  fontSize="large"
+                  sx={{ fontSize: 40 }}
+                />
+              }
+              onClick={openLoginModal}
+            >
+              Admin
+            </Button>
           </Box>
 
-          <Box sx={{ display: {xs: 'flex', sm: 'none'}, alignItems: 'center', cursor: "pointer" }} onClick={changeMenuState} >
+          <Box
+            sx={{
+              display: { xs: "flex", sm: "none" },
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={changeMenuState}
+          >
             <MenuIcon fontSize="large" color="primary" />
           </Box>
         </Toolbar>
+        <FormModal open={open} handleClose={handleCloseModal} >
+          <LoginForm handleClose={handleCloseModal} />
+        </FormModal>
       </AppBar>
     </ElevationScroll>
   );

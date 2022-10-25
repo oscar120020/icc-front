@@ -1,6 +1,7 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Link } from "@mui/material";
 import CookieIcon from "@mui/icons-material/Cookie";
 import { QuestionImage } from "../SVG/Question";
+import { InlineLink } from "../ui";
 
 export const HowWorksSection = () => {
   return (
@@ -11,7 +12,7 @@ export const HowWorksSection = () => {
         alignItems: "center",
         margin: "auto",
         maxWidth: 1440,
-        padding: "80px 30px 80px 30px",
+        padding: "0px 30px 0px 30px",
         position: "relative",
         overflow: "hidden",
       }}
@@ -39,8 +40,8 @@ export const HowWorksSection = () => {
           flexDirection: "column",
         }}
       >
-        <Typography sx={{ mb: 2 }} variant="h2">
-          ¿Como funciona el concurso?
+        <Typography sx={{ mb: 2 }} variant="h2" color="primary" fontWeight="bold">
+          ¿Cómo funciona el concurso?
         </Typography>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
@@ -65,7 +66,7 @@ export const HowWorksSection = () => {
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
           <Typography variant="subtitle1" fontWeight={300}>
-            En cada challenge, al estilo ICPC, se proponen 3 ejercicios de
+            En cada challenge, al estilo <InlineLink link="https://icpc.global/" label="ICPC" />(International Collegiate Programming Contest), se proponen 3 ejercicios de
             variadas complejidades.
           </Typography>
         </Box>
@@ -81,3 +82,4 @@ export const HowWorksSection = () => {
     </Grid>
   );
 };
+
