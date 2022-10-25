@@ -45,7 +45,7 @@ const Seasons = () => {
           sx={{
             width: '100%',
             display: 'flex',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
           }}
         >
 

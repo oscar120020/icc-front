@@ -8,7 +8,7 @@ interface Props {
 
 export const AdminDashboardCard = ({ title, subTitle, icon }: Props) => {
   return (
-    <Grid item xs={12} sm={4} md={3}>
+    <Grid item xs={12} sm={6} md={4}>
       <Card
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
