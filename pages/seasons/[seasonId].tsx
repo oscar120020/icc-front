@@ -9,7 +9,6 @@ const Ranking = dynamic(() => import('../../components/ranking/Ranking'), {
 })
 
 const seasonId = ({ seasonData, globalRanking }: SeasonProps) => {
-  console.log(globalRanking)
   return (
     <DefaultLayout title={"Calendario | ICC"} pageDescription={"Calendario de eventos"}>
       <Box

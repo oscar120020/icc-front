@@ -52,7 +52,7 @@ const Seasons = () => {
 
           {data!.map((season) => (
             <>
-              <SeasonCard season={season} />
+              <SeasonCard key={season.id} season={season} />
             </>
           ))}
         </Grid>

@@ -85,6 +85,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@date-io/core@^1.3.13":
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/@date-io/core/-/core-1.3.13.tgz#90c71da493f20204b7a972929cc5c482d078b3fa"
+  integrity sha512-AlEKV7TxjeK+jxWVKcCFrfYAk8spX9aCyiToFIiLPtfQbsjmRGLIhb5VZgptQcJdHtLXo7+m0DuurwFgUToQuA==
+
 "@date-io/core@^2.15.0", "@date-io/core@^2.16.0":
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/@date-io/core/-/core-2.16.0.tgz#7871bfc1d9bca9aa35ad444a239505589d0f22f6"
@@ -111,12 +116,56 @@
   dependencies:
     "@date-io/core" "^2.16.0"
 
+"@date-io/moment@^1.3.11":
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-1.3.13.tgz#56c2772bc4f6675fc6970257e6033e7a7c2960f0"
+  integrity sha512-3kJYusJtQuOIxq6byZlzAHoW/18iExJer9qfRF5DyyzdAk074seTuJfdofjz4RFfTd/Idk8WylOQpWtERqvFuQ==
+  dependencies:
+    "@date-io/core" "^1.3.13"
+
 "@date-io/moment@^2.15.0":
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-2.16.0.tgz#a6658c05e14e7fcc57adeda675462e0b6750542d"
   integrity sha512-wvu/40k128kF6P0jPbiyZcPR14VjJAgYEs+mYtsXz/AyWpC2DEJKly7ub+dpevUywbTzzpZysyCxCdzLzxD/uw==
   dependencies:
     "@date-io/core" "^2.16.0"
+
+"@devexpress/dx-core@3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-3.0.6.tgz#d30f1cb883fc47fabe83f0cf4c9691b9e5c4a732"
+  integrity sha512-Qx66s+fi1aylQr+Li6OXtUOF5t4zJkYAMN1oM7rua9iJI4raoKBm5aRuYpW0ZLMChJzBAqOHfRpICKbX/QNE4Q==
+
+"@devexpress/dx-react-core@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-3.0.6.tgz#85d3cccfc53d172626ec624d24c6063bb76c8564"
+  integrity sha512-cKH3PknwFbJp2R9Du8+DhvN4gHlZtz0UxCBcXhpvXncLHdwYV3kkwmXrFaG5lfHQBSzVSIg8XkSN5dBXZELAPA==
+  dependencies:
+    "@devexpress/dx-core" "3.0.6"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-scheduler-material-ui@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-scheduler-material-ui/-/dx-react-scheduler-material-ui-3.0.6.tgz#62ac58ffd2aa021d9c7270b296e1b9a55183202e"
+  integrity sha512-ubtAzmC/WngpYR8TQrFk3d24Urt+GERK/5imgo3aJmiks2ZlSYwxISRGJNE1tLRo4WxGe0BT0RiQHHr7Z3JoCw==
+  dependencies:
+    "@date-io/moment" "^1.3.11"
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-scheduler@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-scheduler/-/dx-react-scheduler-3.0.6.tgz#25b2da1de64ae62a99115cc25ace26010b0e41ba"
+  integrity sha512-mtGb2yJwyvWVd+yKwQfN/pM+flXexMTvaewrSJPKOV48MIaoKpL1pbJCPkLKLHWAWXchlUKp/qPEgB7adimDAg==
+  dependencies:
+    "@devexpress/dx-scheduler-core" "3.0.6"
+
+"@devexpress/dx-scheduler-core@3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-scheduler-core/-/dx-scheduler-core-3.0.6.tgz#51f9c6ee9cc74d088b1117aa43ebc4e592a53ee5"
+  integrity sha512-/6PgTsfHk+hZUQVn0Nw0xfmwM8dA5RRcdAQf99AAv9tyxJgAInE9c+BJTeox4InybVvfvIZkJdQHLtD4tqRsAQ==
+  dependencies:
+    moment "^2.24.0"
+    rrule "2.6.4"
 
 "@emotion/babel-plugin@^11.10.0":
   version "11.10.2"
@@ -906,7 +955,7 @@ chalk@^4.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-clsx@^1.2.1:
+clsx@^1.0.4, clsx@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -1982,6 +2031,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+luxon@^1.21.3:
+  version "1.28.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.28.0.tgz#e7f96daad3938c06a62de0fb027115d251251fbf"
+  integrity sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ==
+
 match-sorter@^6.0.2:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/match-sorter/-/match-sorter-6.3.1.tgz#98cc37fda756093424ddf3cbc62bfe9c75b92bda"
@@ -2032,7 +2086,7 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
-moment@^2.29.4:
+moment@^2.24.0, moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
@@ -2430,6 +2484,15 @@ rimraf@3.0.2, rimraf@^3.0.2:
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   dependencies:
     glob "^7.1.3"
+
+rrule@2.6.4:
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/rrule/-/rrule-2.6.4.tgz#7f4f31fda12bc7249bb176c891109a9bc448e035"
+  integrity sha512-sLdnh4lmjUqq8liFiOUXD5kWp/FcnbDLPwq5YAc/RrN6120XOPb86Ae5zxF7ttBVq8O3LxjjORMEit1baluahA==
+  dependencies:
+    tslib "^1.10.0"
+  optionalDependencies:
+    luxon "^1.21.3"
 
 run-parallel@^1.1.9:
   version "1.2.0"

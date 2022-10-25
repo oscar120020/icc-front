@@ -43,7 +43,6 @@ export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props
   });
 
   const update = (values: ContestantFormValues) => {
-    console.log('adasdsadsadsadsa');
     
     const { id, ...rest } = values;
     const token = Cookies.get('token') || '';
