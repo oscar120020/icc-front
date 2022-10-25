@@ -1,75 +1,46 @@
-import { Box, Container } from "@mui/material";
-import dynamic from "next/dynamic";
+import { Box, Grid, Typography } from "@mui/material";
+import { useQuery } from "react-query";
+import { getContestants } from "../api";
 import { DefaultLayout } from "../components/layouts";
-import { Competitor } from "../interfaces/ranking";
+import { ContestantCard } from "../components/cards/ContestantCard";
 
+const Contestants = () => {
+  const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
+    retry: 1,
+  });
 
-const data: Competitor[] = [
-  {
-    username: 'Vladimir',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-  {
-    username: 'Juan',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-  {
-    username: 'Pedro',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-  {
-    username: 'Pedro',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-  {
-    username: 'Pedro',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-  {
-    username: 'Pedro',
-    fullname: '',
-    score: 25,
-    penalty: 560
-  },
-
-]
-const start = new Date('August 19, 2022 23:15:30')
-const end = new Date('october 19, 2022 23:15:30')
-
-const data1 ={
-  name: 'Intellisys Coding Chanllenge 1-2',
-  numberchanllenges: 25,
-  numberCompetitors: 10,
-  beginning: start,
-  end: end
-}
-
-const contestants = () => {
   return (
-    <DefaultLayout title={"Participantes | ICC"} pageDescription={"Todos los participantes"}>
-      <h1>Participarntes</h1>
+    <DefaultLayout
+      title={"Participantes | ICC"}
+      pageDescription={"Todos los participantes"}
+    >
       <Box
         sx={{
           margin: "20px auto",
           maxWidth: 1440,
-          padding: "0px 30px",
+          padding: "0 30px",
         }}
-        className="fadeIn"
       >
+        <Typography fontWeight="bold" variant="h2" color="primary">
+          Participantes
+        </Typography>
+        <Grid
+          container
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {
+            data?.map(comp => (
+              <ContestantCard key={comp.id} competitor={comp} />
+            ))
+          }
+        </Grid>
       </Box>
-
     </DefaultLayout>
-  )
-}
+  );
+};
 
-export default contestants;
+export default Contestants;
