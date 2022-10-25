@@ -17,8 +17,8 @@ export const useStyles = makeStyles({
   },
   downContainer: {
     display: "flex",
-    flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: 'center',
     borderTop: "1px solid rgba(0, 0, 0,0.2)",
   },
   secondaryContainer: {

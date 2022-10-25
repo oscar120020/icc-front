@@ -31,7 +31,6 @@ export default function RankingSecondaryCard({
           <Typography color="GrayText" sx={{ marginRight: 1 }} >{index}th</Typography>
           <CardMedia
             component="img"
-            height="42"
             sx={{
               width: "45px",
               height: "45px",

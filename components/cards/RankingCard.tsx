@@ -13,6 +13,7 @@ import { useStyles } from "./style";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { RakingGlobal } from "../../interfaces/seasonResponse";
+import { StatsItem } from "./StatsItem";
 
 interface Props {
   ranking: RakingGlobal;
@@ -45,7 +46,6 @@ export default function RankingCard({ ranking, index }: Props) {
             <Box className={classes.centerContainer}>
               <CardMedia
                 component="img"
-                height="70"
                 sx={{ maxWidth: 81, borderRadius: "50%", marginBottom: 1 }}
                 src={ranking.competitor.imageUrl}
                 alt="Profile"
@@ -55,17 +55,17 @@ export default function RankingCard({ ranking, index }: Props) {
               </Typography>
             </Box>
             <Container className={classes.downContainer}>
-              <Box className={classes.infoContent}>
-                <StarsIcon color="primary" />
-                <Typography variant="h6">{ranking.score}</Typography>
-              </Box>
-              <Box
-                className={classes.infoContent}
-                sx={{ borderLeft: "1px solid #C6C6C6" }}
-              >
-                <CancelIcon color="primary" />
-                <Typography variant="h6">{ranking.penalty}</Typography>
-              </Box>
+              <StatsItem 
+                label={`${ranking.score}`}
+                icon={<StarsIcon color="primary" />}
+                iconMeaning="Problemas resueltos"
+              />
+              <Box sx={{ width: "1px", height: "20px", backgroundColor: "#00000033" }} />
+              <StatsItem 
+                label={`${ranking.penalty}`}
+                icon={<CancelIcon color="primary" />}
+                iconMeaning="Penalty"
+              />
             </Container>
           </Box>
         </CardContent>
