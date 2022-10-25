@@ -18,6 +18,10 @@ export interface SeasonResponse {
 }
 
 
+export interface SeasonProps {
+    season: SeasonResponse
+}
+
 export interface Ranking {
     id:         string;
     url:        string;
@@ -30,10 +34,6 @@ export interface Score {
     rank:    number;
     score:   number;
     penalty: number;
-}
-
-export interface SeasonProps {
-    season: SeasonByIdResponse
 }
 
 export interface SeasonProps {
