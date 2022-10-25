@@ -1,12 +1,12 @@
 import axios, { AxiosError } from "axios";
 import { ContestantFormValues } from "../components/form/formInterfaces";
-import { ContestantsResponse } from "../interfaces/contestansResponse";
+import { ContestantResponse } from "../interfaces/contestansResponse";
 import { SeasonCreatedResponse } from "../interfaces/seasonsResponse";
 import { rankingApi } from ".";
 
 export const getContestants = async () => {
   try {
-    const response = await rankingApi.get<ContestantsResponse[]>("/competitor");
+    const response = await rankingApi.get<ContestantResponse[]>("/competitor");
     return response.data;
   } catch (error) {
     console.log(error);
@@ -20,7 +20,7 @@ export const updateCompetitor = async (
   token: string
 ) => {
   try {
-    const response = await rankingApi.put<ContestantsResponse>(
+    const response = await rankingApi.put<ContestantResponse>(
       `competitor/${competitorId}`,
       body,
       {
