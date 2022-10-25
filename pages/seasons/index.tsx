@@ -51,7 +51,9 @@ const Seasons = () => {
         >
 
           {data!.map((season) => (
-            <SeasonCard key={season.name} season={season} />
+            <>
+              <SeasonCard season={season} />
+            </>
           ))}
         </Grid>
       </Box>

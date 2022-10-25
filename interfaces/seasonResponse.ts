@@ -18,7 +18,7 @@ export interface SeasonResponse {
 }
 
 
-export interface SeasonProps {
+export interface SeasonPrimaryProps {
     season: SeasonResponse
 }
 

@@ -10,10 +10,10 @@ import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { useStyles } from "./style";
 import { getDateFormat } from "../../helpers/getDateFormat";
-import { SeasonProps } from "../../interfaces/seasonResponse";
+import { SeasonPrimaryProps } from "../../interfaces/seasonResponse";
 import { useRouter } from 'next/router'
 
-export default function SeasonCard({ season }: SeasonProps) {
+export default function SeasonCard({ season }: SeasonPrimaryProps) {
   const classes = useStyles();
   const firstmoth = useRef(getDateFormat(season.beginning));
   const secondMoth = useRef(getDateFormat(season.end));

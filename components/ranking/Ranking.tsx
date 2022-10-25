@@ -19,7 +19,7 @@ export default function Ranking({ globalRanking }: RankingProps) {
         {globalRanking.map((ranking, index) => {
           {
             if (index < 3) {
-              return <RankingCard key={ranking.competitor.userName} ranking={ranking} index={index + 1} />;
+              return <RankingCard key={ranking.competitor.userName} ranking={ranking} index={index + 1}/>;
             }
           }
         })}
@@ -40,6 +40,7 @@ export default function Ranking({ globalRanking }: RankingProps) {
                 <RankingSecondaryCard
                   ranking={ranking}
                   index={index + 1}
+                  key={index}
                 />
               );
             }
