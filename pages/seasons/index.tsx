@@ -5,12 +5,13 @@ import { getSeasons } from "../../api";
 import { DefaultLayout } from "../../components/layouts";
 import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";
-import { Season } from "../../interfaces/ranking";
+import { SeasonResponse } from "../../interfaces/seasonResponse";
+
 const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
 
 const Seasons = () => {
 
-  const { data, error, isLoading }: UseQueryResult<Season[]> = useQuery(['seasons'], getSeasons, {
+  const { data, error, isLoading }: UseQueryResult<SeasonResponse[]> = useQuery(['seasons'], getSeasons, {
     retry: 1
   });
 

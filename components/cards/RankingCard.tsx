@@ -9,17 +9,17 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import { Competitor } from "../../interfaces/ranking";
 import { useStyles } from "./style";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { RakingGlobal } from "../../interfaces/seasonResponse";
 
 interface Props {
-  competitor: Competitor;
+  ranking: RakingGlobal;
   index: number;
 }
 
-export default function RankingCard({ competitor, index }: Props) {
+export default function RankingCard({ ranking, index }: Props) {
   const classes = useStyles();
 
   return (
@@ -47,24 +47,24 @@ export default function RankingCard({ competitor, index }: Props) {
                 component="img"
                 height="70"
                 sx={{ maxWidth: 81, borderRadius: "50%", marginBottom: 1 }}
-                image="profile.png"
-                alt="Paella dish"
+                image="/profile.png"
+                alt="Profile"
               />
               <Typography sx={{ fontSize: 18.5 }}>
-                {competitor.fullname || competitor.username}
+                {ranking.competitor.fullName || ranking.competitor.userName}
               </Typography>
             </Box>
             <Container className={classes.downContainer}>
               <Box className={classes.infoContent}>
                 <StarsIcon color="primary" />
-                <Typography variant="h6">{competitor.score}</Typography>
+                <Typography variant="h6">{ranking.score}</Typography>
               </Box>
               <Box
                 className={classes.infoContent}
                 sx={{ borderLeft: "1px solid #C6C6C6" }}
               >
                 <CancelIcon color="primary" />
-                <Typography variant="h6">{competitor.penalty}</Typography>
+                <Typography variant="h6">{ranking.penalty}</Typography>
               </Box>
             </Container>
           </Box>
