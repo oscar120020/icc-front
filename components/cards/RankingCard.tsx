@@ -47,7 +47,7 @@ export default function RankingCard({ ranking, index }: Props) {
                 component="img"
                 height="70"
                 sx={{ maxWidth: 81, borderRadius: "50%", marginBottom: 1 }}
-                image="/profile.png"
+                src={ranking.competitor.imageUrl}
                 alt="Profile"
               />
               <Typography sx={{ fontSize: 18.5 }}>

@@ -39,7 +39,7 @@ export default function RankingSecondaryCard({
               marginRight: 3,
               marginLeft: 3
             }}
-            image="/profile.png"
+            src={ranking.competitor.imageUrl}
             alt="Profile"
           />
           <Typography variant="h6">
@@ -54,7 +54,7 @@ export default function RankingSecondaryCard({
           </Box>
           <Box sx={{ marginRight: '2vw' }} className={classes.infoContent}>
             <CancelIcon color="primary" />
-            <Typography variant="h6">{ranking.score}</Typography>
+            <Typography variant="h6">{ranking.penalty}</Typography>
 
           </Box>
         </Box>
