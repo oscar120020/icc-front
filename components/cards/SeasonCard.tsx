@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Card,
-  CardContent,
   Grid,
   Typography,
 } from "@mui/material";
@@ -12,12 +10,17 @@ import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { useStyles } from "./style";
 import { getDateFormat } from "../../helpers/getDateFormat";
-import { SeasonProps } from "../../interfaces/ranking";
+import { SeasonPrimaryProps } from "../../interfaces/seasonResponse";
+import { useRouter } from 'next/router'
 
-export default function SeasonCard({ season }: SeasonProps) {
+export default function SeasonCard({ season }: SeasonPrimaryProps) {
   const classes = useStyles();
   const firstmoth = useRef(getDateFormat(season.beginning));
   const secondMoth = useRef(getDateFormat(season.end));
+  const router = useRouter()
+  const handleClick = (id: string) => {
+    router.push(`seasons/${id}`)
+  }
 
   return (
     <Grid
@@ -26,7 +29,7 @@ export default function SeasonCard({ season }: SeasonProps) {
       xs={12}
       sm={5}
       lg={3}
-      sx={{ margin: {xs: '15px auto', sm: '15px'} }}
+      sx={{ margin: { xs: '15px auto', sm: '15px' } }}
     >
       <Box className={classes.seasonBox}>
         <Box className={classes.triangleBox} />
@@ -65,7 +68,7 @@ export default function SeasonCard({ season }: SeasonProps) {
               </Typography>
             </Box>
             <Box className={classes.buttonBox}>
-              <Button className={classes.buttonStyles}>Ver Detalles</Button>
+              <Button className={classes.buttonStyles} onClick={() => handleClick(season.id)}>Ver Detalles</Button>
             </Box>
           </Box>
         </Box>

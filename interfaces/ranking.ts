@@ -1,3 +1,4 @@
+import { RakingGlobal } from "./seasonResponse";
 
 
 export interface UserRank {
@@ -18,7 +19,7 @@ export interface Competitor {
 
 
 export interface RankingProps {
-    competitors: Competitor[],
+    globalRanking: RakingGlobal[],
 }
 
 export interface Season {
@@ -29,6 +30,3 @@ export interface Season {
     end: string
 }
 
-export interface SeasonProps {
-    season: Season
-}

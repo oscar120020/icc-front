@@ -32,7 +32,7 @@ export const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-evening",
     marginTop: "3px",
   },
   secondaryRightContainer: {
