@@ -54,7 +54,7 @@ export default function RankingSecondaryCard({
           </Box>
           <Box sx={{ marginRight: '2vw' }} className={classes.infoContent}>
             <CancelIcon color="primary" />
-            <Typography variant="h6" color="secondary">{ranking.score}</Typography>
+            <Typography variant="h6">{ranking.score}</Typography>
 
           </Box>
         </Box>

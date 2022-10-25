@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { GetServerSideProps } from "next"
 import dynamic from "next/dynamic"
 import { getGlobalRaking, getSeasonById } from "../../api/rankingApi"
@@ -8,10 +8,11 @@ const Ranking = dynamic(() => import('../../components/ranking/Ranking'), {
   ssr: true
 })
 
-const seasonId = ({ seasonData,globalRanking}: SeasonProps) => {
+const seasonId = ({ seasonData, globalRanking }: SeasonProps) => {
+  console.log(globalRanking)
   return (
     <DefaultLayout title={"Calendario | ICC"} pageDescription={"Calendario de eventos"}>
-        <Box
+      <Box
         sx={{
           margin: "20px auto",
           maxWidth: 1440,
@@ -19,7 +20,16 @@ const seasonId = ({ seasonData,globalRanking}: SeasonProps) => {
         }}
         className="fadeIn"
       >
-        <Ranking globalRanking={globalRanking}/>
+        {globalRanking.length ?
+          <Ranking globalRanking={globalRanking} />
+          :
+          <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: '200px'}}>
+            <Typography
+              variant="h5">Aun no hay Ranking Global para esta temporada</Typography>
+          </Box>
+
+        }
+
       </Box>
     </DefaultLayout>
   )
