@@ -43,9 +43,9 @@ const seasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
         className="fadeIn"
       >
         <Ranking globalRanking={globalRanking} />
-        <Box sx={{display: 'flex', justifyContent: 'space-evening'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-evening' }}>
           {individualRanking.rankings.map((ranking, index) => (
-            <IndivualRankingCard key={ranking.id} individualRanking={ranking} index={index} />
+            <IndivualRankingCard key={ranking.id} individualRanking={ranking} index={index+1} />
           ))}
         </Box>
       </Box>
@@ -65,12 +65,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         globalRanking
       }
     }
-
   } catch (error) {
     return { redirect: { permanent: false, destination: '/seasons' } }
 
   }
-
 }
 
 export default seasonId;
