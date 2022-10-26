@@ -12,3 +12,11 @@ export function getDateFormat(date: string) {
     const monthIndex = new Date(date).getMonth()
     return `${monthNames[monthIndex]}, ${year}`
 }
+
+export function getFullDate(date: string | Date) {
+    const correctDate = new Date(date)
+    const year = correctDate.getFullYear()
+    const monthIndex = correctDate.getMonth()
+    const day = correctDate.getDate() + 1
+    return `${day}, ${monthNames[monthIndex]}, ${year}`
+}

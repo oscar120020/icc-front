@@ -1,7 +1,6 @@
 import {
   Scheduler,
   ConfirmationDialog,
-  Appointments,
   WeekView,
   MonthView,
   ViewSwitcher,
@@ -10,13 +9,18 @@ import {
   AppointmentTooltip,
   Resources,
   EditRecurrenceMenu,
+  Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
-import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
-import { Box, Paper } from "@mui/material";
+import { ViewState } from "@devexpress/dx-react-scheduler";
+import { Box, Paper, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getSeasons } from "../api";
+import { getEvents, getSeasons } from "../api";
+import { getDatePlusOneDay, IsDateHigherThanNow } from "../helpers/dateHelpers";
+import { EventResponse } from "../interfaces/eventResponse";
+import { getFullDate } from "../helpers/getDateFormat";
+import Image from "next/image";
 
 const events = [
   {
@@ -56,11 +60,67 @@ const resources = [
   },
 ];
 
+const resources2 = [
+  {
+    fieldName: "type",
+    title: "Type",
+    allowMultiple: false,
+    isMain: false,
+    id: 1,
+    color: "#fff",
+    text: "sadsa",
+  },
+];
+
+// const TimeTableCell = ({ onDoubleClick, ...restProps }: any) => {
+//   return <MonthView.TimeTableCell onClick={(e) => console.log(e)} {...restProps} />;
+// };
+
+const CustomAppoiment = ({
+  resources,
+  data,
+  onClick,
+  draggable,
+  ...restProps
+}: any) => {
+  return (
+    <Appointments.Appointment
+      {...restProps}
+      resources={resources}
+      data={data}
+      onClick={(e) => console.log(e)}
+      draggable={false}
+    />
+  );
+};
+
+interface EventClick {
+  target: EventTarget;
+  data: EventData;
+}
+
+interface EventData {
+  endDate: Date;
+  startDate: Date;
+  image: string;
+  title: string;
+  type: string;
+}
+
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { data, error, isLoading } = useQuery(["seasons"], getSeasons, {
+  const [selectedDate, setSelectedDate] = useState<EventResponse>();
+  const { data, error, isLoading } = useQuery(["events"], getEvents, {
     retry: 1,
   });
+
+  const handleEventClick = ({ data }: EventClick) => {
+    setSelectedDate({
+      date: data.startDate,
+      name: data.title,
+      imageUrl: data.image,
+    });
+  };
 
   return (
     <DefaultLayout
@@ -72,15 +132,56 @@ const Calendar = () => {
           margin: "20px auto",
           maxWidth: 1440,
           padding: "0 30px",
+          display: "flex",
+          flexDirection: { xs: "column", lg: "row" },
         }}
       >
+        <Paper
+          sx={{
+            width: { xs: "100%", lg: "20%" },
+            bgcolor: "white",
+            padding: 3,
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row", lg: 'column' },
+          }}
+        >
+          {!!selectedDate && (
+            <>
+              <Box>
+                <Typography variant="h2">{selectedDate.name}</Typography>
+                <Typography variant="h6">
+                  {getFullDate(selectedDate.date)}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color={
+                    IsDateHigherThanNow(selectedDate.date) ? "green" : "red"
+                  }
+                >
+                  {IsDateHigherThanNow(selectedDate.date)
+                    ? "Próximo"
+                    : "Finalizado"}
+                </Typography>
+              </Box>
+              <Box sx={{margin: { xs: '30px 0', sm: "0 30px", lg: '30px 0' }}}>
+                <Image
+                  src={selectedDate.imageUrl || "/no-image.jpg"}
+                  alt="event image"
+                  width={250}
+                  height={250}
+                />
+              </Box>
+            </>
+          )}
+        </Paper>
         <Paper sx={{ flex: 1 }}>
           <Scheduler
-            data={data?.map((season) => ({
-              title: season.name,
-              startDate: season.beginning,
-              endDate: season.end,
-              // type: 'private'
+            data={data?.map((event) => ({
+              title: event.name,
+              startDate: event.date,
+              endDate: getDatePlusOneDay(event.date, 1),
+              type: "private",
+              image: event.imageUrl,
             }))}
           >
             <ViewState
@@ -89,8 +190,15 @@ const Calendar = () => {
             />
             <Toolbar />
             <MonthView />
+            <Appointments
+              appointmentComponent={({ ...restProps }) => (
+                <Appointments.Appointment
+                  {...restProps}
+                  onClick={handleEventClick}
+                />
+              )}
+            />
             <DateNavigator />
-            <Appointments />
             <AppointmentTooltip />
             <Resources data={resources} />
           </Scheduler>
