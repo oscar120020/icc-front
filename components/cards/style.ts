@@ -100,7 +100,7 @@ export const useStyles = makeStyles({
     width: '100%', 
     borderRadius: '10px', 
     position: 'relative', 
-    overflow: 'hidden' 
+    overflow: 'hidden' ,
 
   },
   triangleBox: {
@@ -152,5 +152,19 @@ export const useStyles = makeStyles({
     fontSize: '16px',
     fontWeight: 'bold'
 
+  },
+  cardRankingBox: {
+    width: '100%',
+    height: '90px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+
+  },
+  cardIndividual: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
