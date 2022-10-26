@@ -1,15 +1,29 @@
-import { Scheduler, DayView, Appointments, WeekView, MonthView, ViewSwitcher, Toolbar, DateNavigator } from "@devexpress/dx-react-scheduler-material-ui";
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  ConfirmationDialog,
+  Appointments,
+  WeekView,
+  MonthView,
+  ViewSwitcher,
+  Toolbar,
+  DateNavigator,
+  AppointmentTooltip,
+  Resources,
+  EditRecurrenceMenu,
+} from "@devexpress/dx-react-scheduler-material-ui";
+import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
 import { Box, Paper } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { getSeasons } from "../api";
 
 const events = [
   {
     id: 0,
     title: "Board meeting",
     startDate: new Date(),
-    endDate: new Date('2022-10-29'),
+    endDate: new Date("2022-10-29"),
   },
   {
     id: 1,
@@ -31,9 +45,22 @@ const events = [
   },
 ];
 
-const Calendar = () => {
+const resources = [
+  {
+    fieldName: "type",
+    title: "Type",
+    instances: [
+      { id: "private", text: "Private", color: "#EC407A" },
+      { id: "work", text: "Work", color: "#7E57C2" },
+    ],
+  },
+];
 
-  const [currentDate, setCurrentDate] = useState(new Date())
+const Calendar = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const { data, error, isLoading } = useQuery(["seasons"], getSeasons, {
+    retry: 1,
+  });
 
   return (
     <DefaultLayout
@@ -47,16 +74,25 @@ const Calendar = () => {
           padding: "0 30px",
         }}
       >
-        <Paper>
-          <Scheduler data={events} height={500}>
-            <ViewState currentDate={currentDate} onCurrentDateChange={setCurrentDate} />
-            <DayView/>
-            <WeekView/>
+        <Paper sx={{ flex: 1 }}>
+          <Scheduler
+            data={data?.map((season) => ({
+              title: season.name,
+              startDate: season.beginning,
+              endDate: season.end,
+              // type: 'private'
+            }))}
+          >
+            <ViewState
+              currentDate={currentDate}
+              onCurrentDateChange={setCurrentDate}
+            />
+            <Toolbar />
             <MonthView />
-            <Toolbar/>
             <DateNavigator />
-            <ViewSwitcher />
             <Appointments />
+            <AppointmentTooltip />
+            <Resources data={resources} />
           </Scheduler>
         </Paper>
       </Box>

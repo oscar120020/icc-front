@@ -11,4 +11,5 @@ export * from './competitor'
 export * from './login'
 export * from './ranking'
 export * from './season'
+export * from './event'
 
