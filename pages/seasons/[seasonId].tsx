@@ -42,10 +42,13 @@ const seasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
         }}
         className="fadeIn"
       >
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+          <Typography variant="h2" sx={{fontSize:'24px'}}>Ranking Global</Typography>
+        </Box>
         <Ranking globalRanking={globalRanking} />
         <Box sx={{ display: 'flex', justifyContent: 'space-evening' }}>
           {individualRanking.rankings.map((ranking, index) => (
-            <IndivualRankingCard key={ranking.id} individualRanking={ranking} index={index+1} />
+            <IndivualRankingCard key={ranking.id} individualRanking={ranking} index={index + 1} />
           ))}
         </Box>
       </Box>

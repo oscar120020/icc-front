@@ -1,12 +1,15 @@
 import { Box, Typography } from '@mui/material'
 import { GetServerSideProps } from 'next'
-import React from 'react'
+import React, { useRef } from 'react'
 import { getAllRanking, getRankingById } from '../../../api/rankingApi'
 import { DefaultLayout } from '../../../components/layouts'
 import Ranking from '../../../components/ranking/Ranking'
+import { getDateFormat } from '../../../helpers/getDateFormat'
 import { RankingProps } from '../../../interfaces/seasonResponse'
 
 export default function RankingId({ ranking }: RankingProps) {
+  
+  const {current} = useRef(getDateFormat(ranking.created_at));
   return (
     <DefaultLayout title={"Calendario | ICC"} pageDescription={"Calendario de eventos"}>
       <Box
@@ -17,6 +20,9 @@ export default function RankingId({ ranking }: RankingProps) {
         }}
         className="fadeIn"
       >
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+          <Typography variant="h2" sx={{fontSize:'24px'}}>Ranking del mes de {current}</Typography>
+        </Box>
         <Ranking globalRanking={ranking.scores} />
       </Box>
     </DefaultLayout>
