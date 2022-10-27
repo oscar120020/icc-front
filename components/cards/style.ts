@@ -155,16 +155,14 @@ export const useStyles = makeStyles({
   },
   cardRankingBox: {
     width: '100%',
-    height: '90px',
     display: 'flex',
-    flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
-
+    alignItems: 'center',
+    padding: '25px',
   },
   cardIndividual: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: '5px'
   }
 });

@@ -1,39 +1,25 @@
-import { Box, Typography } from "@mui/material"
-import { GetServerSideProps } from "next"
-import dynamic from "next/dynamic"
-import { getGlobalRaking, getSeasonById } from "../../api"
-import { DefaultLayout } from "../../components/layouts"
-import { SeasonProps } from "../../interfaces/seasonResponse"
-const Ranking = dynamic(() => import('../../components/ranking/Ranking'), {
-  ssr: false
-})
-const IndivualRankingCard = dynamic(() => import('../../components/cards/IndivualRankingCard'), {
-  ssr: false
-})
+import { Box, Grid, Typography } from "@mui/material";
+import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
+import { useRef } from "react";
+import { getGlobalRaking, getSeasonById } from "../../api";
+import { DefaultLayout } from "../../components/layouts";
+import { EmptySeason } from "../../components/season/EmptySeason";
+import { SeasonContent } from "../../components/season/SeasonContent";
+import { EmptyImage } from "../../components/SVG/Empty";
+import { getDateFormat } from "../../helpers/getDateFormat";
+import { SeasonProps } from "../../interfaces/seasonResponse";
 
-const seasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
 
-  if (!globalRanking.length) {
-    return (
-      <DefaultLayout title={"Calendario | ICC"} pageDescription={"Calendario de eventos"}>
-        <Box
-          sx={{
-            margin: "20px auto",
-            maxWidth: 1440,
-            padding: "0px 30px",
-          }}
-          className="fadeIn"
-        >
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '200px' }}>
-            <Typography
-              variant="h5">Aun no hay Rankings para esta temporada</Typography>
-          </Box>
-        </Box>
-      </DefaultLayout>
-    )
-  }
+const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
+  const firstmoth = useRef(getDateFormat(individualRanking.beginning));
+  const secondMoth = useRef(getDateFormat(individualRanking.end));
+
   return (
-    <DefaultLayout title={"Calendario | ICC"} pageDescription={"Calendario de eventos"}>
+    <DefaultLayout
+      title={`${individualRanking.name} | ICC`}
+      pageDescription={"Información de temporada"}
+    >
       <Box
         sx={{
           margin: "20px auto",
@@ -42,36 +28,42 @@ const seasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
         }}
         className="fadeIn"
       >
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
-          <Typography variant="h2" sx={{fontSize:'24px'}}>Ranking Global</Typography>
-        </Box>
-        <Ranking globalRanking={globalRanking} />
-        <Box sx={{ display: 'flex', justifyContent: 'space-evening' }}>
-          {individualRanking.rankings.map((ranking, index) => (
-            <IndivualRankingCard key={ranking.id} individualRanking={ranking} index={index + 1} />
-          ))}
-        </Box>
+        {/* Title */}
+        <Typography variant="h2" color="primary" sx={{ fontSize: "34px" }}>
+          {individualRanking.name}
+        </Typography>
+        <Typography color="GrayText" sx={{ whiteSpace: "nowrap" }}>
+          {firstmoth.current} - {secondMoth.current}
+        </Typography>
+        {
+          !globalRanking.length ? (
+            <EmptySeason />
+          ) : (
+            <SeasonContent
+              globalRanking={globalRanking}
+              individualRanking={individualRanking}
+            />
+          )
+        }
       </Box>
     </DefaultLayout>
-  )
-}
-
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { seasonId } = params as { seasonId: string }
+  const { seasonId } = params as { seasonId: string };
   try {
-    const response = await getSeasonById(seasonId)
-    const globalRanking = await getGlobalRaking(seasonId)
+    const response = await getSeasonById(seasonId);
+    const globalRanking = await getGlobalRaking(seasonId);
     return {
       props: {
         individualRanking: response,
-        globalRanking
-      }
-    }
+        globalRanking,
+      },
+    };
   } catch (error) {
-    return { redirect: { permanent: false, destination: '/seasons' } }
-
+    return { redirect: { permanent: false, destination: "/seasons" } };
   }
-}
+};
 
-export default seasonId;
+export default SeasonId;

@@ -85,7 +85,7 @@ export const deleteSeason = async (seasonId: string, token: string) => {
 
 export const getSeasonById = async (id: string) => {
   try {
-    const response = await rankingApi.get<SeasonByIdResponse[]>(`/season/${id}`);
+    const response = await rankingApi.get<SeasonByIdResponse>(`/season/${id}`);
     return response.data;
   } catch (error) {
     throw new Error("Error al cargar las seasons");
