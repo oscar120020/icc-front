@@ -17,6 +17,6 @@ export function getFullDate(date: string | Date) {
     const correctDate = new Date(date)
     const year = correctDate.getFullYear()
     const monthIndex = correctDate.getMonth()
-    const day = correctDate.getDate() + 1
+    const day = new Date(correctDate.toISOString().replace('.000Z', '')).getDate()
     return `${day}, ${monthNames[monthIndex]}, ${year}`
 }

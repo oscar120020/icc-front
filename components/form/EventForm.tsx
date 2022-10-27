@@ -19,6 +19,7 @@ import { EventFormValues } from "./formInterfaces";
 
 const validationSchema = Yup.object().shape({
   imageUrl: Yup.string().nullable().notRequired(),
+  rankingId: Yup.string().nullable().notRequired(),
   name: Yup.string().required("Ingrese un nombre"),
   date: Yup.date().nullable(true).required("Ingrese la fecha del evento"),
 });
@@ -37,17 +38,18 @@ export const EventForm = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { handleSubmit, handleChange, values, setFieldValue, touched, errors } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      if(!!initialValues.name){
-        update(values);
-      }else{
-        create(values)
-      }
-    },
-  });
+  const { handleSubmit, handleChange, values, setFieldValue, touched, errors } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: (values) => {
+        if (!!initialValues.name) {
+          update(values);
+        } else {
+          create(values);
+        }
+      },
+    });
 
   const create = (values: EventFormValues) => {
     const { id, ...rest } = values;
@@ -107,7 +109,11 @@ export const EventForm = ({
         />
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Stack display="flex" flexDirection="row" sx={{ width: "90%", mb: 2 }}>
+          <Stack
+            display="flex"
+            flexDirection="row"
+            sx={{ width: "90%", mb: 2 }}
+          >
             <DesktopDatePicker
               label="Fecha del evento*"
               inputFormat="MM/DD/YYYY"
@@ -129,10 +135,20 @@ export const EventForm = ({
           sx={{ width: "90%", mb: 2 }}
           name="imageUrl"
           label="Url de la imagen"
-          value={values.imageUrl || ''}
+          value={values.imageUrl || ""}
           onChange={handleChange}
           error={touched.imageUrl && !!errors.imageUrl}
           helperText={touched.imageUrl && errors.imageUrl}
+        />
+
+        <TextField
+          sx={{ width: "90%", mb: 2 }}
+          name="rankingId"
+          label="Id del ranking"
+          value={values.rankingId || ""}
+          onChange={handleChange}
+          error={touched.rankingId && !!errors.rankingId}
+          helperText={touched.rankingId && errors.rankingId}
         />
 
         {!!error && (

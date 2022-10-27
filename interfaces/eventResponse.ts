@@ -4,5 +4,6 @@ export interface EventResponse {
     id?:       string;
     name:     string;
     imageUrl?: string;
+    rankingId?: string;
     date:     Date;
 }

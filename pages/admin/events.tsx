@@ -2,9 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getContestants, getEvents, getRankings, removeCompetitor } from "../../api";
-import { ContestantFormValues, EventFormValues } from "../../components/form/formInterfaces";
-import { FormModal, ContestantForm } from "../../components/form";
+import { getEvents, removeCompetitor } from "../../api";
+import { EventFormValues } from "../../components/form/formInterfaces";
+import { FormModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
@@ -14,6 +14,7 @@ const initialValues: EventFormValues = {
   name: "",
   date: new Date(),
   imageUrl: "",
+  rankingId: "",
 };
 
 const Events = () => {
@@ -29,6 +30,7 @@ const Events = () => {
     { field: "id", headerName: "ID", width: 100 },
     { field: "name", headerName: "Nombre del evento", width: 300 },
     { field: "date", headerName: "Fecha del evento", width: 300 },
+    { field: "rankingId", headerName: "Id del ranking", width: 300 },
     { field: "imageUrl", headerName: "Url de imagen", width: 300 },
     {
       field: "editar",
@@ -39,12 +41,15 @@ const Events = () => {
           fullWidth
           variant="outlined"
           color="primary"
-          onClick={() => openModalToEdit({
-            id: params.row.id,
-            name: params.row.name,
-            date: params.row.date,
-            imageUrl: params.row.imageUrl,
-          })}
+          onClick={() =>
+            openModalToEdit({
+              id: params.row.id,
+              name: params.row.name,
+              date: params.row.date,
+              imageUrl: params.row.imageUrl,
+              rankingId: params.row.rankingId,
+            })
+          }
         >
           Editar evento
         </Button>
@@ -73,6 +78,7 @@ const Events = () => {
       name: event.name,
       date: event.date,
       imageUrl: event.imageUrl,
+      rankingId: event.rankingId,
     };
   });
 
@@ -81,14 +87,14 @@ const Events = () => {
   };
 
   const deleteEvent = (id: string) => {
-    const token = Cookies.get('token') || ''
+    const token = Cookies.get("token") || "";
     removeCompetitor(id, token)
-    .then(res => {
-      refetch()
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((res) => {
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const openModalToEdit = (values: EventFormValues) => {
@@ -132,7 +138,11 @@ const Events = () => {
         </Button>
       </Box>
       <FormModal open={open} handleClose={handleCloseModal}>
-        <EventForm initialValues={currentValues} handleClose={handleCloseModal} revalidate={refetch} />
+        <EventForm
+          initialValues={currentValues}
+          handleClose={handleCloseModal}
+          revalidate={refetch}
+        />
       </FormModal>
     </AdminLayout>
   );

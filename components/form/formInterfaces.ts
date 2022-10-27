@@ -32,5 +32,6 @@ export interface EventFormValues {
   id?: string;
   name: string;
   imageUrl?: string;
+  rankingId?: string;
   date: Date;
 }
