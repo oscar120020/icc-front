@@ -1,7 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { IsDateHigherThanNow } from "../../helpers/dateHelpers";
 import { getFullDate } from "../../helpers/getDateFormat";
 import { EventResponse } from "../../interfaces/eventResponse";
@@ -30,7 +30,8 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
       <Box>
         <Typography variant="h2" color="primary">{selectedDate.name}</Typography>
         <Typography variant="h6">{getFullDate(selectedDate.date)}</Typography>
-        <Typography variant="h6" color={isHigher ? "green" : "red"}>
+        <Typography color="GrayText" variant="body1">3:00PM - 4:30PM</Typography>
+        <Typography variant="h6" color={isHigher ? "green" : "red"} sx={{mt: 1}}>
           {isHigher ? "Proximamente" : "Finalizado"}
         </Typography>
         <Button
@@ -38,7 +39,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
           sx={{ bgcolor: "#0ba7ce", color: "white", margin: '15px 0' }}
           size="large"
           color="primary"
-          disabled={isHigher}
+          disabled={!selectedDate.rankingId || isHigher}
           onClick={handleClick}
         >
           Ver resultados

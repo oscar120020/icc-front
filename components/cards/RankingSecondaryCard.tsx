@@ -35,26 +35,25 @@ export default function RankingSecondaryCard({
               width: "45px",
               height: "45px",
               borderRadius: "50%",
-              marginRight: 3,
-              marginLeft: 3
+              marginRight: {xs: 1, sm: 3},
+              marginLeft: {xs: 1, sm: 3}
             }}
             src={ranking.competitor.imageUrl}
             alt="Profile"
           />
-          <Typography variant="h6">
+          <Typography variant="h6" sx={{fontSize: {xs: 14, sm: 18}}}>
             {ranking.competitor.userName}
           </Typography>
         </Box>
         <Box sx={{ flex: 1 }} />
         <Box className={classes.secondaryRightContainer}>
-          <Box sx={{ marginRight: '2vw' }} className={classes.infoContent}>
+          <Box sx={{ marginRight: '2.5vw' }} className={classes.infoContent}>
             <StarsIcon color="primary" />
             <Typography variant="h6">{ranking.score}</Typography>
           </Box>
-          <Box sx={{ marginRight: '2vw' }} className={classes.infoContent}>
+          <Box sx={{ marginRight: '2.5vw' }} className={classes.infoContent}>
             <CancelIcon color="primary" />
             <Typography variant="h6">{ranking.penalty}</Typography>
-
           </Box>
         </Box>
       </Container>

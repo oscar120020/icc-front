@@ -8,7 +8,7 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { ViewState } from "@devexpress/dx-react-scheduler";
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -16,6 +16,7 @@ import { getEvents } from "../api";
 import { getDatePlusOneDay, IsDateHigherThanNow } from "../helpers/dateHelpers";
 import { EventResponse } from "../interfaces/eventResponse";
 import { CalendarInfo } from "../components/ui/CalendarInfo";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 
 const resources = [
   {
@@ -54,9 +55,9 @@ const Calendar = () => {
       date: data.startDate,
       name: data.title,
       imageUrl: data.image,
-      rankingId: data.rankingId
+      rankingId: data.rankingId,
     });
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -78,8 +79,24 @@ const Calendar = () => {
             width: { xs: "100%", lg: "20%" },
           }}
         >
-          {!!selectedDate && (
+          {!!selectedDate ? (
             <CalendarInfo selectedDate={selectedDate} />
+          ) : (
+            <Box
+              sx={{
+                height: "100%",
+                padding: 5,
+                display: "flex",
+                flexDirection: 'column',
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CalendarMonthOutlinedIcon color="primary" sx={{fontSize: 60}} />
+              <Typography textAlign="center" variant="h6">
+                Seleccione un evento en el calendario
+              </Typography>
+            </Box>
           )}
         </Paper>
         <Paper sx={{ flex: 1 }}>
@@ -90,7 +107,7 @@ const Calendar = () => {
               endDate: getDatePlusOneDay(event.date, 1),
               type: IsDateHigherThanNow(event.date) ? "work" : "private",
               image: event.imageUrl,
-              rankingId: event.rankingId
+              rankingId: event.rankingId,
             }))}
           >
             <ViewState

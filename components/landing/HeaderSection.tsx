@@ -1,7 +1,10 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import { LandingImage } from "../SVG/LandingIlustration";
 
 export const HeaderSection = () => {
+  const router = useRouter();
+
   return (
     <Grid
       container
@@ -33,6 +36,14 @@ export const HeaderSection = () => {
           matemáticas, idioma inglés y resolución de problemas en miembros de la
           empresa Intellisys D Corp y del Instituto Cincinnatus.
         </Typography>
+        <br />
+        <Button
+          size="large"
+          sx={{ alignSelf: "flex-start", bgcolor: "#0ba7ce", color: "white" }}
+          onClick={() => router.push('calendar')}
+        >
+          Ver eventos
+        </Button>
       </Grid>
       <Grid
         item

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { getContestants, removeCompetitor } from "../../api";
 import { ContestantFormValues } from "../../components/form/formInterfaces";
-import { FormModal, ContestantForm } from "../../components/form";
+import { CustomModal, ContestantForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
@@ -134,9 +134,9 @@ const Contestants = () => {
           Crear participante
         </Button>
       </Box> */}
-      <FormModal open={open} handleClose={handleCloseModal}>
+      <CustomModal open={open} handleClose={handleCloseModal}>
         <ContestantForm initialValues={currentValues} handleClose={handleCloseModal} revalidate={refetch} />
-      </FormModal>
+      </CustomModal>
     </AdminLayout>
   );
 };

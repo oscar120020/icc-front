@@ -2,13 +2,14 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getEvents, removeCompetitor } from "../../api";
+import { deleteEvent, getEvents } from "../../api";
 import { EventFormValues } from "../../components/form/formInterfaces";
-import { FormModal } from "../../components/form";
+import { CustomModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
 import { EventForm } from "../../components/form/EventForm";
+import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 
 const initialValues: EventFormValues = {
   name: "",
@@ -22,6 +23,8 @@ const Events = () => {
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<EventFormValues>(initialValues);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState('')
   const { data, error, isLoading, refetch } = useQuery(["events"], getEvents, {
     retry: 1,
   });
@@ -64,7 +67,7 @@ const Events = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteEvent(params.row.id)}
+          onClick={() => preDeleteEvent(params.row.id)}
         >
           Eliminar evento
         </Button>
@@ -86,11 +89,21 @@ const Events = () => {
     setOpen(false);
   };
 
-  const deleteEvent = (id: string) => {
+  const handleCloseConfirmModal = () => {
+    setOpenConfirm(false);
+  };
+
+  const preDeleteEvent = (id: string) => {
+    setSelectedEventId(id)
+    setOpenConfirm(true)
+  }
+
+  const removeEvent = () => {
     const token = Cookies.get("token") || "";
-    removeCompetitor(id, token)
+    deleteEvent(selectedEventId, token)
       .then((res) => {
         refetch();
+        setOpenConfirm(false);
       })
       .catch((err) => {
         console.log(err);
@@ -137,13 +150,20 @@ const Events = () => {
           Crear evento
         </Button>
       </Box>
-      <FormModal open={open} handleClose={handleCloseModal}>
+      <CustomModal open={open} handleClose={handleCloseModal}>
         <EventForm
           initialValues={currentValues}
           handleClose={handleCloseModal}
           revalidate={refetch}
         />
-      </FormModal>
+      </CustomModal>
+      <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
+        <ConfirmationAlert
+          message="¿Está seguro que quiere eliminar este evento?"
+          confirmFunction={removeEvent}
+          close={handleCloseConfirmModal}
+        />
+      </CustomModal>
     </AdminLayout>
   );
 };

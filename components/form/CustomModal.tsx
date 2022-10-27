@@ -6,7 +6,7 @@ interface Props {
   children: JSX.Element | JSX.Element[]
 }
 
-export const FormModal = ({ open, handleClose, children }: Props) => {
+export const CustomModal = ({ open, handleClose, children }: Props) => {
   return (
     <Modal
       open={open}

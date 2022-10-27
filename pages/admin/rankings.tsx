@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { getAllRanking, removeRanking } from "../../api";
 import { RankingFormValues } from "../../components/form/formInterfaces";
-import { RankingForm, FormModal } from "../../components/form";
+import { RankingForm, CustomModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
+import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 
 const initialValues: RankingFormValues = {
   url: "",
@@ -17,6 +18,8 @@ const initialValues: RankingFormValues = {
 const Rankings = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedRankingId, setSelectedRankingId] = useState('')
   const { data, error, isLoading, refetch } = useQuery(["rankings"], getAllRanking, {
     retry: 1,
   });
@@ -34,7 +37,7 @@ const Rankings = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteRanking(params.row.id)}
+          onClick={() => preDeleteRanking(params.row.id)}
         >
           Eliminar ranking
         </Button>
@@ -55,11 +58,21 @@ const Rankings = () => {
     setOpen(false);
   };
 
-  const deleteRanking = (id: string) => {
+  const handleCloseConfirmModal = () => {
+    setOpenConfirm(false);
+  };
+
+  const preDeleteRanking = (id: string) => {
+    setSelectedRankingId(id)
+    setOpenConfirm(true)
+  }
+
+  const deleteRanking = () => {
     const token = Cookies.get('token') || ''
-    removeRanking(id, token)
+    removeRanking(selectedRankingId, token)
     .then(res => {
       refetch()
+      setOpenConfirm(false);
     })
     .catch(err => {
       console.log(err);
@@ -100,9 +113,16 @@ const Rankings = () => {
           Crear ranking
         </Button>
       </Box>
-      <FormModal open={open} handleClose={handleCloseModal}>
+      <CustomModal open={open} handleClose={handleCloseModal}>
         <RankingForm revalidate={refetch} handleClose={handleCloseModal} initialValues={initialValues} />
-      </FormModal>
+      </CustomModal>
+      <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
+        <ConfirmationAlert
+          message="¿Está seguro que quiere eliminar este ranking?"
+          confirmFunction={deleteRanking}
+          close={handleCloseConfirmModal}
+        />
+      </CustomModal>
     </AdminLayout>
   );
 };

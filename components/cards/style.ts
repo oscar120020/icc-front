@@ -59,7 +59,7 @@ export const useStyles = makeStyles({
     
   cardContainer: {
     background: "#FFFFF",
-    width: "95%",
+    width: "100%",
     borderRadius: "15px",
     boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
   },

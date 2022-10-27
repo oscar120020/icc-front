@@ -7,7 +7,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import MenuIcon from "@mui/icons-material/Menu";
 import { UIContext } from "../../context";
 import { ElevationScroll } from "../maretial-ui/ElevationScroll";
-import { FormModal, LoginForm } from "../form";
+import { CustomModal, LoginForm } from "../form";
 import Cookie from 'js-cookie'
 
 const currentWindow = () => {
@@ -129,9 +129,9 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
             <MenuIcon fontSize="large" color="primary" />
           </Box>
         </Toolbar>
-        <FormModal open={open} handleClose={handleCloseModal} >
+        <CustomModal open={open} handleClose={handleCloseModal} >
           <LoginForm handleClose={handleCloseModal} />
-        </FormModal>
+        </CustomModal>
       </AppBar>
     </ElevationScroll>
   );

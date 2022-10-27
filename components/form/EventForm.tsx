@@ -18,8 +18,8 @@ import { createEvent, updateEvent } from "../../api";
 import { EventFormValues } from "./formInterfaces";
 
 const validationSchema = Yup.object().shape({
-  imageUrl: Yup.string().nullable().notRequired(),
-  rankingId: Yup.string().nullable().notRequired(),
+  imageUrl: Yup.string().nullable(true).notRequired(),
+  rankingId: Yup.string().nullable(true).notRequired(),
   name: Yup.string().required("Ingrese un nombre"),
   date: Yup.date().nullable(true).required("Ingrese la fecha del evento"),
 });

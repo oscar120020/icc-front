@@ -4,14 +4,14 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { getAdminUsers, removeAdmin } from "../../api";
 import {
-  AdminUserFormValues,
-  RankingFormValues,
+  AdminUserFormValues
 } from "../../components/form/formInterfaces";
-import { FormModal, AdminUserForm } from "../../components/form";
+import { CustomModal, AdminUserForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookie from "js-cookie";
 import Cookies from "js-cookie";
+import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 
 const initialValues: AdminUserFormValues = {
   username: "",
@@ -21,6 +21,8 @@ const initialValues: AdminUserFormValues = {
 const AdminUsers = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedAdminId, setSelectedAdminId] = useState('')
   const { data, error, isLoading, refetch } = useQuery(
     ["admin"],
     () => getAdminUsers(Cookie.get("token") || ""),
@@ -41,7 +43,7 @@ const AdminUsers = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteAdmin(params.row.id)}
+          onClick={() => preDeleteAdmin(params.row.id)}
         >
           Eliminar usuario
         </Button>
@@ -56,24 +58,33 @@ const AdminUsers = () => {
     };
   });
 
+  const openModalToCreate = () => {
+    setOpen(true);
+  };
+
   const handleCloseModal = () => {
     setOpen(false);
   };
 
-  const deleteAdmin = (id: string) => {
+  const handleCloseConfirmModal = () => {
+    setOpenConfirm(false);
+  };
+
+  const preDeleteAdmin = (id: string) => {
+    setSelectedAdminId(id)
+    setOpenConfirm(true)
+  }
+
+  const deleteAdmin = () => {
     const token = Cookies.get('token') || ''
-    removeAdmin(id, token)
+    removeAdmin(selectedAdminId, token)
     .then(res => {
-      console.log(res);
-      refetch()
+      refetch();
+      setOpenConfirm(false);
     })
     .catch(err => {
       console.log(err)
     })
-  };
-
-  const openModalToCreate = () => {
-    setOpen(true);
   };
 
   return (
@@ -106,13 +117,21 @@ const AdminUsers = () => {
           Crear usuario administrador
         </Button>
       </Box>
-      <FormModal open={open} handleClose={handleCloseModal}>
+      <CustomModal open={open} handleClose={handleCloseModal}>
         <AdminUserForm
           handleClose={handleCloseModal}
           initialValues={initialValues}
           revalidate={refetch}
         />
-      </FormModal>
+      </CustomModal>
+
+      <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
+        <ConfirmationAlert
+          message="¿Está seguro que quiere eliminar este usuario?"
+          confirmFunction={deleteAdmin}
+          close={handleCloseConfirmModal}
+        />
+      </CustomModal>
     </AdminLayout>
   );
 };

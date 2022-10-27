@@ -5,11 +5,12 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { deleteSeason, getSeasons } from "../../api";
 import { SeasonFormValues } from "../../components/form/formInterfaces";
-import { FormModal } from "../../components/form/FormModal";
+import { CustomModal } from "../../components/form/CustomModal";
 import { SeasonForm } from "../../components/form/SeasonForm";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import { getDatePlusOneDay } from "../../helpers/dateHelpers";
+import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 
 const initialValues: SeasonFormValues = {
   name: "",
@@ -22,6 +23,8 @@ const Seasons = () => {
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<SeasonFormValues>(initialValues);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedSeasonId, setSelectedSeasonId] = useState('')
   const { data, error, isLoading, refetch } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
@@ -60,7 +63,7 @@ const Seasons = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => removeSeason(params.row.id)}
+          onClick={() => preRemoveSeason(params.row.id)}
         >
           Eliminar temporada
         </Button>
@@ -77,10 +80,6 @@ const Seasons = () => {
     };
   });
 
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
-
   const openModalToEdit = (values: SeasonFormValues) => {
     setCurrentValues(values);
     setOpen(true);
@@ -91,11 +90,25 @@ const Seasons = () => {
     setOpen(true);
   };
 
-  const removeSeason = (seasonId: string) => {
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setOpenConfirm(false);
+  };
+
+  const preRemoveSeason = (id: string) => {
+    setSelectedSeasonId(id)
+    setOpenConfirm(true)
+  }
+
+  const removeSeason = () => {
     const token = Cookies.get('token') || ''
-    deleteSeason(seasonId, token)
+    deleteSeason(selectedSeasonId, token)
     .then(res => {
-      refetch()
+      refetch();
+      setOpenConfirm(false);
     })
     .catch(err => {
       console.log(err);
@@ -132,9 +145,16 @@ const Seasons = () => {
           Crear temporada
         </Button>
       </Box>
-      <FormModal open={open} handleClose={handleCloseModal}>
+      <CustomModal open={open} handleClose={handleCloseModal}>
         <SeasonForm revalidate={refetch} handleClose={handleCloseModal} initialValues={currentValues} />
-      </FormModal>
+      </CustomModal>
+      <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
+        <ConfirmationAlert
+          message="¿Está seguro que quiere eliminar esta temporada? Con ella se borrarán los rankings relacionados"
+          confirmFunction={removeSeason}
+          close={handleCloseConfirmModal}
+        />
+      </CustomModal>
     </AdminLayout>
   );
 };
