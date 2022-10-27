@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getRankings, removeRanking } from "../../api";
+import { getAllRanking, removeRanking } from "../../api";
 import { RankingFormValues } from "../../components/form/formInterfaces";
 import { RankingForm, FormModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
@@ -17,7 +17,7 @@ const initialValues: RankingFormValues = {
 const Rankings = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const { data, error, isLoading, refetch } = useQuery(["rankings"], getRankings, {
+  const { data, error, isLoading, refetch } = useQuery(["rankings"], getAllRanking, {
     retry: 1,
   });
 

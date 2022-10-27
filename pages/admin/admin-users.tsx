@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getAdminUsers, getRankings, removeAdmin } from "../../api";
+import { getAdminUsers, removeAdmin } from "../../api";
 import {
   AdminUserFormValues,
   RankingFormValues,

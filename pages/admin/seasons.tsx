@@ -3,7 +3,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { string } from "yup/lib/locale";
 import { deleteSeason, getSeasons } from "../../api";
 import { SeasonFormValues } from "../../components/form/formInterfaces";
 import { FormModal } from "../../components/form/FormModal";
@@ -15,7 +14,7 @@ import { getDatePlusOneDay } from "../../helpers/dateHelpers";
 const initialValues: SeasonFormValues = {
   name: "",
   beginning: new Date(),
-  end: getDatePlusOneDay(new Date()),
+  end: getDatePlusOneDay(new Date(), 30),
 };
 
 const Seasons = () => {

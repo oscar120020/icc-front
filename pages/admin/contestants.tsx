@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getContestants, getRankings, removeCompetitor } from "../../api";
+import { getContestants, removeCompetitor } from "../../api";
 import { ContestantFormValues } from "../../components/form/formInterfaces";
 import { FormModal, ContestantForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";

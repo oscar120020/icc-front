@@ -120,7 +120,7 @@ export const SeasonForm = ({ initialValues, handleClose, revalidate }: Props) =>
               label="Fecha de fin*"
               inputFormat="MM/DD/YYYY"
               value={values.end}
-              minDate={getDatePlusOneDay(values.beginning)}
+              minDate={getDatePlusOneDay(values.beginning, 30)}
               onChange={(value) => setFieldValue("end", value)}
               renderInput={(params) => (
                 <TextField
