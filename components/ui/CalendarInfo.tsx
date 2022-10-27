@@ -1,5 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useMemo, useRef } from "react";
 import { IsDateHigherThanNow } from "../../helpers/dateHelpers";
 import { getFullDate } from "../../helpers/getDateFormat";
@@ -10,7 +11,12 @@ interface Props {
 }
 
 export const CalendarInfo = ({ selectedDate }: Props) => {
+  const router = useRouter();
   const isHigher = useMemo(() => IsDateHigherThanNow(selectedDate.date), [selectedDate.date])
+
+  const handleClick = () => {
+    router.push(`seasons/ranking/${selectedDate.rankingId}`)
+  }
 
   return (
     <Box
@@ -28,11 +34,12 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
           {isHigher ? "Proximamente" : "Finalizado"}
         </Typography>
         <Button
+          fullWidth
           sx={{ bgcolor: "#0ba7ce", color: "white", margin: '15px 0' }}
           size="large"
           color="primary"
           disabled={isHigher}
-          fullWidth
+          onClick={handleClick}
         >
           Ver resultados
         </Button>

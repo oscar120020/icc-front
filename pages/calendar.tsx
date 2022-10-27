@@ -39,6 +39,7 @@ interface EventData {
   image: string;
   title: string;
   type: string;
+  rankingId: string;
 }
 
 const Calendar = () => {
@@ -53,6 +54,7 @@ const Calendar = () => {
       date: data.startDate,
       name: data.title,
       imageUrl: data.image,
+      rankingId: data.rankingId
     });
     window.scrollTo(0, 0)
   };
@@ -88,6 +90,7 @@ const Calendar = () => {
               endDate: getDatePlusOneDay(event.date, 1),
               type: IsDateHigherThanNow(event.date) ? "work" : "private",
               image: event.imageUrl,
+              rankingId: event.rankingId
             }))}
           >
             <ViewState
