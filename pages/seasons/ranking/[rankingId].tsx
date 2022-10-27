@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticPaths } from 'next'
 import React, { useRef } from 'react'
-import { getAllRanking, getRankingById } from '../../../api/rankingApi'
+import { getAllRanking, getRankingById } from '../../../api'
 import { DefaultLayout } from '../../../components/layouts'
 import Ranking from '../../../components/ranking/Ranking'
 import { getDateFormat } from '../../../helpers/getDateFormat'
@@ -29,19 +29,22 @@ export default function RankingId({ ranking }: RankingProps) {
   )
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const rankings = await getAllRanking()
   const paths = rankings.map((ranking) => ({
     params: { rankingId: ranking.id }
   }))
+
   return {
     paths,
-    fallback: false
+    fallback: "blocking"
   }
 }
 
+
 export const getStaticProps: GetServerSideProps = async ({ params }) => {
   const { rankingId } = params as { rankingId: string }
+  
   try {
     const ranking = await getRankingById(rankingId)
     return {

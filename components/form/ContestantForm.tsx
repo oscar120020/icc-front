@@ -17,9 +17,8 @@ import { ContestantFormValues } from "./formInterfaces";
 
 
 const validationSchema = Yup.object().shape({
-  imageUrl: Yup.string()
-    .min(6, "La contraseña debe tener por lo menos 8 carácteres")
-    .required("Ingrese la contraseña"),
+  username: Yup.string().required("Ingrese un nombre de usuario"),
+  imageUrl: Yup.string().required("Ingrese la url de la imagen"),
   fullName: Yup.string().nullable().notRequired(),
   socialLink: Yup.string().nullable().notRequired(),
 });
@@ -43,7 +42,6 @@ export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props
   });
 
   const update = (values: ContestantFormValues) => {
-    console.log('adasdsadsadsadsa');
     
     const { id, ...rest } = values;
     const token = Cookies.get('token') || '';
@@ -76,6 +74,17 @@ export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props
           padding: "30px 0px",
         }}
       >
+        <TextField
+          sx={{ width: "90%", mb: 2 }}
+          name="username"
+          label="nombre de usuario*"
+          value={values.username}
+          onChange={handleChange}
+          error={touched.username && !!errors.username}
+          helperText={touched.username && errors.username}
+          disabled={!!initialValues.username}
+        />
+
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="imageUrl"

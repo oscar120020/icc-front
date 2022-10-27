@@ -6,13 +6,13 @@ import {
   SeasonsResponse,
 } from "../interfaces/seasonsResponse";
 import { rankingApi } from ".";
+import { RakingGlobal, SeasonByIdResponse } from "../interfaces/seasonResponse";
 
 export const getSeasons = async () => {
   try {
     const response = await rankingApi.get<SeasonsResponse[]>("/season");
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Error al cargar las seasons");
   }
 };
@@ -80,6 +80,24 @@ export const deleteSeason = async (seasonId: string, token: string) => {
     } else {
       throw new Error("Error al eliminar - intente más tarde");
     }
+  }
+};
+
+export const getSeasonById = async (id: string) => {
+  try {
+    const response = await rankingApi.get<SeasonByIdResponse[]>(`/season/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error al cargar las seasons");
+  }
+};
+
+export const getGlobalRaking = async (id: string) => {
+  try {
+    const response = await rankingApi.get<RakingGlobal[]>(`/season/global-ranking?seasonId=${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error al cargar las seasons");
   }
 };
 

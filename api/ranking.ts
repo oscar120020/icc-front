@@ -1,15 +1,14 @@
 import axios, { AxiosError } from "axios";
 import { RankingFormValues } from "../components/form/formInterfaces";
 import { RankingResponse } from "../interfaces/rankingsResponse";
-import { SeasonCreatedResponse } from "../interfaces/seasonsResponse";
+import { Ranking, SeasonCreatedResponse } from "../interfaces/seasonsResponse";
 import { rankingApi } from ".";
 
-export const getRankings = async () => {
+export const getAllRanking = async () => {
   try {
     const response = await rankingApi.get<RankingResponse[]>("/ranking/all");
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Error al cargar los rankings");
   }
 };
@@ -58,3 +57,12 @@ export const removeRanking = async (rankingId: string, token: string) => {
     }
   }
 };
+
+export const getRankingById = async (id: string) => {
+  try {
+    const response = await rankingApi.get<Ranking>(`/ranking/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error al cargar el ranking");
+  }
+}

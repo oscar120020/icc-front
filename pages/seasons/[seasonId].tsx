@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { GetServerSideProps } from "next"
 import dynamic from "next/dynamic"
-import { getGlobalRaking, getSeasonById } from "../../api/rankingApi"
+import { getGlobalRaking, getSeasonById } from "../../api"
 import { DefaultLayout } from "../../components/layouts"
 import { SeasonProps } from "../../interfaces/seasonResponse"
 const Ranking = dynamic(() => import('../../components/ranking/Ranking'), {

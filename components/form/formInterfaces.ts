@@ -1,29 +1,37 @@
-
 export interface SeasonFormValues {
-    id?: string;
-    name: string;
-    beginning: Date;
-    end: Date;
+  id?: string;
+  name: string;
+  beginning: Date;
+  end: Date;
 }
 
 export interface RankingFormValues {
-    url: string;
-    seasonId: string;
+  url: string;
+  seasonId: string;
 }
 
 export interface LoginFormValues {
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 export interface ContestantFormValues {
-    id?: string;
-    imageUrl: string;
-    fullName?: string;
-    socialLink?: string
+  id?: string;
+  username: string;
+  imageUrl: string;
+  fullName?: string;
+  socialLink?: string;
 }
 
 export interface AdminUserFormValues {
-    username: string;
-    password: string;
+  username: string;
+  password: string;
+}
+
+export interface EventFormValues {
+  id?: string;
+  name: string;
+  imageUrl?: string;
+  rankingId?: string;
+  date: Date;
 }
