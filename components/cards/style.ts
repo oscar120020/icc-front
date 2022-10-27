@@ -36,7 +36,6 @@ export const useStyles = makeStyles({
     marginTop: "3px",
   },
   secondaryRightContainer: {
-    width: '13%',
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
