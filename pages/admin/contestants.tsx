@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -8,6 +8,8 @@ import { CustomModal, ContestantForm } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
+import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
+import { ErrorMessage } from "../../components/ui/ErrorMessage";
 
 const initialValues: ContestantFormValues = {
   username: "",
@@ -21,7 +23,11 @@ const Contestants = () => {
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<ContestantFormValues>(initialValues);
-  const { data, error, isLoading, refetch } = useQuery(["contestants"], getContestants, {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [selectedContestantId, setSelectedContestantId] = useState('')
+  const { data, isLoading, refetch } = useQuery(["contestants"], getContestants, {
     retry: 1,
   });
 
@@ -61,7 +67,7 @@ const Contestants = () => {
           fullWidth
           variant="outlined"
           color="error"
-          onClick={() => deleteCompetitor(params.row.id)}
+          onClick={() => preRemoveContestant(params.row.id)}
         >
           Eliminar participante
         </Button>
@@ -83,14 +89,30 @@ const Contestants = () => {
     setOpen(false);
   };
 
-  const deleteCompetitor = (id: string) => {
+  const handleCloseErrorModal = () => {
+    setOpenError(false);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setOpenConfirm(false);
+  };
+
+  const preRemoveContestant = (id: string) => {
+    setSelectedContestantId(id)
+    setOpenConfirm(true)
+  }
+
+  const deleteCompetitor = () => {
     const token = Cookies.get('token') || ''
-    removeCompetitor(id, token)
+    removeCompetitor(selectedContestantId, token)
     .then(res => {
       refetch()
+      setOpenConfirm(false);
     })
     .catch(err => {
-      console.log(err);
+      setOpenConfirm(false);
+      setOpenError(true);
+      setErrorMessage(err.message);
     })
   };
 
@@ -136,6 +158,16 @@ const Contestants = () => {
       </Box> */}
       <CustomModal open={open} handleClose={handleCloseModal}>
         <ContestantForm initialValues={currentValues} handleClose={handleCloseModal} revalidate={refetch} />
+      </CustomModal>
+      <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
+        <ConfirmationAlert
+          message="¿Está seguro que quiere eliminar este participante?"
+          confirmFunction={deleteCompetitor}
+          close={handleCloseConfirmModal}
+        />
+      </CustomModal>
+      <CustomModal open={openError} handleClose={handleCloseErrorModal}>
+        <ErrorMessage message={errorMessage} close={handleCloseErrorModal} />
       </CustomModal>
     </AdminLayout>
   );

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { getGlobalRaking, getSeasonById } from "../../api";
 import { DefaultLayout } from "../../components/layouts";
-import { EmptySeason } from "../../components/season/EmptySeason";
+import { EmptySection } from "../../components/ui/EmptySection";
 import { SeasonContent } from "../../components/season/SeasonContent";
 import { EmptyImage } from "../../components/SVG/Empty";
 import { getDateFormat } from "../../helpers/getDateFormat";
@@ -37,7 +37,7 @@ const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
         </Typography>
         {
           !globalRanking.length ? (
-            <EmptySeason />
+            <EmptySection message="Esta temporada aún no tiene información." />
           ) : (
             <SeasonContent
               globalRanking={globalRanking}

@@ -43,10 +43,18 @@ export const EventForm = ({
       initialValues,
       validationSchema,
       onSubmit: (values) => {
+        const finalValues: EventFormValues = {
+          date: values.date,
+          name: values.name,
+          ...(values.id && {id: values.id}),
+          ...(values.imageUrl && {imageUrl: values.imageUrl}),
+          ...(values.rankingId && {rankingId: values.rankingId})
+        }
+
         if (!!initialValues.name) {
-          update(values);
+          update(finalValues);
         } else {
-          create(values);
+          create(finalValues);
         }
       },
     });

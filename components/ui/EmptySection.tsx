@@ -1,7 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { EmptyImage } from "../SVG/Empty";
 
-export const EmptySeason = () => {
+interface Props {
+  message: string
+}
+
+export const EmptySection = ({message}: Props) => {
   return (
     <Box
       sx={{
@@ -15,7 +19,7 @@ export const EmptySeason = () => {
     >
       <EmptyImage width={200} />
       <Typography variant="h5" textAlign="center">
-        Esta temporada aún no tiene información
+        {message}
       </Typography>
     </Box>
   );

@@ -3,11 +3,35 @@ import { useQuery } from "react-query";
 import { getContestants } from "../api";
 import { DefaultLayout } from "../components/layouts";
 import { ContestantCard } from "../components/cards/ContestantCard";
+import { ErrorPage, Loading } from "../components/ui";
+import { EmptySection } from "../components/ui/EmptySection";
 
 const Contestants = () => {
   const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
     retry: 1,
   });
+
+  if (error) {
+    return (
+      <DefaultLayout
+        title={"Participantes | ICC"}
+        pageDescription={"Todos los participantes"}
+      >
+        <ErrorPage />
+      </DefaultLayout>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <DefaultLayout
+        title={"Participantes | ICC"}
+        pageDescription={"Todos los participantes"}
+      >
+        <Loading />
+      </DefaultLayout>
+    );
+  }
 
   return (
     <DefaultLayout
@@ -32,11 +56,13 @@ const Contestants = () => {
             justifyContent: "center",
           }}
         >
-          {
-            data?.map(comp => (
+          {!!data?.length ? (
+            data?.map((comp) => (
               <ContestantCard key={comp.id} competitor={comp} />
             ))
-          }
+          ) : (
+            <EmptySection message="Todavía no hay participantes." />
+          )}
         </Grid>
       </Box>
     </DefaultLayout>

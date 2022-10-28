@@ -23,7 +23,7 @@ const resources = [
     fieldName: "type",
     title: "Type",
     instances: [
-      { id: "private", text: "Private", color: "red" },
+      { id: "private", text: "Private", color: "#f44336" },
       { id: "work", text: "Work", color: "#0ba7ce" },
     ],
   },
