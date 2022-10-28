@@ -117,3 +117,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.disabled{
+  filter: opacity(0.4);
+  pointer-events: none;
+}
+
+.competitor-card{
+  transition: all 0.2s ease-in-out;
+}
+
+.competitor-card:hover{
+  background-color: #08cbfcbb;
+}

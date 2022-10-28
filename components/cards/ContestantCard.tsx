@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Button, Link } from "@mui/material";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -7,10 +7,10 @@ import { ContestantResponse } from "../../interfaces/contestansResponse";
 import { StatsItem } from "./StatsItem";
 
 interface Props {
-    competitor: ContestantResponse;
+  competitor: ContestantResponse;
 }
 
-export const ContestantCard = ({competitor}: Props) => {
+export const ContestantCard = ({ competitor }: Props) => {
   return (
     <Grid
       item
@@ -67,18 +67,43 @@ export const ContestantCard = ({competitor}: Props) => {
               height: 85,
             }}
           >
-            <Image src={competitor?.imageUrl} alt="perfil" width={85} height={85} />
+            <Image
+              src={competitor?.imageUrl}
+              alt="perfil"
+              width={85}
+              height={85}
+            />
           </Box>
         </Box>
 
         {/* Names */}
         <Box sx={{ mt: 5 }}>
           <Typography textAlign="center" variant="subtitle1">
-            {competitor?.userName}
+            {competitor.fullName || competitor?.userName}
           </Typography>
           <Typography textAlign="center" variant="body2" color="info">
-            Competidor(a)
+            {competitor.fullName ? competitor?.userName : "Competidor(a)"}
           </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            width: "60%",
+            margin: "10px auto",
+            display: "flex",
+            justifyContent: "center",
+            padding: '2px',
+            cursor: 'pointer',
+            borderRadius: '25px',
+            bgcolor: '#08cbfc78'
+          }}
+          className={!competitor.socialLink ? "disabled" : "competitor-card"}
+        >
+          <a style={{ textDecoration: "none" }} href={competitor.socialLink} target="_blanck">
+            <Typography color="InfoText" >
+              Red social
+            </Typography>
+          </a>
         </Box>
 
         {/* stasts */}
@@ -86,7 +111,7 @@ export const ContestantCard = ({competitor}: Props) => {
         <Box
           sx={{
             width: "100%",
-            mt: 5,
+            mt: 2,
             mb: 1,
             display: "flex",
             alignItems: "center",

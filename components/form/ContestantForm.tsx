@@ -37,7 +37,8 @@ export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      update(values)
+      const {username, ...rest} = values
+      update(rest)
     },
   });
 
