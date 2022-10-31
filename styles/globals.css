@@ -130,3 +130,7 @@
 .competitor-card:hover{
   background-color: #08cbfcbb;
 }
+
+.url {
+  color: black
+}
