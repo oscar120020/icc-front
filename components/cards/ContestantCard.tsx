@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { Grid, Box, Typography, Button, Link } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { ContestantResponse } from "../../interfaces/contestansResponse";
 import { StatsItem } from "./StatsItem";
+import LinkedInLogo from '../../assets/LinkedIn.svg'
 
 interface Props {
   competitor: ContestantResponse;
@@ -92,16 +93,22 @@ export const ContestantCard = ({ competitor }: Props) => {
             margin: "10px auto",
             display: "flex",
             justifyContent: "center",
-            padding: '2px',
+            padding: '5px',
             cursor: 'pointer',
             borderRadius: '25px',
             bgcolor: '#08cbfc78'
           }}
           className={!competitor.socialLink ? "disabled" : "competitor-card"}
         >
-          <a style={{ textDecoration: "none" }} href={competitor.socialLink} target="_blanck">
-            <Typography color="InfoText" >
-              Red social
+          <a style={{ textDecoration: "none", display: 'flex' }} href={competitor.socialLink} target="_blanck">
+            <Image
+              src={LinkedInLogo}
+              alt="Linkedin logo"
+              width={25}
+              height={20}
+            />
+            <Typography color="InfoText" sx={{ml: 1}}>
+              LinkedIn
             </Typography>
           </a>
         </Box>
@@ -132,7 +139,7 @@ export const ContestantCard = ({ competitor }: Props) => {
           <StatsItem
             label={`${competitor?.fullPenalty}`}
             icon={<CancelIcon color="primary" />}
-            iconMeaning="Penalty total"
+            iconMeaning="Penalidad total"
           />
         </Box>
       </Box>

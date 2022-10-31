@@ -101,6 +101,7 @@ const Calendar = () => {
         </Paper>
         <Paper sx={{ flex: 1 }}>
           <Scheduler
+            locale="es-ES"
             data={data?.map((event) => ({
               title: event.name,
               startDate: event.date,

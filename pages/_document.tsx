@@ -19,7 +19,7 @@ class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Nunito, sans-serif:300,400,500,600,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Nunito&sans-serif:300,400&display=swap"
           />
         </Head>
         <body>

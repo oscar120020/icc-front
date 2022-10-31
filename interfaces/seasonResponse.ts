@@ -29,7 +29,7 @@ export interface SeasonPrimaryProps {
 export interface Ranking {
   id: string;
   url: string;
-  created_at: string;
+  date: string;
   scores: Score[];
 }
 

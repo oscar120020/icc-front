@@ -123,6 +123,16 @@ const Seasons = () => {
       <Typography variant="h2" sx={{ mb: 2 }}>
         Temporadas - Admin
       </Typography>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          size="large"
+          variant="contained"
+          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
+          onClick={openModalToCreate}
+        >
+          Crear temporada
+        </Button>
+      </Box>
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows || []}
@@ -134,16 +144,6 @@ const Seasons = () => {
           components={{ Toolbar: CustomToolbar }}
           pagination
         />
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          size="large"
-          variant="contained"
-          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
-          onClick={openModalToCreate}
-        >
-          Crear temporada
-        </Button>
       </Box>
       <CustomModal open={open} handleClose={handleCloseModal}>
         <SeasonForm revalidate={refetch} handleClose={handleCloseModal} initialValues={currentValues} />

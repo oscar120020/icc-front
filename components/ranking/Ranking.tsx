@@ -30,7 +30,7 @@ export default function Ranking({ globalRanking }: RankingProps) {
           <Box className={classes.containerParams}>
             <Typography variant="body1" color="GrayText" >Puntos</Typography>
             <Box sx={{ width: "1px", height: "20px", backgroundColor: "#00000033", margin: '0 1.5vw' }} />
-            <Typography variant="body1" color="GrayText" >Penalty</Typography>
+            <Typography variant="body1" color="GrayText" >Penalidad</Typography>
           </Box>
         </Container>
         <Divider sx={{marginBottom: -2}}/>

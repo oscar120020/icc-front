@@ -14,7 +14,7 @@ import { UIContext } from "../../context";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BallotIcon from "@mui/icons-material/Ballot";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ContactsIcon from '@mui/icons-material/Contacts';
 import { LogoImage } from "../SVG/Logo";
 
 export const SideMenu = () => {
@@ -60,6 +60,12 @@ export const SideMenu = () => {
               <CalendarMonthIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary={"Calendario"} />
+          </ListItem>
+          <ListItem button onClick={() => navigateTo("/#footer")}>
+            <ListItemIcon>
+              <ContactsIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText primary={"Contacto"} />
           </ListItem>
         </List>
       </Box>

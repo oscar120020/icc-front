@@ -9,11 +9,13 @@ import { SeasonContent } from "../../components/season/SeasonContent";
 import { EmptyImage } from "../../components/SVG/Empty";
 import { getDateFormat } from "../../helpers/getDateFormat";
 import { SeasonProps } from "../../interfaces/seasonResponse";
-
+import { useRouter } from "next/router";
 
 const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
   const firstmoth = useRef(getDateFormat(individualRanking.beginning));
   const secondMoth = useRef(getDateFormat(individualRanking.end));
+
+  const router = useRouter();
 
   return (
     <DefaultLayout
@@ -29,22 +31,33 @@ const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
         className="fadeIn"
       >
         {/* Title */}
-        <Typography variant="h2" color="primary" sx={{ fontSize: "34px" }}>
-          {individualRanking.name}
-        </Typography>
-        <Typography color="GrayText" sx={{ whiteSpace: "nowrap" }}>
-          {firstmoth.current} - {secondMoth.current}
-        </Typography>
-        {
-          !globalRanking.length ? (
-            <EmptySection message="Esta temporada aún no tiene información." />
-          ) : (
-            <SeasonContent
-              globalRanking={globalRanking}
-              individualRanking={individualRanking}
-            />
-          )
-        }
+        <Box sx={{ display: "flex" }}>
+          <Box>
+            <Typography variant="h2" color="primary" sx={{ fontSize: "34px" }}>
+              {individualRanking.name}
+            </Typography>
+            <Typography color="GrayText" sx={{ whiteSpace: "nowrap" }}>
+              {firstmoth.current} - {secondMoth.current}
+            </Typography>
+          </Box>
+          <Box sx={{ flex: 1 }} />
+          <Typography
+            variant="h6"
+            color="primary"
+            sx={{ textDecoration: "underline", cursor: "pointer" }}
+            onClick={() => router.back()}
+          >
+            Regresar
+          </Typography>
+        </Box>
+        {!globalRanking.length ? (
+          <EmptySection message="Esta temporada aún no tiene información." />
+        ) : (
+          <SeasonContent
+            globalRanking={globalRanking}
+            individualRanking={individualRanking}
+          />
+        )}
       </Box>
     </DefaultLayout>
   );

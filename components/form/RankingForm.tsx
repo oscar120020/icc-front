@@ -5,15 +5,18 @@ import {
   Button,
   CircularProgress,
   MenuItem,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import { LocalizationProvider, DesktopDatePicker } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import * as Yup from "yup";
-import { addRankingToSeason, getSeasons } from "../../api";
+import { addRankingToSeason, getSeasons, updateRanking } from "../../api";
 import { RankingFormValues } from "./formInterfaces";
 
 interface Props {
@@ -30,6 +33,7 @@ const validationSchema = Yup.object().shape({
       "Url no coincide con torneo de Vjudge"
     ),
   seasonId: Yup.string().required("Seleccione una temporada"),
+  date: Yup.date().nullable(true).required("Ingrese la fecha del concurso"),
 });
 
 export const RankingForm = ({
@@ -42,19 +46,39 @@ export const RankingForm = ({
   const { data: seasonsData } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
-  const { handleSubmit, handleChange, values, touched, errors } = useFormik({
+  const { handleSubmit, handleChange, values, setFieldValue, touched, errors } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      create(values)
+      if(!!initialValues.url){
+        update(values)
+      }else{
+        create(values);
+      }
     },
   });
 
   const create = (values: RankingFormValues) => {
     setLoading(true);
-    setError('');
+    setError("");
     const token = Cookies.get("token") || "";
     addRankingToSeason(values, token)
+      .then((res) => {
+        setLoading(false);
+        revalidate();
+        handleClose();
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
+  };
+
+  const update = (values: RankingFormValues) => {
+    setLoading(true);
+    setError("");
+    const token = Cookies.get("token") || "";
+    updateRanking(values.id!, values, token)
       .then((res) => {
         setLoading(false);
         revalidate();
@@ -91,7 +115,31 @@ export const RankingForm = ({
           onChange={handleChange}
           error={touched.url && !!errors.url}
           helperText={touched.url && errors.url}
+          disabled={!!initialValues.url}
         />
+
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <Stack
+            display="flex"
+            flexDirection="row"
+            sx={{ width: "90%", mb: 2 }}
+          >
+            <DesktopDatePicker
+              label="Fecha del concurso*"
+              inputFormat="MM/DD/YYYY"
+              value={values.date}
+              onChange={(value) => setFieldValue("date", value)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  sx={{ width: "100%", margin: "0px 0px" }}
+                  error={touched.date && !!errors.date}
+                  helperText={touched.date && `${errors.date || ""}`}
+                />
+              )}
+            />
+          </Stack>
+        </LocalizationProvider>
 
         <TextField
           sx={{ width: "90%", mb: 2 }}
@@ -102,6 +150,7 @@ export const RankingForm = ({
           onChange={handleChange}
           error={touched.seasonId && !!errors.seasonId}
           helperText={touched.seasonId && errors.seasonId}
+          disabled={!!initialValues.url}
         >
           {seasonsData?.map((season) => (
             <MenuItem key={season.id} value={season.id}>

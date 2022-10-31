@@ -30,7 +30,7 @@ export const InstructionsSection = () => {
               relacionada a los concursos."
           link={{
             label: "Unirse",
-            url: "https://discord.gg/aSDvMjRe",
+            url: "https://discord.gg/TVAx7UpT7m",
           }}
         />
         <Box sx={{display: {xs: 'none', sm: 'flex'}, alignItems: 'center'}}>

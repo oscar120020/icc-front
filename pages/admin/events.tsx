@@ -128,6 +128,16 @@ const Events = () => {
       <Typography variant="h2" sx={{ mb: 2 }}>
         Eventos - Admin
       </Typography>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          size="large"
+          variant="contained"
+          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
+          onClick={openModalToCreate}
+        >
+          Crear evento
+        </Button>
+      </Box>
       <Box sx={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={rows || []}
@@ -139,16 +149,6 @@ const Events = () => {
           components={{ Toolbar: CustomToolbar }}
           pagination
         />
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          size="large"
-          variant="contained"
-          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
-          onClick={openModalToCreate}
-        >
-          Crear evento
-        </Button>
       </Box>
       <CustomModal open={open} handleClose={handleCloseModal}>
         <EventForm

@@ -7,14 +7,16 @@ import {
   Alert,
   AlertTitle,
   Stack,
+  MenuItem,
 } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { useQuery } from "react-query";
 import * as Yup from "yup";
-import { createEvent, updateEvent } from "../../api";
+import { createEvent, getAllRanking, updateEvent } from "../../api";
 import { EventFormValues } from "./formInterfaces";
 
 const validationSchema = Yup.object().shape({
@@ -37,6 +39,9 @@ export const EventForm = ({
 }: Props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { data } = useQuery(["rankings"], getAllRanking, {
+    retry: 1,
+  });
 
   const { handleSubmit, handleChange, values, setFieldValue, touched, errors } =
     useFormik({
@@ -154,12 +159,19 @@ export const EventForm = ({
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="rankingId"
+          select
           label="Id del ranking"
           value={values.rankingId || ""}
           onChange={handleChange}
           error={touched.rankingId && !!errors.rankingId}
           helperText={touched.rankingId && errors.rankingId}
-        />
+        >
+          {
+            data?.map((ranking, i) => (
+              <MenuItem key={ranking.id} value={ranking.id} >{`Ranking${i+1} - ${ranking.season.name}`}</MenuItem>
+            ))
+          }
+        </TextField>
 
         {!!error && (
           <Alert severity="error" sx={{ width: "90%" }}>

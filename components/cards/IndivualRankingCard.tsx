@@ -19,7 +19,7 @@ export default function IndivualRankingCard({
   index,
 }: IndividualRanking) {
   const classes = useStyles();
-  const date = useRef(getDateFormat(individualRanking.created_at));
+  const date = useRef(getDateFormat(individualRanking.date));
   const handleClick = (id: string) => {
     router.push(`ranking/${id}`);
   };

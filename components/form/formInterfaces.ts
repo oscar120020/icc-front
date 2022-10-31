@@ -6,7 +6,9 @@ export interface SeasonFormValues {
 }
 
 export interface RankingFormValues {
+  id?: string;
   url: string;
+  date: Date;
   seasonId: string;
 }
 

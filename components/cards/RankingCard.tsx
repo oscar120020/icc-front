@@ -64,7 +64,7 @@ export default function RankingCard({ ranking, index }: Props) {
               <StatsItem 
                 label={`${ranking.penalty}`}
                 icon={<CancelIcon color="primary" />}
-                iconMeaning="Penalty"
+                iconMeaning="Penalidad"
               />
             </Container>
           </Box>

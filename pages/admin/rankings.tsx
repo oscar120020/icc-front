@@ -13,11 +13,14 @@ import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 const initialValues: RankingFormValues = {
   url: "",
   seasonId: "",
+  date: new Date()
 };
 
 const Rankings = () => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
+  const [currentValues, setCurrentValues] =
+    useState<RankingFormValues>(initialValues);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [selectedRankingId, setSelectedRankingId] = useState('')
   const { data, error, isLoading, refetch } = useQuery(["rankings"], getAllRanking, {
@@ -27,7 +30,28 @@ const Rankings = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     { field: "url", headerName: "Url del ranking", width: 300 },
+    { field: "date", headerName: "Fecha del ranking", width: 300 },
     { field: "season", headerName: "Temporada", width: 300 },
+    {
+      field: "edit",
+      headerName: "Editar",
+      width: 170,
+      renderCell: (params) => (
+        <Button
+          fullWidth
+          variant="outlined"
+          color="primary"
+          onClick={() => openModalToEdit({
+            id: params.row.id,
+            date: params.row.date,
+            url: params.row.url,
+            seasonId: params.row.seasonId
+          })}
+        >
+          Editar temporada
+        </Button>
+      ),
+    },
     {
       field: "seasonId",
       headerName: "Eliminar ranking",
@@ -49,10 +73,21 @@ const Rankings = () => {
     return {
       id: ranking.id,
       url: ranking.url,
+      date: ranking.date,
       season: ranking.season.name,
       seasonId: ranking.season.id,
     };
   });
+
+  const openModalToEdit = (values: RankingFormValues) => {
+    setCurrentValues(values);
+    setOpen(true);
+  };
+
+  const openModalToCreate = () => {
+    setCurrentValues(initialValues);
+    setOpen(true);
+  };
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -79,10 +114,6 @@ const Rankings = () => {
     })
   };
 
-  const openModalToCreate = () => {
-    setOpen(true);
-  };
-
   return (
     <AdminLayout
       title={"Ranking | Admin"}
@@ -91,6 +122,16 @@ const Rankings = () => {
       <Typography variant="h2" sx={{ mb: 2 }}>
         Rankings - Admin
       </Typography>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          size="large"
+          variant="contained"
+          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
+          onClick={openModalToCreate}
+        >
+          Crear ranking
+        </Button>
+      </Box>
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows || []}
@@ -103,18 +144,8 @@ const Rankings = () => {
           pagination
         />
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          size="large"
-          variant="contained"
-          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
-          onClick={openModalToCreate}
-        >
-          Crear ranking
-        </Button>
-      </Box>
       <CustomModal open={open} handleClose={handleCloseModal}>
-        <RankingForm revalidate={refetch} handleClose={handleCloseModal} initialValues={initialValues} />
+        <RankingForm revalidate={refetch} handleClose={handleCloseModal} initialValues={currentValues} />
       </CustomModal>
       <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
         <ConfirmationAlert

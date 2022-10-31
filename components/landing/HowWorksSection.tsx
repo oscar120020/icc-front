@@ -40,7 +40,12 @@ export const HowWorksSection = () => {
           flexDirection: "column",
         }}
       >
-        <Typography sx={{ mb: 2 }} variant="h2" color="primary" fontWeight="bold">
+        <Typography
+          sx={{ mb: 2 }}
+          variant="h2"
+          color="primary"
+          fontWeight="bold"
+        >
           ¿Cómo funciona el concurso?
         </Typography>
         <Box sx={{ mb: 1 }} display="flex">
@@ -66,15 +71,17 @@ export const HowWorksSection = () => {
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
           <Typography variant="subtitle1" fontWeight={300}>
-            En cada challenge, al estilo <InlineLink link="https://icpc.global/" label="ICPC" />(International Collegiate Programming Contest), se proponen 3 ejercicios de
-            variadas complejidades.
+            En cada challenge, al estilo{" "}
+            <InlineLink link="https://icpc.global/" label="ICPC" />
+            (International Collegiate Programming Contest), se proponen 3
+            ejercicios de variadas complejidades y áreas del conocimiento.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
           <Typography variant="subtitle1" fontWeight={300}>
             En el ranking de posiciones se ubica primero quien resuelva la mayor
-            cantidades de desafíos; en caso de empates, entonces se ubica
+            cantidad de desafíos; en caso de empates, entonces se ubica
             primero el que acumule menor penalidad (penalty).
           </Typography>
         </Box>
@@ -82,4 +89,3 @@ export const HowWorksSection = () => {
     </Grid>
   );
 };
-

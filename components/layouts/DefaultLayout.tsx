@@ -49,7 +49,7 @@ export const DefaultLayout = ({
           {children}
         </main>
         <Box sx={{ flex: 1 }} />
-        <footer>
+        <footer id="footer">
           <Box className="curved"></Box>
         </footer>
       </Box>

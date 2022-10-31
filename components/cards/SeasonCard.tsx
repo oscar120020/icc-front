@@ -68,7 +68,7 @@ export default function SeasonCard({ season }: SeasonPrimaryProps) {
               </Typography>
             </Box>
             <Box className={classes.buttonBox}>
-              <Button className={classes.buttonStyles} onClick={() => handleClick(season.id)}>Ver Detalles</Button>
+              <Button className={classes.buttonStyles} onClick={() => handleClick(season.id)}>Ver detalles</Button>
             </Box>
           </Box>
         </Box>

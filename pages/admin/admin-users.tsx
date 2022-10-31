@@ -95,6 +95,16 @@ const AdminUsers = () => {
       <Typography variant="h2" sx={{ mb: 2 }}>
         Admin Users - Admin
       </Typography>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          size="large"
+          variant="contained"
+          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
+          onClick={openModalToCreate}
+        >
+          Crear usuario administrador
+        </Button>
+      </Box>
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows || []}
@@ -106,16 +116,6 @@ const AdminUsers = () => {
           components={{ Toolbar: CustomToolbar }}
           pagination
         />
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-        <Button
-          size="large"
-          variant="contained"
-          sx={{ backgroundColor: "#0ba7ce", color: "white" }}
-          onClick={openModalToCreate}
-        >
-          Crear usuario administrador
-        </Button>
       </Box>
       <CustomModal open={open} handleClose={handleCloseModal}>
         <AdminUserForm

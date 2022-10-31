@@ -69,7 +69,7 @@ export const LoginForm = ({handleClose}: Props) => {
         variant="h2"
         sx={{ px: 3, py: 2, backgroundColor: "#0ba7ce", color: "white" }}
       >
-        Acceder
+        Iniciar Sesión
       </Typography>
       <form
         onSubmit={handleSubmit}
@@ -83,7 +83,7 @@ export const LoginForm = ({handleClose}: Props) => {
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="username"
-          label="Username*"
+          label="Nombre de usuario*"
           type="text"
           value={values.username}
           onChange={handleChange}
@@ -130,7 +130,7 @@ export const LoginForm = ({handleClose}: Props) => {
             {loading ? (
               <CircularProgress color="inherit" size={25} />
             ) : (
-              "Iniciar Sesión"
+              "Acceder"
             )}
           </Button>
         </Box>
