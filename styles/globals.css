@@ -87,11 +87,9 @@
 
 .curved {
   width: 100%;
-  height: 200px;
+  min-height: 200px;
   position: relative;
   background: #0ba7ce;
-  border-top-left-radius: 50% 15%;
-  border-top-right-radius: 50% 15%;
 }
 
 .simple-button {
@@ -129,4 +127,9 @@
 
 .competitor-card:hover{
   background-color: #08cbfcbb;
+}
+
+.url {
+  color: black;
+  margin: 0 5px
 }
