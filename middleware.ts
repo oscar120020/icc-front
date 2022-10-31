@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { revalidateToken } from './api';
 
 // This function can be marked `async` if using `await` inside
@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
       const res = await revalidateToken(token)
       request.cookies.set('token', res.token)
     } catch (error: any) {
-      console.log(error.message);
+      url.search = "invalid-token=true"
       return NextResponse.redirect(url)
     }
   }

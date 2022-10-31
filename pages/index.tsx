@@ -1,9 +1,20 @@
+import { useEffect } from 'react';
 import type { NextPage } from "next";
 import { Box } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import { HeaderSection, InstructionsSection, HowWorksSection } from "../components/landing";
+import { useRouter } from "next/router";
+import Cookies from 'js-cookie';
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!!router.query['invalid-token']){
+      Cookies.remove('token')
+    }
+  }, [router.query])
+  
   return (
     <DefaultLayout
       title="Intellisys Coding Challenge"

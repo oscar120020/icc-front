@@ -1,5 +1,5 @@
-import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
-import error from "next/error";
+import { useState } from "react";
+import { Alert, AlertTitle, Box, Button, CircularProgress } from "@mui/material";
 
 interface Props {
   message: string;
@@ -12,6 +12,8 @@ export const ConfirmationAlert = ({
   confirmFunction,
   close,
 }: Props) => {
+  const [loading, setLoading] = useState(false);
+
   return (
     <Box sx={{ padding: 4 }}>
       <Alert severity="warning" sx={{ width: "100%" }}>
@@ -29,9 +31,12 @@ export const ConfirmationAlert = ({
         <Button
           sx={{ bgcolor: "#0ba7ce", color: "white" }}
           size="large"
-          onClick={confirmFunction}
+          onClick={() => {
+            setLoading(true);
+            confirmFunction();
+          }}
         >
-          Eliminar
+          {loading ? <CircularProgress color="inherit" size={25} /> : "Eliminar"}
         </Button>
       </Box>
     </Box>

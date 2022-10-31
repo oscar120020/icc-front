@@ -42,6 +42,7 @@ export const AdminUserForm = ({ handleClose, initialValues, revalidate }: Props)
   });
 
   const create = (values: AdminUserFormValues) => {
+    setLoading(true);
     const token = Cookies.get('token') || '';
     createUserAdmin(values, token)
     .then(res => {

@@ -60,6 +60,7 @@ export const EventForm = ({
     });
 
   const create = (values: EventFormValues) => {
+    setLoading(true);
     const { id, ...rest } = values;
     const token = Cookies.get("token") || "";
     createEvent(rest, token)
@@ -75,6 +76,7 @@ export const EventForm = ({
   };
 
   const update = (values: EventFormValues) => {
+    setLoading(true);
     const { id, ...rest } = values;
     const token = Cookies.get("token") || "";
     updateEvent(id!, rest, token)

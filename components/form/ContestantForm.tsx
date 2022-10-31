@@ -43,7 +43,7 @@ export const ContestantForm = ({ handleClose, initialValues, revalidate }: Props
   });
 
   const update = (values: ContestantFormValues) => {
-    
+    setLoading(true);
     const { id, ...rest } = values;
     const token = Cookies.get('token') || '';
     updateCompetitor(id!, rest, token)
