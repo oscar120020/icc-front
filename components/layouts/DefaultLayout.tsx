@@ -105,13 +105,13 @@ export const DefaultLayout = ({
                   icc@intellisys.com.do
                 </Typography>
                 <Typography sx={{ fontSize: "19px", color: "white", fontWeight: "bold", textAlign: {xs: 'center', sm: 'left'} }}>
-                  Calle H, No 2, Cerros de Gurabo, Santiago, Republica
+                  Calle H, No 2, Cerros de Gurabo, Santiago, República
                   Dominicana
                 </Typography>
               </Box>
             </Box>
             <Divider sx={{ width: "70%", mt: 2 }} />
-            <Typography sx={{ pb: 2, color: "white" }}>2022, Intellisys D. corp</Typography>
+            <Typography sx={{ pb: 2, color: "white" }}>2022, Intellisys D. Corp</Typography>
           </Box>
         </footer>
       </Box>
