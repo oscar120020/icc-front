@@ -27,6 +27,7 @@ const Home: NextPage = () => {
       retry: 1,
     }
   );
+  console.log(data)
 
   useEffect(() => {
     if (!!router.query["invalid-token"]) {
@@ -77,11 +78,10 @@ const Home: NextPage = () => {
           padding: "0px 30px",
         }}
       >
-        <Typography textAlign="center" fontWeight="bold" variant="h2" color="primary" sx={{mb: 5}} >Podio del concurso pasado</Typography>
         {!!data ? (
           <PastContest rankings={data!} />
         ) : (
-          <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', padding: 10}}>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', padding: 10 }}>
             <CircularProgress size={80} />
           </Box>
         )}

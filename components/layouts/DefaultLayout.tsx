@@ -83,14 +83,15 @@ export const DefaultLayout = ({
                 >
                   <a
                     href="https://www.instagram.com/intellisysdcorp"
+                    target='blank'
                     className="url"
                   >
                     <InstagramIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
-                  <a href="https://twitter.com/intellisys" className="url">
+                  <a href="https://twitter.com/intellisys" target='blank' className="url">
                     <TwitterIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
-                  <a href="https://www.facebook.com/intellisys" className="url">
+                  <a href="https://www.facebook.com/intellisys" target='blank' className="url">
                     <FacebookIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
                 </Box>
