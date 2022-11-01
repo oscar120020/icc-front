@@ -22,7 +22,7 @@ interface Props {
 
 export const Navbar = ({ noDinamicElevation }: Props) => {
   const [open, setOpen] = useState(false);
-  const { pathname, push: routerPush, asPath } = useRouter();
+  const { pathname, push: routerPush } = useRouter();
   const { changeMenuState } = useContext(UIContext);
 
   const handleCloseModal = () => {
@@ -45,7 +45,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
     >
       <AppBar className="transition" elevation={1} >
         <Toolbar sx={{display: 'flex', justifyContent: 'center', overflow: 'hidden'}}>
-          <Box sx={{width: '100%', display: 'flex', maxWidth: 1440 - 60}} >
+          <Box sx={{width: '100%', display: 'flex', ...(!pathname.includes('admin') && {maxWidth: 1440 - 60})}} >
             <NextLink href={"/"} passHref>
               <Link sx={{display: 'flex'}}>
                 <LogoImage width={70} height={40} />

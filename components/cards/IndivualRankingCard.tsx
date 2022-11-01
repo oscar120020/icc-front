@@ -43,7 +43,7 @@ export default function IndivualRankingCard({
                 color="primary"
                 sx={{ fontSize: "28px" }}
               />
-              <Typography sx={{ fontSize: "18px" }}>Ranking {index}</Typography>
+              <Typography sx={{ fontSize: "18px" }}>Competencia º{index}</Typography>
             </Box>
             <Box className={classes.cardIndividual}>
               <CalendarMonthOutlinedIcon

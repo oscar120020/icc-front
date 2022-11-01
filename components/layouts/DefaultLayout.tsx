@@ -5,6 +5,7 @@ import { Navbar, SideMenu } from "../ui";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { WhiteLogoImage } from "../SVG/WhiteLogo";
 interface Props {
   title: string;
   pageDescription: string;
@@ -54,7 +55,7 @@ export const DefaultLayout = ({
               sx={{
                 maxWidth: 1440,
                 display: "flex",
-                justifyContent: "space-around",
+                justifyContent: "center",
                 alignItems: "center",
                 flexDirection: { xs: "column", sm: "row" },
               }}
@@ -63,8 +64,8 @@ export const DefaultLayout = ({
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: { xs: "100%", sm: "70%" },
-                  padding: 3,
+                  width: { xs: "50%", sm: "40%" },
+                  padding: 2
                 }}
               >
                 <Typography
@@ -80,20 +81,17 @@ export const DefaultLayout = ({
                   Calle H, No 2, Cerros de Gurabo, Santiago, Republica
                   Dominicana
                 </Typography>
+                <WhiteLogoImage
+                  width={100}
+                />
               </Box>
               <Box
                 sx={{ display: "flex", flexDirection: "column", padding: 3 }}
               >
-                <Typography
-                  variant="h3"
-                  sx={{ fontWeight: "bold", fontSize: "23px" }}
-                >
-                  Redes Sociales
-                </Typography>
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: {xs: "center", sm: "flex-start"},
                   }}
                 >
                   <a
@@ -110,10 +108,23 @@ export const DefaultLayout = ({
                     <FacebookIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
                 </Box>
+                <Typography
+                  variant="h1"
+                  sx={{ fontWeight: "bold", color: "white", fontSize: "30px", textAlign: {xs: 'center', sm: 'left'} }}
+                >
+                  Contacto
+                </Typography>
+                <Typography sx={{ color: "white", fontSize: "19px", textAlign: {xs: 'center', sm: 'left'} }}>
+                  icc@intellisys.com.do
+                </Typography>
+                <Typography sx={{ fontSize: "19px", color: "white", fontWeight: "bold", textAlign: {xs: 'center', sm: 'left'} }}>
+                  Calle H, No 2, Cerros de Gurabo, Santiago, Republica
+                  Dominicana
+                </Typography>
               </Box>
             </Box>
             <Divider sx={{ width: "70%", mt: 2 }} />
-            <Typography sx={{ pb: 2 }}>2022, Intellisys D. corp</Typography>
+            <Typography sx={{ pb: 2, color: "white" }}>2022, Intellisys D. corp</Typography>
           </Box>
         </footer>
       </Box>
