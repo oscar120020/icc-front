@@ -68,19 +68,6 @@ export const DefaultLayout = ({
                   padding: 2
                 }}
               >
-                <Typography
-                  variant="h1"
-                  sx={{ fontWeight: "bold", fontSize: "30px", textAlign: { xs: 'center', sm: 'left' } }}
-                >
-                  Contacto
-                </Typography>
-                <Typography sx={{ color: "white", fontSize: "19px", textAlign: { xs: 'center', sm: 'left' } }}>
-                  icc@intellisys.com.do
-                </Typography>
-                <Typography sx={{ fontSize: "19px", fontWeight: "bold", textAlign: { xs: 'center', sm: 'left' } }}>
-                  Calle H, No 2, Cerros de Gurabo, Santiago, Republica
-                  Dominicana
-                </Typography>
                 <WhiteLogoImage
                   width={100}
                 />
