@@ -37,7 +37,7 @@ export const SidebarAdmin = () => {
       </Box>
       <Divider/>
       <SidebarSection title="Temporadas" iconSidebar={<ArchiveIcon />} to="/admin/seasons" />
-      <SidebarSection title="Rankings o Concursos" iconSidebar={<EmojiEventsOutlinedIcon />} to="/admin/rankings" />
+      <SidebarSection title="Rankings" iconSidebar={<EmojiEventsOutlinedIcon />} to="/admin/rankings" />
       <SidebarSection title="Eventos" iconSidebar={<CalendarMonthOutlinedIcon />} to="/admin/events" />
       <SidebarSection title="Usuarios" iconSidebar={<GroupOutlinedIcon />}>
         <SidebarLink label="Participantes" to="/admin/contestants" />
