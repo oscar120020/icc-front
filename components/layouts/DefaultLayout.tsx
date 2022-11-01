@@ -69,14 +69,14 @@ export const DefaultLayout = ({
               >
                 <Typography
                   variant="h1"
-                  sx={{ fontWeight: "bold", fontSize: "30px", textAlign: {xs: 'center', sm: 'left'} }}
+                  sx={{ fontWeight: "bold", fontSize: "30px", textAlign: { xs: 'center', sm: 'left' } }}
                 >
                   Contacto
                 </Typography>
-                <Typography sx={{ color: "white", fontSize: "19px", textAlign: {xs: 'center', sm: 'left'} }}>
+                <Typography sx={{ color: "white", fontSize: "19px", textAlign: { xs: 'center', sm: 'left' } }}>
                   icc@intellisys.com.do
                 </Typography>
-                <Typography sx={{ fontSize: "19px", fontWeight: "bold", textAlign: {xs: 'center', sm: 'left'} }}>
+                <Typography sx={{ fontSize: "19px", fontWeight: "bold", textAlign: { xs: 'center', sm: 'left' } }}>
                   Calle H, No 2, Cerros de Gurabo, Santiago, Republica
                   Dominicana
                 </Typography>
@@ -98,14 +98,15 @@ export const DefaultLayout = ({
                 >
                   <a
                     href="https://www.instagram.com/intellisysdcorp"
+                    target='blank'
                     className="url"
                   >
                     <InstagramIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
-                  <a href="https://twitter.com/intellisys" className="url">
+                  <a href="https://twitter.com/intellisys" target='blank' className="url">
                     <TwitterIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
-                  <a href="https://www.facebook.com/intellisys" className="url">
+                  <a href="https://www.facebook.com/intellisys" target='blank' className="url">
                     <FacebookIcon sx={{ fontSize: "35px", color: "#fff" }} />
                   </a>
                 </Box>
