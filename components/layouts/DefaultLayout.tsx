@@ -101,11 +101,13 @@ export const DefaultLayout = ({
                 >
                   Contacto
                 </Typography>
-                <Typography sx={{ color: "white", fontSize: "19px", textAlign: {xs: 'center', sm: 'left'} }}>
-                  icc@intellisys.com.do
-                </Typography>
+                <a href="mailto:icc@intellisys.com.do" style={{textDecoration: "none"}}>
+                  <Typography sx={{ color: "white", fontSize: "19px", textAlign: {xs: 'center', sm: 'left'} }}>
+                    icc@intellisys.com.do
+                  </Typography>
+                </a>
                 <Typography sx={{ fontSize: "19px", color: "white", fontWeight: "bold", textAlign: {xs: 'center', sm: 'left'} }}>
-                  Calle H, No 2, Cerros de Gurabo, Santiago, República
+                  Calle H, No. 2, Cerros de Gurabo, Santiago, República
                   Dominicana
                 </Typography>
               </Box>

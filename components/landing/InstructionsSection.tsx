@@ -59,7 +59,7 @@ export const InstructionsSection = () => {
           image={intellisysIcon}
           title="Unirse al grupo 'Intellisys'"
           description="Para poder entrar a los diferentes concursos es necesario unirse al grupo
-              privado de Intellisys, donde se listan todos los integrantes y competancias."
+              privado de Intellisys, donde se listan todos los integrantes y competencias."
           link={{
             label: "Unirse",
             url: "https://vjudge.net/group/intellisys?r=05od4RPUN5c99GzI27mY",

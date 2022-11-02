@@ -78,7 +78,7 @@ const Home: NextPage = () => {
           padding: "0px 30px",
         }}
       >
-        {!!data ? (
+        {!!data?.length ? (
           <PastContest rankings={data!} />
         ) : (
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', padding: 10 }}>
