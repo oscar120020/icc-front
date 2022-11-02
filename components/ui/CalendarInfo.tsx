@@ -32,7 +32,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
         <Typography variant="h6">{getFullDate(selectedDate.date)}</Typography>
         <Typography color="GrayText" variant="body1">3:00PM - 4:30PM</Typography>
         <Typography variant="h6" color={isHigher ? "green" : "red"} sx={{mt: 1}}>
-          {isHigher ? "Proximamente" : "Finalizado"}
+          {isHigher ? "Próximamente" : "Finalizado"}
         </Typography>
         <Button
           fullWidth
