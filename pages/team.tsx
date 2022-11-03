@@ -1,24 +1,27 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useQuery } from "react-query";
-import { getContestants } from "../api";
 import { DefaultLayout } from "../components/layouts";
-import { ContestantCard } from "../components/cards/ContestantCard";
 import { ErrorPage, Loading } from "../components/ui";
 import { EmptySection } from "../components/ui/EmptySection";
+import { getOrganizer } from "../api";
+import { ContestantCard } from "../components/cards/ContestantCard";
 import CardRole from "../components/cards/cardContent/CardRole";
 import SocialMedia from "../components/cards/cardContent/SocialMedia";
-import CardDescription from "../components/cards/cardContent/cardDescription";
 
-const Contestants = () => {
-  const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
+
+
+const Team = () => {
+  const { data, error, isLoading } = useQuery(["organizer"], getOrganizer, {
     retry: 1,
   });
+  console.log(data)
+ 
 
   if (error) {
     return (
       <DefaultLayout
-        title={"Participantes | ICC"}
-        pageDescription={"Todos los participantes"}
+        title={"Organizadores | ICC"}
+        pageDescription={"Todos los organizadores"}
       >
         <ErrorPage />
       </DefaultLayout>
@@ -28,8 +31,8 @@ const Contestants = () => {
   if (isLoading) {
     return (
       <DefaultLayout
-        title={"Participantes | ICC"}
-        pageDescription={"Todos los participantes"}
+        title={"Organizadores | ICC"}
+        pageDescription={"Todos los Organizadores"}
       >
         <Loading />
       </DefaultLayout>
@@ -38,8 +41,8 @@ const Contestants = () => {
 
   return (
     <DefaultLayout
-      title={"Participantes | ICC"}
-      pageDescription={"Todos los participantes"}
+      title={"Organizadores | ICC"}
+      pageDescription={"Todos los Organizadores"}
     >
       <Box
         sx={{
@@ -49,7 +52,7 @@ const Contestants = () => {
         }}
       >
         <Typography fontWeight="bold" variant="h2" color="primary">
-          Participantes
+          Organizadores
         </Typography>
         <Grid
           container
@@ -61,14 +64,13 @@ const Contestants = () => {
         >
           {!!data?.length ? (
             data?.map((comp) => (
-              <ContestantCard imageUrl={comp.imageUrl} key={comp.id}>
-                <CardRole description={"Competidor(a)"} userName={comp.userName} fullName={comp.fullName}/>
-                <SocialMedia socialLink={comp.socialLink}/>
-                <CardDescription competitor={comp}/>
+              <ContestantCard imageUrl={comp.imageUrl} key={comp.id} color={'#D3DC14'}>
+                <CardRole description={comp.role} userName={comp.fullName} fullName={comp.fullName} />
+                <SocialMedia socialLink={comp.socialLink} />
               </ContestantCard>
             ))
           ) : (
-            <EmptySection message="Todavía no hay participantes." />
+            <EmptySection message="Todavía no hay Organizadores." />
           )}
         </Grid>
       </Box>
@@ -76,4 +78,4 @@ const Contestants = () => {
   );
 };
 
-export default Contestants;
+export default Team;
