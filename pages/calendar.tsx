@@ -13,7 +13,7 @@ import { DefaultLayout } from "../components/layouts";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { getEvents } from "../api";
-import { getDatePlusOneDay, IsDateHigherThanNow } from "../helpers/dateHelpers";
+import { getDatePlusOneDay, IsDateBetweenEvent, IsDateHigherThanNow } from "../helpers/dateHelpers";
 import { EventResponse } from "../interfaces/eventResponse";
 import { CalendarInfo } from "../components/ui/CalendarInfo";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
@@ -25,6 +25,7 @@ const resources = [
     instances: [
       { id: "private", text: "Private", color: "#f44336" },
       { id: "work", text: "Work", color: "#0ba7ce" },
+      { id: "now", text: "now", color: "#2ab109" },
     ],
   },
 ];
@@ -60,6 +61,16 @@ const Calendar = () => {
     window.scrollTo(0, 0);
   };
 
+  const eventType = (event: EventResponse) => {
+    if(IsDateBetweenEvent(event.date)){
+      return "now"
+    }
+    if(IsDateHigherThanNow(event.date)){
+      return "work"
+    }
+    return "private"
+  }
+
   return (
     <DefaultLayout
       title={"Calendario | ICC"}
@@ -87,12 +98,15 @@ const Calendar = () => {
                 height: "100%",
                 padding: 5,
                 display: "flex",
-                flexDirection: 'column',
+                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <CalendarMonthOutlinedIcon color="primary" sx={{fontSize: 60}} />
+              <CalendarMonthOutlinedIcon
+                color="primary"
+                sx={{ fontSize: 60 }}
+              />
               <Typography textAlign="center" variant="h6">
                 Seleccione un evento en el calendario
               </Typography>
@@ -106,7 +120,7 @@ const Calendar = () => {
               title: event.name,
               startDate: event.date,
               endDate: getDatePlusOneDay(event.date, 1),
-              type: IsDateHigherThanNow(event.date) ? "work" : "private",
+              type:  eventType(event),
               image: event.imageUrl,
               rankingId: event.rankingId,
             }))}
