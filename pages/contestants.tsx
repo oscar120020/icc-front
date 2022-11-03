@@ -5,9 +5,7 @@ import { DefaultLayout } from "../components/layouts";
 import { ContestantCard } from "../components/cards/ContestantCard";
 import { ErrorPage, Loading } from "../components/ui";
 import { EmptySection } from "../components/ui/EmptySection";
-import CardRole from "../components/cards/cardContent/CardRole";
-import SocialMedia from "../components/cards/cardContent/SocialMedia";
-import CardDescription from "../components/cards/cardContent/cardDescription";
+import {CardRole,SocialMedia,CardDescription} from '../components/cards/cardContent/index'
 
 const Contestants = () => {
   const { data, error, isLoading } = useQuery(["contestants"], getContestants, {
