@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export default function CardRole({ description, fullName,userName}: Props) {
+export function CardRole({ description, fullName,userName}: Props) {
     return (
 
         <Box sx={{ mt: 5 }}>

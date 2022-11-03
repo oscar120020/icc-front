@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import LinkedInLogo from "../../../assets/LinkedIn.svg";
 
-export default function SocialMedia({ socialLink }: { socialLink?: string }) {
+export function SocialMedia({ socialLink }: { socialLink?: string }) {
   return (
     <Box
       sx={{

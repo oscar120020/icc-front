@@ -5,16 +5,13 @@ import { ErrorPage, Loading } from "../components/ui";
 import { EmptySection } from "../components/ui/EmptySection";
 import { getOrganizer } from "../api";
 import { ContestantCard } from "../components/cards/ContestantCard";
-import CardRole from "../components/cards/cardContent/CardRole";
-import SocialMedia from "../components/cards/cardContent/SocialMedia";
-
+import {SocialMedia, CardRole} from '../components/cards/cardContent/index'
 
 
 const Team = () => {
   const { data, error, isLoading } = useQuery(["organizer"], getOrganizer, {
     retry: 1,
   });
-  console.log(data)
  
 
   if (error) {

@@ -9,7 +9,7 @@ interface Props {
   competitor: ContestantResponse;
 }
 
-export default function CardDescription({ competitor }: Props) {
+export function CardDescription({ competitor }: Props) {
   return (
     <>
       <Box sx={{ flex: 1 }} />
