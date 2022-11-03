@@ -6,6 +6,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { ContestantResponse } from "../../interfaces/contestansResponse";
 import { StatsItem } from "./StatsItem";
 import LinkedInLogo from '../../assets/LinkedIn.svg'
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 interface Props {
   competitor: ContestantResponse;
@@ -126,7 +127,7 @@ export const ContestantCard = ({ competitor }: Props) => {
         >
           <StatsItem
             label={`${competitor?.contests}`}
-            icon={<EmojiEventsOutlinedIcon color="primary" />}
+            icon={<HowToRegIcon color="primary" />}
             iconMeaning="Participaciones totales"
           />
           <Box sx={{ width: "1px", height: "20px", backgroundColor: "gray" }} />

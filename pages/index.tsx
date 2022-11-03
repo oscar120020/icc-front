@@ -27,7 +27,6 @@ const Home: NextPage = () => {
       retry: 1,
     }
   );
-  console.log(data)
 
   useEffect(() => {
     if (!!router.query["invalid-token"]) {

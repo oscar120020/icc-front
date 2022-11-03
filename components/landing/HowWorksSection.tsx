@@ -46,7 +46,7 @@ export const HowWorksSection = () => {
           color="primary"
           fontWeight="bold"
         >
-          ¿Cómo funciona el concurso?
+          ¿Cómo funciona el ICC?
         </Typography>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
@@ -57,7 +57,7 @@ export const HowWorksSection = () => {
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
           <Typography variant="subtitle1" fontWeight={300}>
-            Sus challenges (competencias) se realizan el primer viernes de cada
+            Sus challenges (concursos) se realizan el primer viernes de cada
             mes, de 3:00pm a 4:30pm en la plataforma online vjudge.net.
           </Typography>
         </Box>
@@ -81,7 +81,7 @@ export const HowWorksSection = () => {
           <CookieIcon color="primary" fontSize="medium" />
           <Typography variant="subtitle1" fontWeight={300}>
             En el ranking de posiciones se ubica primero quien resuelva la mayor
-            cantidad de desafíos; en caso de empates, entonces se ubica
+            cantidad de desafíos (puntos); en caso de empates, entonces se ubica
             primero el que acumule menor penalidad (penalty).
           </Typography>
         </Box>

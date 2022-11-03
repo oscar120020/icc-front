@@ -13,7 +13,7 @@ export const InstructionsSection = () => {
   return (
     <Box>
       <LandingSection
-        title="Pasos para participar en la iniciativa"
+        title="Pasos para participar en el ICC"
       />
       <Grid
         container
