@@ -23,6 +23,7 @@
     "@vespaiach/axios-fetch-adapter": "^0.3.1",
     "axios": "^0.27.2",
     "babel-plugin-styled-components": "^2.0.7",
+    "datebook": "^7.0.8",
     "formik": "^2.2.9",
     "fs": "^0.0.1-security",
     "js-cookie": "^3.0.1",

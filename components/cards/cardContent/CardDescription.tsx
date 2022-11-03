@@ -1,10 +1,9 @@
-import Image from "next/image";
-import { Grid, Box, Typography } from "@mui/material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import { Box  } from "@mui/material";
 import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { StatsItem } from "../StatsItem";
 import { ContestantResponse } from "../../../interfaces/contestansResponse";
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 interface Props {
   competitor: ContestantResponse;
@@ -25,7 +24,7 @@ export default function CardDescription({ competitor }: Props) {
       >
         <StatsItem
           label={`${competitor?.contests}`}
-          icon={<EmojiEventsOutlinedIcon color="primary" />}
+          icon={<HowToRegIcon color="primary" />}
           iconMeaning="Participaciones totales"
         />
         <Box sx={{ width: "1px", height: "20px", backgroundColor: "gray" }} />
