@@ -95,6 +95,16 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                   </Button>
                 </Link>
               </NextLink>
+              <NextLink href={"/team"} passHref>
+                <Link display="flex" alignItems="center">
+                  <Button
+                    className={pathname === "/team" ? "btn-active" : "btn"}
+                    sx={{ marginX: 2, fontSize: 16 }}
+                  >
+                    Equipo
+                  </Button>
+                </Link>
+              </NextLink>
               <NextLink  href={"/#footer"}  passHref>
                 <Link display="flex" alignItems="center">
                   <Button
