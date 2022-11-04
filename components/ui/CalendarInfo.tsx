@@ -54,17 +54,17 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
     const config: CalendarOptions = {
       title: selectedDate.name,
       location: "Santiago De Los Caballeros, República Dominicana",
-      description: selectedDate.name,
+      description: data?.url,
       start: new Date(`${selectedDate.date} 15:00:00`),
       end: new Date(`${selectedDate.date} 16:30:00`),
     };
     const googleCalendar = new GoogleCalendar(config);
     setGoogleCalendarUrl(googleCalendar.render());
-  }, [selectedDate]);
+  }, [selectedDate, data]);
 
   const openGoogleEvent = () => {
     window.open(
-      !data && !isEventNow ? googleCalendarUrl : data?.url
+      !isEventNow ? googleCalendarUrl : data?.url
       , "_black");
   };
 
@@ -94,7 +94,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
             {isHigher ? "Próximamente" : "Finalizado"}
           </Typography>
         )}
-        {!isHigher ? (
+        {!isHigher && !isEventNow ? (
           <Button
             fullWidth
             sx={{ bgcolor: "#0ba7ce", color: "white", margin: "15px 0" }}
