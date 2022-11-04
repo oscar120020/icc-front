@@ -37,3 +37,11 @@ export interface EventFormValues {
   rankingId?: string;
   date: Date;
 }
+
+export interface OrganizerFormValues {
+  id?: string;
+  fullName: string;
+  imageUrl?: string;
+  socialLink?: string;
+  role: string;
+}

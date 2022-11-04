@@ -42,6 +42,7 @@ export const SidebarAdmin = () => {
       <SidebarSection title="Usuarios" iconSidebar={<GroupOutlinedIcon />}>
         <SidebarLink label="Participantes" to="/admin/contestants" />
         <SidebarLink label="Administradores" to="/admin/admin-users" />
+        <SidebarLink label="Organizadores" to="/admin/organizers" />
       </SidebarSection>
       <Box sx={{ marginTop: 5 }} />
     </Drawer>
