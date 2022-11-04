@@ -3,7 +3,7 @@ export const getDatePlusOneDay = (date: Date, plus: number) => {
 };
 
 export const IsDateHigherThanNow = (date: Date): boolean => {
-  return new Date(`${date} 01:00:00`) > new Date();
+  return new Date(`${date} 16:30:00`) > new Date();
 };
 
 export const IsDateBetweenEvent = (date: Date): boolean => {
