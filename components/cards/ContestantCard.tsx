@@ -29,8 +29,6 @@ export const ContestantCard = ({ imageUrl, children, color }: Props) => {
           boxShadow: "0px 5px 5px rgba(0,0,0,0.2)",
           overflow: "hidden",
           position: "relative",
-          display: "flex",
-          flexDirection: "column",
         }}
       >
         {/* background */}
@@ -61,7 +59,7 @@ export const ContestantCard = ({ imageUrl, children, color }: Props) => {
               position: "absolute",
               bottom: -23,
               border: "2px solid #fff",
-              outline: "2px solid #0ba7ce",
+              outline: `2px solid ${color || '#0ba7ce'}`,
               width: 85,
               height: 85,
             }}
@@ -74,7 +72,11 @@ export const ContestantCard = ({ imageUrl, children, color }: Props) => {
             />
           </Box>
         </Box>
-        {children}
+        <Box
+          sx={{padding: "0 10px"}}
+        >
+          {children}
+        </Box>
       </Box>
     </Grid>
   );
