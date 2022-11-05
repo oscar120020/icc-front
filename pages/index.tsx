@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { NextPage } from "next";
-import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import {
   HeaderSection,
@@ -11,16 +11,11 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { getAllRanking } from "../api";
-import dynamic from "next/dynamic";
-import { getNewerRanking, orderScores } from "../helpers/ranking";
 import { PastContest } from "../components/landing/PastContest";
-const RankingCard = dynamic(() => import("../components/cards/RankingCard"), {
-  ssr: false,
-});
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data } = useQuery(
     ["rankings"],
     getAllRanking,
     {

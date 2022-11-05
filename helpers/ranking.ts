@@ -3,7 +3,7 @@ import { RakingGlobal } from "../interfaces/seasonResponse";
 
 export const getNewerRanking = (ranking: RankingResponse[]) => {
   return ranking.sort(
-    (a, b) => new Date(b.date).getDate() - new Date(a.date).getDate()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )[0];
 };
 

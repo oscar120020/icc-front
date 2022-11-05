@@ -9,7 +9,8 @@ interface Props {
 }
 
 export const PastContest = ({ rankings }: Props) => {
-  const { current } = useRef(getNewerRanking(rankings));
+  const lastRanking = useRef(getNewerRanking(rankings)).current;
+  
   return (
     <>
       <Typography
@@ -21,7 +22,7 @@ export const PastContest = ({ rankings }: Props) => {
       >
         Podio del &nbsp;
         <a
-          href={current.url}
+          href={lastRanking.url}
           target="blank"
           style={{ textDecoration: "underline", color: "#0ba7ce" }}
         >
@@ -37,7 +38,7 @@ export const PastContest = ({ rankings }: Props) => {
         container
         sx={{ width: "100", display: "flex", justifyContent: "center" }}
       >
-        {orderScores(getNewerRanking(rankings).scores).map((ranking, index) => {
+        {orderScores(lastRanking.scores).map((ranking, index) => {
           if (index < 3) {
             return (
               <RankingCard
