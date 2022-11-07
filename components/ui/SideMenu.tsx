@@ -15,6 +15,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BallotIcon from "@mui/icons-material/Ballot";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import ContactsIcon from '@mui/icons-material/Contacts';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { LogoImage } from "../SVG/Logo";
 
 export const SideMenu = () => {
@@ -60,6 +61,12 @@ export const SideMenu = () => {
               <CalendarMonthIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary={"Calendario"} />
+          </ListItem>
+          <ListItem button onClick={() => navigateTo("/team")}>
+            <ListItemIcon>
+              <GroupsIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText primary={"Equipo"} />
           </ListItem>
           <ListItem button onClick={() => navigateTo("/#footer")}>
             <ListItemIcon>
