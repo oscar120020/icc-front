@@ -87,7 +87,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                     className={pathname === "/team" ? "btn-active" : "btn"}
                     sx={{ marginX: 2, fontSize: 18 }}
                   >
-                    Equipo
+                    Organizadores
                   </Button>
                 </Link>
               </NextLink>
@@ -102,27 +102,6 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 </Link>
               </NextLink>
             </Box>
-
-            {/* <Box sx={{ flex: 1 }} />
-
-            <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-              <Button
-                className={
-                  pathname.includes("/admin") ? "btn-active-admin" : "btn-admin"
-                }
-                sx={{ fontSize: 16 }}
-                startIcon={
-                  <AdminPanelSettingsIcon
-                    color={pathname.includes("/admin") ? "inherit" : "primary"}
-                    fontSize="large"
-                    sx={{ fontSize: 40 }}
-                  />
-                }
-                onClick={openLoginModal}
-              >
-                Admin
-              </Button>
-            </Box> */}
 
             <Box
               sx={{

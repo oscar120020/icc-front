@@ -66,7 +66,7 @@ export const SideMenu = () => {
             <ListItemIcon>
               <GroupsIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary={"Equipo"} />
+            <ListItemText primary={"Organizadores"} />
           </ListItem>
           <ListItem button onClick={() => navigateTo("/#footer")}>
             <ListItemIcon>

@@ -8,7 +8,7 @@ export const WhiteLogoImage = (imageProps: Props) => {
     <Image
         {...imageProps}
         src={ICCLogo}
-        alt='ICC loco'
+        alt='ICC logo'
     />
   )
 }

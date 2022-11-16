@@ -20,7 +20,7 @@ export const InfoItem = ({ image, title, description, link }: Props) => {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Box sx={{ width: "100px" }}>
-          <Image src={image} alt="discord" />
+          <Image src={image} alt={title} />
         </Box>
         <Typography textAlign="center" variant="h5">
           {title}

@@ -36,7 +36,7 @@ export const InstructionsSection = () => {
         <Box sx={{display: {xs: 'none', sm: 'flex'}, alignItems: 'center'}}>
           <Image
             src={ArrowFirst}
-            alt="asda"
+            alt="flecha de direccion"
           />
         </Box>
         <InfoItem
@@ -52,7 +52,7 @@ export const InstructionsSection = () => {
         <Box sx={{display: {xs: 'none', sm: 'none', lg: 'flex'}, alignItems: 'center'}}>
           <Image
             src={ArrowSecond}
-            alt="asda"
+            alt="flecha de direccion"
           />
         </Box>
         <InfoItem
@@ -69,7 +69,7 @@ export const InstructionsSection = () => {
           <Box sx={{transform: 'rotate(130deg)', marginTop: 10}}>
             <Image
               src={ArrowFirst}
-              alt="asda"
+              alt="flecha de direccion"
             />
           </Box>
         </Box>
