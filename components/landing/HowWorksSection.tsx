@@ -43,6 +43,7 @@ export const HowWorksSection = () => {
         <Typography
           sx={{ mb: 2 }}
           variant="h2"
+          component="h2"
           color="primary"
           fontWeight="bold"
         >
@@ -50,27 +51,27 @@ export const HowWorksSection = () => {
         </Typography>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="h3" fontWeight={300}>
+          <Typography variant="h3" component="p" fontWeight={300}>
             La participación es individual.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="h3" fontWeight={300}>
+          <Typography variant="h3" component="p" fontWeight={300}>
             Sus challenges (concursos) se realizan el primer viernes de cada
             mes, de 3:00pm a 4:30pm en la plataforma online vjudge.net.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="h3" fontWeight={300}>
+          <Typography variant="h3" component="p" fontWeight={300}>
             Lenguajes permitidos incluyen: C/C++, Java, Python, JavaScript,
             entre otros.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="h3" fontWeight={300}>
+          <Typography variant="h3" component="p" fontWeight={300}>
             En cada challenge, al estilo{" "}
             <InlineLink link="https://icpc.global/" label="ICPC" />
             (International Collegiate Programming Contest), se proponen 3
@@ -79,7 +80,7 @@ export const HowWorksSection = () => {
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="h3" fontWeight={300}>
+          <Typography variant="h3" component="p" fontWeight={300}>
             En el ranking de posiciones se ubica primero quien resuelva la mayor
             cantidad de desafíos (puntos); en caso de empates, entonces se ubica
             primero el que acumule menor penalidad (penalty).

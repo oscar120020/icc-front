@@ -30,7 +30,7 @@ export const HeaderSection = () => {
           Intellisys Coding Challenge
         </Typography>
         <br />
-        <Typography color="GrayText" variant="h3">
+        <Typography color="GrayText" variant="h3" component="p">
           Intellisys Coding Challenge (ICC) es una iniciativa que busca
           desarrollar habilidades de algoritmia, estructuras de datos,
           matemáticas, idioma inglés y resolución de problemas en miembros de la

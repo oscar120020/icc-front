@@ -8,7 +8,7 @@ interface Props {
 export const LandingSection = ({title, description}: Props) => {
   return (
     <Box>
-      <Typography color="primary" fontWeight="bold" textAlign="center" variant="h2">
+      <Typography color="primary" fontWeight="bold" textAlign="center" variant="h2" component="h3">
         {title}
       </Typography>
       <Box
@@ -24,6 +24,7 @@ export const LandingSection = ({title, description}: Props) => {
         color="#646262"
         textAlign="center"
         sx={{ maxWidth: "90%", margin: "15px auto 0 auto" }}
+        component="p"
       >
         {description}
       </Typography>

@@ -22,7 +22,7 @@ export const InfoItem = ({ image, title, description, link }: Props) => {
         <Box sx={{ width: "100px" }}>
           <Image src={image} alt={title} />
         </Box>
-        <Typography textAlign="center" variant="h5">
+        <Typography textAlign="center" variant="h5" component="h4">
           {title}
         </Typography>
         <Box
@@ -39,11 +39,12 @@ export const InfoItem = ({ image, title, description, link }: Props) => {
           textAlign="center"
           sx={{ maxWidth: "90%", margin: "15px auto 0 auto" }}
           variant="h4"
+          component="p"
         >
           {description}
         </Typography>
         <a style={{textDecoration: 'none'}} href={link?.url} target='_black'>
-            <Typography color="primary" variant='h6' sx={{textDecoration: 'underline'}} >
+            <Typography color="primary" variant='h6' component="label" sx={{textDecoration: 'underline'}} >
                 {link?.label}
             </Typography>
         </a>

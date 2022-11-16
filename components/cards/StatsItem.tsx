@@ -20,7 +20,7 @@ export const StatsItem = ({label, icon, iconMeaning}: Props) => {
       <Tooltip title={iconMeaning} >
         {icon}
       </Tooltip>
-      <Typography variant="h6">{label}</Typography>
+      <Typography variant="h6" component="label">{label}</Typography>
     </Box>
   );
 };
