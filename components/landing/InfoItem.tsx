@@ -38,6 +38,7 @@ export const InfoItem = ({ image, title, description, link }: Props) => {
           color="#646262"
           textAlign="center"
           sx={{ maxWidth: "90%", margin: "15px auto 0 auto" }}
+          variant="h4"
         >
           {description}
         </Typography>

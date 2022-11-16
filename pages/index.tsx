@@ -36,7 +36,7 @@ const Home: NextPage = () => {
     >
       {/* Header */}
       <Box
-        sx={{ height: "100vh", width: "100%", marginTop: "-70px" }}
+        sx={{ minHeight: "100vh", width: "100%", marginTop: "-70px" }}
         className="fadeIn bg-landing"
       >
         <HeaderSection />

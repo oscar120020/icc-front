@@ -122,7 +122,7 @@ const Organizer = () => {
 
     return (
         <AdminLayout
-            title={"Organizadores"}
+            title={"Organizadores | Admin"}
             pageDescription={"Panel de administración - Organizers"}
         >
             <Typography variant="h2" sx={{ mb: 2 }}>

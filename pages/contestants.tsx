@@ -36,7 +36,7 @@ const Contestants = () => {
 
   return (
     <DefaultLayout
-      title={"Participantes | ICC"}
+      title={"Participantes | Intellisys Coding Challenge"}
       pageDescription={"Todos los participantes"}
     >
       <Box

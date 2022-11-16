@@ -29,11 +29,7 @@ const validationSchema = Yup.object().shape({
     .required("Ingrese la contraseña"),
 });
 
-interface Props {
-    handleClose: () => void;
-}
-
-export const LoginForm = ({handleClose}: Props) => {
+export const LoginForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -55,7 +51,6 @@ export const LoginForm = ({handleClose}: Props) => {
         setLoading(false);
         Cookie.set("token", token);
         router.push("/admin");
-        handleClose()
       })
       .catch((err) => {
         setLoading(false);

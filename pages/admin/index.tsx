@@ -35,7 +35,7 @@ const Admin = () => {
   }, [data]);
   return (
     <AdminLayout
-      title={"Administration | ICC"}
+      title={"Administración | Intellisys Coding Challenge"}
       pageDescription={"Panel de administración"}
     >
       <Grid container spacing={2}>

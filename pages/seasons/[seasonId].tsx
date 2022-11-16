@@ -19,8 +19,8 @@ const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
 
   return (
     <DefaultLayout
-      title={`${individualRanking.name} | ICC`}
-      pageDescription={"Información de temporada"}
+      title={`${individualRanking.name} | Intellisys Coding Challenge`}
+      pageDescription={"Información de la temporada"}
     >
       <Box
         sx={{

@@ -21,22 +21,8 @@ interface Props {
 }
 
 export const Navbar = ({ noDinamicElevation }: Props) => {
-  const [open, setOpen] = useState(false);
-  const { pathname, push: routerPush } = useRouter();
+  const { pathname } = useRouter();
   const { changeMenuState } = useContext(UIContext);
-
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
-  
-  const openLoginModal = () => {
-    const token = Cookie.get('token')
-    if(!token){
-      setOpen(true);
-      return;
-    }
-    routerPush('/admin')
-  }
 
   return (
     <ElevationScroll
@@ -48,7 +34,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
           <Box sx={{width: '100%', display: 'flex', ...(!pathname.includes('admin') && {maxWidth: 1440 - 60})}} >
             <NextLink href={"/"} passHref>
               <Link sx={{display: 'flex'}}>
-                <LogoImage width={70} height={40} />
+                <LogoImage width={80} height={45} />
               </Link>
             </NextLink>
 
@@ -59,7 +45,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={pathname === "/" ? "btn-active" : "btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Inicio
                   </Button>
@@ -69,7 +55,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={pathname === "/seasons" ? "btn-active" : "btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Temporadas
                   </Button>
@@ -79,7 +65,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={pathname === "/contestants" ? "btn-active" : "btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Participantes
                   </Button>
@@ -89,7 +75,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={pathname === "/calendar" ? "btn-active" : "btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Calendario
                   </Button>
@@ -99,7 +85,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={pathname === "/team" ? "btn-active" : "btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Equipo
                   </Button>
@@ -109,7 +95,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
                 <Link display="flex" alignItems="center">
                   <Button
                     className={"btn"}
-                    sx={{ marginX: 2, fontSize: 16 }}
+                    sx={{ marginX: 2, fontSize: 18 }}
                   >
                     Contacto
                   </Button>
@@ -117,7 +103,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
               </NextLink>
             </Box>
 
-            <Box sx={{ flex: 1 }} />
+            {/* <Box sx={{ flex: 1 }} />
 
             <Box sx={{ display: { xs: "none", sm: "flex" } }}>
               <Button
@@ -136,7 +122,7 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
               >
                 Admin
               </Button>
-            </Box>
+            </Box> */}
 
             <Box
               sx={{
@@ -150,9 +136,6 @@ export const Navbar = ({ noDinamicElevation }: Props) => {
             </Box>
           </Box>
         </Toolbar>
-        <CustomModal open={open} handleClose={handleCloseModal} >
-          <LoginForm handleClose={handleCloseModal} />
-        </CustomModal>
       </AppBar>
     </ElevationScroll>
   );

@@ -7,17 +7,25 @@ import { Loading } from "../../components/ui";
 import { ErrorPage } from "../../components/ui/ErrorPage";
 import { SeasonResponse } from "../../interfaces/seasonResponse";
 
-const SeasonCard = dynamic(() => import('../../components/cards/SeasonCard'), { ssr: false });
+const SeasonCard = dynamic(() => import("../../components/cards/SeasonCard"), {
+  ssr: false,
+});
 
 const Seasons = () => {
-
-  const { data, error, isLoading }: UseQueryResult<SeasonResponse[]> = useQuery(['seasons'], getSeasons, {
-    retry: 1
-  });
+  const { data, error, isLoading }: UseQueryResult<SeasonResponse[]> = useQuery(
+    ["seasons"],
+    getSeasons,
+    {
+      retry: 1,
+    }
+  );
 
   if (error) {
     return (
-      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+      <DefaultLayout
+        title={"Temporadas | Intellisys Coding Challenge"}
+        pageDescription={"Todas las temporadas del Intellisys Coding Challenge"}
+      >
         <ErrorPage />
       </DefaultLayout>
     );
@@ -25,18 +33,23 @@ const Seasons = () => {
 
   if (isLoading) {
     return (
-      <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+      <DefaultLayout
+        title={"Temporadas | Intellisys Coding Challenge"}
+        pageDescription={"Todas las temporadas del Intellisys Coding Challenge"}
+      >
         <Loading />
       </DefaultLayout>
     );
   }
 
-
   return (
-    <DefaultLayout title={"Seasons | ICC"} pageDescription={"Seasons details"}>
+    <DefaultLayout
+      title={"Temporadas | Intellisys Coding Challenge"}
+      pageDescription={"Todas las temporadas del Intellisys Coding Challenge"}
+    >
       <Box
         sx={{
-          margin: '20px auto',
+          margin: "20px auto",
           maxWidth: 1440,
           padding: "0 30px",
         }}
@@ -44,18 +57,16 @@ const Seasons = () => {
         <Grid
           container
           sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-
           {data!.map((season) => (
             <SeasonCard key={season.id} season={season} />
           ))}
         </Grid>
       </Box>
-
     </DefaultLayout>
   );
 };

@@ -12,7 +12,6 @@ export const HowWorksSection = () => {
         alignItems: "center",
         margin: "auto",
         maxWidth: 1440,
-        padding: "0px 30px 0px 30px",
         position: "relative",
         overflow: "hidden",
       }}
@@ -25,6 +24,7 @@ export const HowWorksSection = () => {
           display: "flex",
           justifyContent: "center",
           position: { xs: "absolute", sm: "absolute", lg: "relative" },
+          pointerEvents: {xs: "none", sm: "none", lg: "all"},
           opacity: { xs: 0.1, sm: 0.1, lg: 1 },
         }}
       >
@@ -50,27 +50,27 @@ export const HowWorksSection = () => {
         </Typography>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="subtitle1" fontWeight={300}>
+          <Typography variant="h3" fontWeight={300}>
             La participación es individual.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="subtitle1" fontWeight={300}>
+          <Typography variant="h3" fontWeight={300}>
             Sus challenges (concursos) se realizan el primer viernes de cada
             mes, de 3:00pm a 4:30pm en la plataforma online vjudge.net.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="subtitle1" fontWeight={300}>
+          <Typography variant="h3" fontWeight={300}>
             Lenguajes permitidos incluyen: C/C++, Java, Python, JavaScript,
             entre otros.
           </Typography>
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="subtitle1" fontWeight={300}>
+          <Typography variant="h3" fontWeight={300}>
             En cada challenge, al estilo{" "}
             <InlineLink link="https://icpc.global/" label="ICPC" />
             (International Collegiate Programming Contest), se proponen 3
@@ -79,7 +79,7 @@ export const HowWorksSection = () => {
         </Box>
         <Box sx={{ mb: 1 }} display="flex">
           <CookieIcon color="primary" fontSize="medium" />
-          <Typography variant="subtitle1" fontWeight={300}>
+          <Typography variant="h3" fontWeight={300}>
             En el ranking de posiciones se ubica primero quien resuelva la mayor
             cantidad de desafíos (puntos); en caso de empates, entonces se ubica
             primero el que acumule menor penalidad (penalty).

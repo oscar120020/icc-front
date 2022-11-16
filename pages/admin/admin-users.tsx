@@ -89,7 +89,7 @@ const AdminUsers = () => {
 
   return (
     <AdminLayout
-      title={"Admin Users | Admin"}
+      title={"Usuarios administradores | Admin"}
       pageDescription={"Panel de administración - Admin Users"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>

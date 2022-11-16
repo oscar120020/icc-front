@@ -5,7 +5,7 @@ import { Error404Image } from "../components/SVG/Error404";
 
 const Page404 = () => {
   return (
-    <DefaultLayout title={"Page not found"} pageDescription={"Page not found"}>
+    <DefaultLayout title={"Página no encontrada"} pageDescription={"Página no encontrada"}>
         <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' height='calc(100vh - 150px)' >
           <Error404Image width={700} />
           <Box display='flex'>

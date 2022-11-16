@@ -14,8 +14,8 @@ export default function RankingId({ ranking }: RankingProps) {
 
   return (
     <DefaultLayout
-      title={"Calendario | ICC"}
-      pageDescription={"Calendario de eventos"}
+      title={"Ranking | Intellisys Coding Challenge"}
+      pageDescription={"Ranking del Intellisys Coding Challenge"}
     >
       <Box
         sx={{

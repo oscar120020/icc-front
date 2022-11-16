@@ -117,8 +117,8 @@ const Seasons = () => {
 
   return (
     <AdminLayout
-      title={"Seasons | Admin"}
-      pageDescription={"Panel de administración - seasons"}
+      title={"Temporadas | Admin"}
+      pageDescription={"Panel de administración - Temporadas"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>
         Temporadas - Admin

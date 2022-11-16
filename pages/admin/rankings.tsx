@@ -116,7 +116,7 @@ const Rankings = () => {
 
   return (
     <AdminLayout
-      title={"Ranking | Admin"}
+      title={"Rankings | Admin"}
       pageDescription={"Panel de administración - rankings"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>

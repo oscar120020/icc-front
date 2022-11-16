@@ -17,7 +17,7 @@ const Team = () => {
   if (error) {
     return (
       <DefaultLayout
-        title={"Organizadores | ICC"}
+        title={"Organizadores | Intellisys Coding Challenge"}
         pageDescription={"Todos los organizadores"}
       >
         <ErrorPage />
@@ -28,7 +28,7 @@ const Team = () => {
   if (isLoading) {
     return (
       <DefaultLayout
-        title={"Organizadores | ICC"}
+        title={"Organizadores | Intellisys Coding Challenge"}
         pageDescription={"Todos los Organizadores"}
       >
         <Loading />
@@ -38,7 +38,7 @@ const Team = () => {
 
   return (
     <DefaultLayout
-      title={"Organizadores | ICC"}
+      title={"Organizadores | Intellisys Coding Challenge"}
       pageDescription={"Todos los Organizadores"}
     >
       <Box

@@ -56,6 +56,10 @@ export const defaultTheme = createTheme({
           fontWeight: 400
         },
         h3: {
+          fontSize: 22,
+          fontWeight: 300
+        },
+        h4: {
           fontSize: 18,
           fontWeight: 300
         },

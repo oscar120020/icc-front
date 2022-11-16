@@ -73,7 +73,7 @@ const Calendar = () => {
 
   return (
     <DefaultLayout
-      title={"Calendario | ICC"}
+      title={"Calendario | Intellisys Coding Challenge"}
       pageDescription={"Calendario de eventos"}
     >
       <Box
