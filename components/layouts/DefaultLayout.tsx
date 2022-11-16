@@ -97,6 +97,7 @@ export const DefaultLayout = ({
                 </Box>
                 <Typography
                   variant="h1"
+                  component="h2"
                   sx={{ fontWeight: "bold", color: "white", fontSize: "30px", textAlign: {xs: 'center', sm: 'left'} }}
                 >
                   Contacto
