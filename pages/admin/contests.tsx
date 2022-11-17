@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -9,11 +9,16 @@ import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
 import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 const initialValues: RankingFormValues = {
-  url: "",
+  rankingUrl: "",
   seasonId: "",
-  date: new Date()
+  name: "",
+  begin: new Date(),
+  end: new Date()
 };
 
 const Rankings = () => {
@@ -29,42 +34,45 @@ const Rankings = () => {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
-    { field: "url", headerName: "Url del ranking", width: 300 },
-    { field: "date", headerName: "Fecha del ranking", width: 300 },
-    { field: "season", headerName: "Temporada", width: 300 },
+    { field: "name", headerName: "Nombre de competencia", width: 230 },
+    { field: "url", headerName: "Url de la competencia", width: 230 },
+    { field: "begining", headerName: "Fecha de inicio", width: 230 },
+    { field: "end", headerName: "Fecha de fin", width: 230 },
+    { field: "season", headerName: "Temporada", width: 250 },
     {
-      field: "edit",
-      headerName: "Editar",
+      field: "actions",
+      headerName: "Acciones",
       width: 170,
       renderCell: (params) => (
-        <Button
-          fullWidth
-          variant="outlined"
-          color="primary"
-          onClick={() => openModalToEdit({
-            id: params.row.id,
-            date: params.row.date,
-            url: params.row.url,
-            seasonId: params.row.seasonId
-          })}
-        >
-          Editar temporada
-        </Button>
-      ),
-    },
-    {
-      field: "seasonId",
-      headerName: "Eliminar ranking",
-      width: 170,
-      renderCell: (params) => (
-        <Button
-          fullWidth
-          variant="outlined"
-          color="error"
-          onClick={() => preDeleteRanking(params.row.id)}
-        >
-          Eliminar ranking
-        </Button>
+        <Stack direction="row" spacing={2} sx={{margin: "0 auto"}}>
+          <Tooltip title="Editar" >
+            <IconButton
+              onClick={() => {
+                openModalToEdit({
+                  rankingUrl: params.row.url,
+                  name: params.row.name,
+                  begin: params.row.begining,
+                  end: params.row.end,
+                  seasonId: params.row.actions.seasonId
+                })
+              }}
+            >
+              <EditIcon color="primary" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Eliminar" >
+            <IconButton
+              onClick={() => preDeleteRanking(params.row.id)}
+            >
+              <DeleteIcon color="primary" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Cargar ranking" >
+            <IconButton>
+              <CloudDownloadIcon color="primary" />
+            </IconButton>
+          </Tooltip>
+        </Stack >
       ),
     },
   ];
@@ -72,10 +80,14 @@ const Rankings = () => {
   const rows = data?.map((ranking) => {
     return {
       id: ranking.id,
+      name: ranking.name,
       url: ranking.url,
-      date: ranking.date,
+      begining: ranking.beginning,
+      end: ranking.end,
       season: ranking.season.name,
-      seasonId: ranking.season.id,
+      actions: {
+        seasonId: ranking.season.id
+      },
     };
   });
 
@@ -116,11 +128,11 @@ const Rankings = () => {
 
   return (
     <AdminLayout
-      title={"Rankings | Admin"}
-      pageDescription={"Panel de administración - rankings"}
+      title={"Competencias | Admin"}
+      pageDescription={"Panel de administración - Competencias"}
     >
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Rankings - Admin
+        Competencias - Admin
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <Button
@@ -149,7 +161,7 @@ const Rankings = () => {
       </CustomModal>
       <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
         <ConfirmationAlert
-          message="¿Está seguro que quiere eliminar este ranking?"
+          message="¿Está seguro(a) que quiere eliminar esta competencia?"
           confirmFunction={deleteRanking}
           close={handleCloseConfirmModal}
         />

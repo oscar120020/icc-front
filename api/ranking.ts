@@ -17,11 +17,10 @@ export const addRankingToSeason = async (
   body: RankingFormValues,
   token: string
 ) => {
-  const { seasonId, url, date } = body;
   try {
-    const response = await rankingApi.put<{ msg: string }>(
-      `season/ranking/${seasonId}`,
-      { rankingUrl: url, date },
+    const response = await rankingApi.post<{ msg: string }>(
+      `season/ranking`,
+      body,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,7 +32,7 @@ export const addRankingToSeason = async (
     if (axios.isAxiosError(error) && error instanceof AxiosError) {
       throw new Error((error as any).response?.data.message);
     } else {
-      throw new Error("Error al crear ranking - intente más tarde");
+      throw new Error("Error al crear competencia - intente más tarde");
     }
   }
 };
@@ -46,7 +45,7 @@ export const updateRanking = async (
   try {
     const response = await rankingApi.put<RankingResponse>(
       `ranking/${rankingId}`,
-      {date: body.date},
+      {date: body.end},
       {
         headers: {
           Authorization: `Bearer ${token}`,
