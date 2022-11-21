@@ -1,24 +1,36 @@
-import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  CircularProgress,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getAllRanking, removeRanking } from "../../api";
+import { addRanking, getAllRanking, removeRanking } from "../../api";
 import { RankingFormValues } from "../../components/form/formInterfaces";
 import { RankingForm, CustomModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
 import Cookies from "js-cookie";
 import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import { timestampFormater } from "../../helpers/dateHelpers";
+import { GetRankingBox } from "../../components/ui/GetRankingBox";
 
 const initialValues: RankingFormValues = {
   rankingUrl: "",
   seasonId: "",
   name: "",
   begin: new Date(),
-  end: new Date()
+  end: new Date(),
 };
 
 const Rankings = () => {
@@ -27,10 +39,16 @@ const Rankings = () => {
   const [currentValues, setCurrentValues] =
     useState<RankingFormValues>(initialValues);
   const [openConfirm, setOpenConfirm] = useState(false);
-  const [selectedRankingId, setSelectedRankingId] = useState('')
-  const { data, error, isLoading, refetch } = useQuery(["rankings"], getAllRanking, {
-    retry: 1,
-  });
+  const [openAddRank, setOpenAddRank] = useState(false);
+  const [selectedRankingId, setSelectedRankingId] = useState("");
+  const { data, error, isLoading, refetch } = useQuery(
+    ["rankings"],
+    getAllRanking,
+    {
+      retry: 1,
+    }
+  );
+  const [rankId, setRankId] = useState("")
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
@@ -44,35 +62,34 @@ const Rankings = () => {
       headerName: "Acciones",
       width: 170,
       renderCell: (params) => (
-        <Stack direction="row" spacing={2} sx={{margin: "0 auto"}}>
-          <Tooltip title="Editar" >
+        <Stack direction="row" spacing={2} sx={{ margin: "0 auto" }}>
+          <Tooltip title="Editar">
             <IconButton
               onClick={() => {
                 openModalToEdit({
+                  id: params.row.id,
                   rankingUrl: params.row.url,
                   name: params.row.name,
                   begin: params.row.begining,
                   end: params.row.end,
-                  seasonId: params.row.actions.seasonId
-                })
+                  seasonId: params.row.actions.seasonId,
+                });
               }}
             >
               <EditIcon color="primary" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Eliminar" >
-            <IconButton
-              onClick={() => preDeleteRanking(params.row.id)}
-            >
+          <Tooltip title="Eliminar">
+            <IconButton onClick={() => preDeleteRanking(params.row.id)}>
               <DeleteIcon color="primary" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Cargar ranking" >
-            <IconButton>
+          <Tooltip title="Cargar ranking">
+            <IconButton onClick={() => openModalToGetRank(params.row.id)}>
               <CloudDownloadIcon color="primary" />
             </IconButton>
           </Tooltip>
-        </Stack >
+        </Stack>
       ),
     },
   ];
@@ -82,14 +99,19 @@ const Rankings = () => {
       id: ranking.id,
       name: ranking.name,
       url: ranking.url,
-      begining: ranking.beginning,
-      end: ranking.end,
+      begining: timestampFormater(ranking.beginning),
+      end: timestampFormater(ranking.end),
       season: ranking.season.name,
       actions: {
-        seasonId: ranking.season.id
+        seasonId: ranking.season.id,
       },
     };
   });
+
+  const openModalToGetRank = (id: string) => {
+    setRankId(id)
+    setOpenAddRank(true)
+  }
 
   const openModalToEdit = (values: RankingFormValues) => {
     setCurrentValues(values);
@@ -109,21 +131,25 @@ const Rankings = () => {
     setOpenConfirm(false);
   };
 
+  const handleCloseAddRankModal = () => {
+    setOpenAddRank(false);
+  };
+
   const preDeleteRanking = (id: string) => {
-    setSelectedRankingId(id)
-    setOpenConfirm(true)
-  }
+    setSelectedRankingId(id);
+    setOpenConfirm(true);
+  };
 
   const deleteRanking = () => {
-    const token = Cookies.get('token') || ''
+    const token = Cookies.get("token") || "";
     removeRanking(selectedRankingId, token)
-    .then(res => {
-      refetch()
-      setOpenConfirm(false);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((res) => {
+        refetch();
+        setOpenConfirm(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -157,13 +183,23 @@ const Rankings = () => {
         />
       </Box>
       <CustomModal open={open} handleClose={handleCloseModal}>
-        <RankingForm revalidate={refetch} handleClose={handleCloseModal} initialValues={currentValues} />
+        <RankingForm
+          revalidate={refetch}
+          handleClose={handleCloseModal}
+          initialValues={currentValues}
+        />
       </CustomModal>
       <CustomModal open={openConfirm} handleClose={handleCloseConfirmModal}>
         <ConfirmationAlert
           message="¿Está seguro(a) que quiere eliminar esta competencia?"
           confirmFunction={deleteRanking}
           close={handleCloseConfirmModal}
+        />
+      </CustomModal>
+      <CustomModal open={openAddRank} handleClose={handleCloseAddRankModal}>
+        <GetRankingBox
+          close={handleCloseAddRankModal}
+          rankId={rankId}
         />
       </CustomModal>
     </AdminLayout>

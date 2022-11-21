@@ -39,3 +39,10 @@ export interface Ranking {
   url: string;
   date: string;
 }
+
+
+export interface ContestInfoResponse {
+  begin: string;
+  name: string;
+  end: string;
+}

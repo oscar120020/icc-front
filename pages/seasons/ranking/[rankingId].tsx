@@ -5,11 +5,12 @@ import React, { useRef } from "react";
 import { getAllRanking, getRankingById } from "../../../api";
 import { DefaultLayout } from "../../../components/layouts";
 import Ranking from "../../../components/ranking/Ranking";
+import { EmptySection } from "../../../components/ui/EmptySection";
 import { getDateFormat } from "../../../helpers/getDateFormat";
 import { RankingProps } from "../../../interfaces/seasonResponse";
 
 export default function RankingId({ ranking }: RankingProps) {
-  const { current } = useRef(getDateFormat(ranking.date));
+  const { current } = useRef(getDateFormat(ranking.beginning));
   const router = useRouter();
 
   return (
@@ -49,7 +50,13 @@ export default function RankingId({ ranking }: RankingProps) {
             Regresar
           </Typography>
         </Box>
-        <Ranking globalRanking={ranking.scores} />
+        {
+          !ranking.scores.length ? (
+            <EmptySection message="Esta competencia aún no tiene el ranking disponible." />
+          ) : (
+            <Ranking globalRanking={ranking.scores} />
+          )
+        }
       </Box>
     </DefaultLayout>
   );

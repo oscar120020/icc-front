@@ -14,6 +14,12 @@ export interface RankingFormValues {
   seasonId: string;
 }
 
+export interface UpdateCompetition {
+  name: string;
+  begin: Date;
+  end: Date;
+}
+
 export interface LoginFormValues {
   username: string;
   password: string;

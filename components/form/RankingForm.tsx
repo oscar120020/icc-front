@@ -9,14 +9,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { LocalizationProvider, DesktopDatePicker, DateTimePicker } from "@mui/x-date-pickers";
+import {
+  LocalizationProvider,
+  DesktopDatePicker,
+  DateTimePicker,
+} from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import * as Yup from "yup";
-import { addRankingToSeason, getSeasons, updateRanking } from "../../api";
+import { createContest, getContestInfo, getSeasons, updateRanking } from "../../api";
 import { RankingFormValues } from "./formInterfaces";
 
 interface Props {
@@ -46,27 +50,29 @@ export const RankingForm = ({
   revalidate,
 }: Props) => {
   const [loading, setLoading] = useState(false);
+  const [loadingScrapping, setLoadingScrapping] = useState(false);
   const [error, setError] = useState("");
   const { data: seasonsData } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
-  const { handleSubmit, handleChange, values, setFieldValue, touched, errors } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      if(!!initialValues.rankingUrl){
-        update(values)
-      }else{
-        create(values);
-      }
-    },
-  });
+  const { handleSubmit, handleChange, values, setFieldValue, touched, errors, validateField } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: (values) => {
+        if (!!initialValues.rankingUrl) {
+          update(values);
+        } else {
+          create(values);
+        }
+      },
+    });
 
   const create = (values: RankingFormValues) => {
     setLoading(true);
     setError("");
     const token = Cookies.get("token") || "";
-    addRankingToSeason(values, token)
+    createContest(values, token)
       .then((res) => {
         setLoading(false);
         revalidate();
@@ -82,7 +88,12 @@ export const RankingForm = ({
     setLoading(true);
     setError("");
     const token = Cookies.get("token") || "";
-    updateRanking(values.id!, values, token)
+    const body = {
+      name: values.name,
+      begin: new Date(values.begin),
+      end: new Date(values.end),
+    }
+    updateRanking(values.id!, body, token)
       .then((res) => {
         setLoading(false);
         revalidate();
@@ -92,6 +103,26 @@ export const RankingForm = ({
         setLoading(false);
         setError(err.message);
       });
+  };
+
+  const firstScrapping = () => {
+    touched.rankingUrl = true
+    validateField("rankingUrl")
+    if(errors.rankingUrl || !values.rankingUrl) return;
+    setLoadingScrapping(true)
+    getContestInfo(values.rankingUrl)
+    .then(res => {
+      const { name, begin, end } = res;
+      setFieldValue('name', name)
+      setFieldValue('begin', new Date(begin))
+      setFieldValue('end', new Date(end))
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setLoadingScrapping(false)
+    })
   };
 
   return (
@@ -140,6 +171,22 @@ export const RankingForm = ({
           disabled={!!initialValues.rankingUrl}
         />
 
+        <Box sx={{ width: "90%", mb: 2 }}>
+          <Button
+            fullWidth
+            color="primary"
+            variant="contained"
+            sx={{ bgcolor: "#0ba7ce", color: "#fff" }}
+            onClick={firstScrapping}
+          >
+            {loadingScrapping ? (
+              <CircularProgress color="inherit" size={15} />
+            ) : (
+              "Scrapping"
+            )}
+          </Button>
+        </Box>
+
         <TextField
           sx={{ width: "90%", mb: 2 }}
           name="name"
@@ -151,9 +198,7 @@ export const RankingForm = ({
         />
 
         <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Stack
-            sx={{ width: "90%", mb: 2 }}
-          >
+          <Stack sx={{ width: "90%", mb: 2 }}>
             <DateTimePicker
               label="Fecha de inicio*"
               value={values.begin}

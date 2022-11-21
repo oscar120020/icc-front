@@ -18,3 +18,7 @@ export const IsDateBetweenEvent = (date: Date): boolean => {
   }
   return false
 };
+
+export const timestampFormater = (time: string) => {
+  return new Date(time).toLocaleString()
+}
