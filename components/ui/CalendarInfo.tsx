@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import {
+  getTime,
   IsDateBetweenEvent,
   IsDateHigherThanNow,
 } from "../../helpers/dateHelpers";
@@ -13,58 +14,62 @@ import { useQuery } from "react-query";
 import { getRankingById } from "../../api";
 
 interface Props {
-  selectedDate: EventResponse;
+  selectedDate: CalendarData;
 }
 
-const getRankng = async(id: string) => {
-  if(!id) throw "No hay ranking relacionado"
-  try {
-    const data = await getRankingById(id);
-    return data
-  } catch (error) {
-    
-  }
+export interface CalendarData {
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  type: string;
+  rankUrl: string;
+  rankId: string;
+  rankAvialable: boolean;
 }
+
 
 export const CalendarInfo = ({ selectedDate }: Props) => {
-  const { data } = useQuery(
-    ["ranking", selectedDate.rankingId],
-    () => getRankng(selectedDate.rankingId || ''),
-    {
-      retry: 1,
-    }
-  );
   const [googleCalendarUrl, setGoogleCalendarUrl] = useState("");
   const router = useRouter();
   const isHigher = useMemo(
-    () => IsDateHigherThanNow(selectedDate.date),
-    [selectedDate.date]
+    () => IsDateHigherThanNow(selectedDate.startDate),
+    [selectedDate.startDate]
   );
 
   const isEventNow = useMemo(
-    () => IsDateBetweenEvent(selectedDate.date),
-    [selectedDate.date]
+    () => IsDateBetweenEvent(selectedDate.startDate, selectedDate.endDate),
+    [selectedDate.startDate, selectedDate.endDate]
+  );
+
+  const startHour = useMemo(
+    () => getTime(selectedDate.startDate),
+    [selectedDate.startDate]
+  );
+
+  const endHour = useMemo(
+    () => getTime(selectedDate.endDate),
+    [selectedDate.endDate]
   );
 
   const handleClick = () => {
-    router.push(`seasons/ranking/${selectedDate.rankingId}`);
+    router.push(`seasons/ranking/${selectedDate.rankId}`);
   };
 
   useEffect(() => {
     const config: CalendarOptions = {
-      title: selectedDate.name,
+      title: selectedDate.title,
       location: "Santiago De Los Caballeros, República Dominicana",
-      description: data?.url,
-      start: new Date(`${selectedDate.date} 15:00:00`),
-      end: new Date(`${selectedDate.date} 16:30:00`),
+      description: selectedDate.rankUrl,
+      start: new Date(selectedDate.startDate),
+      end: new Date(selectedDate.endDate),
     };
     const googleCalendar = new GoogleCalendar(config);
     setGoogleCalendarUrl(googleCalendar.render());
-  }, [selectedDate, data]);
+  }, [selectedDate]);
 
   const openGoogleEvent = () => {
     window.open(
-      !isEventNow ? googleCalendarUrl : data?.url
+      !isEventNow ? googleCalendarUrl : selectedDate.rankUrl
       , "_black");
   };
 
@@ -79,11 +84,11 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
     >
       <Box>
         <Typography variant="h2" color="primary">
-          {selectedDate.name}
+          {selectedDate.title}
         </Typography>
-        <Typography variant="h6">{getFullDate(selectedDate.date)}</Typography>
+        <Typography variant="h6">{getFullDate(selectedDate.startDate)}</Typography>
         <Typography color="GrayText" variant="body1">
-          3:00PM - 4:30PM
+          {startHour} - {endHour}
         </Typography>
         {!isEventNow && (
           <Typography
@@ -100,7 +105,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
             sx={{ bgcolor: "#0ba7ce", color: "white", margin: "15px 0" }}
             size="large"
             color="primary"
-            disabled={!selectedDate.rankingId || isHigher}
+            disabled={!selectedDate.rankAvialable || isHigher}
             onClick={handleClick}
           >
             Ver resultados
@@ -112,7 +117,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
             size="large"
             color="primary"
             onClick={openGoogleEvent}
-            disabled={!data && isEventNow}
+            // disabled={!data && isEventNow}
           >
             {isEventNow ? "Ver en directo" : "Agendar en mi calendar"}
           </Button>
@@ -120,7 +125,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
       </Box>
       <Box sx={{ margin: { xs: "30px auto", sm: "0 30px", lg: "30px 0" } }}>
         <Image
-          src={selectedDate.imageUrl || "/Asset 5@2x.png"}
+          src="/Asset 5@2x.png"
           alt="event image"
           width={250}
           height={250}
