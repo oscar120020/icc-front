@@ -38,7 +38,6 @@ export const SidebarAdmin = () => {
       <Divider/>
       <SidebarSection title="Temporadas" iconSidebar={<ArchiveIcon />} to="/admin/seasons" />
       <SidebarSection title="Competencias" iconSidebar={<EmojiEventsOutlinedIcon />} to="/admin/contests" />
-      <SidebarSection title="Eventos" iconSidebar={<CalendarMonthOutlinedIcon />} to="/admin/events" />
       <SidebarSection title="Usuarios" iconSidebar={<GroupOutlinedIcon />}>
         <SidebarLink label="Participantes" to="/admin/contestants" />
         <SidebarLink label="Administradores" to="/admin/admin-users" />

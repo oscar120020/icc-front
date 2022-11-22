@@ -8,10 +8,7 @@ import {
   IsDateHigherThanNow,
 } from "../../helpers/dateHelpers";
 import { getFullDate } from "../../helpers/getDateFormat";
-import { EventResponse } from "../../interfaces/eventResponse";
 import { CalendarOptions, GoogleCalendar } from "datebook";
-import { useQuery } from "react-query";
-import { getRankingById } from "../../api";
 
 interface Props {
   selectedDate: CalendarData;

@@ -6,11 +6,9 @@ export const rankingApi = axios.create({
   adapter: fetchAdapter,
 });
 
-export * from './admin'
-export * from './competitor'
-export * from './login'
-export * from './ranking'
-export * from './season'
-export * from './event'
-export * from './team'
-
+export * from "./admin";
+export * from "./competitor";
+export * from "./login";
+export * from "./ranking";
+export * from "./season";
+export * from "./team";
