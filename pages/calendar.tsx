@@ -12,11 +12,11 @@ import { Box, Paper, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getEvents } from "../api";
-import { getDatePlusOneDay, IsDateBetweenEvent, IsDateHigherThanNow } from "../helpers/dateHelpers";
-import { EventResponse } from "../interfaces/eventResponse";
-import { CalendarInfo } from "../components/ui/CalendarInfo";
+import { getAllRanking } from "../api";
+import { IsDateBetweenEvent, IsDateHigherThanNow } from "../helpers/dateHelpers";
+import { CalendarData, CalendarInfo } from "../components/ui/CalendarInfo";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import { RankingResponse } from "../interfaces/rankingsResponse";
 
 const resources = [
   {
@@ -32,40 +32,26 @@ const resources = [
 
 interface EventClick {
   target: EventTarget;
-  data: EventData;
-}
-
-interface EventData {
-  endDate: Date;
-  startDate: Date;
-  image: string;
-  title: string;
-  type: string;
-  rankingId: string;
+  data: CalendarData;
 }
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<EventResponse>();
-  const { data, error, isLoading } = useQuery(["events"], getEvents, {
+  const [selectedDate, setSelectedDate] = useState<CalendarData>();
+  const { data, error, isLoading } = useQuery(["rankings"], getAllRanking, {
     retry: 1,
   });
 
   const handleEventClick = ({ data }: EventClick) => {
-    setSelectedDate({
-      date: data.startDate,
-      name: data.title,
-      imageUrl: data.image,
-      rankingId: data.rankingId,
-    });
+    setSelectedDate(data);
     window.scrollTo(0, 0);
   };
 
-  const eventType = (event: EventResponse) => {
-    if(IsDateBetweenEvent(event.date)){
+  const eventType = (event: RankingResponse) => {
+    if(IsDateBetweenEvent(event.beginning, event.end)){
       return "now"
     }
-    if(IsDateHigherThanNow(event.date)){
+    if(IsDateHigherThanNow(event.beginning)){
       return "work"
     }
     return "private"
@@ -118,11 +104,12 @@ const Calendar = () => {
             locale="es-ES"
             data={data?.map((event) => ({
               title: event.name,
-              startDate: event.date,
-              endDate: getDatePlusOneDay(event.date, 1),
+              startDate: event.beginning,
+              endDate: event.end,
               type:  eventType(event),
-              image: event.imageUrl,
-              rankingId: event.rankingId,
+              rankUrl: event.url,
+              rankId: event.id,
+              rankAvialable: !!event.scores.length
             }))}
           >
             <ViewState

@@ -7,9 +7,17 @@ export interface SeasonFormValues {
 
 export interface RankingFormValues {
   id?: string;
-  url: string;
-  date: Date;
+  rankingUrl: string;
+  name: string;
+  begin: Date;
+  end: Date;
   seasonId: string;
+}
+
+export interface UpdateCompetition {
+  name: string;
+  beginning: Date;
+  end: Date;
 }
 
 export interface LoginFormValues {

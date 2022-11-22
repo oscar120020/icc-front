@@ -14,7 +14,7 @@ export function getDateFormat(date: string) {
 }
 
 export function getFullDate(date: string | Date) {
-    const correctDate = new Date(new Date(date).toISOString().replace('.000Z', ''))
+    const correctDate = new Date(date)
     const year = correctDate.getFullYear()
     const monthIndex = correctDate.getMonth()
     const day = correctDate.getDate()

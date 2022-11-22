@@ -9,14 +9,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { LocalizationProvider, DesktopDatePicker } from "@mui/x-date-pickers";
+import {
+  LocalizationProvider,
+  DesktopDatePicker,
+  DateTimePicker,
+} from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import * as Yup from "yup";
-import { addRankingToSeason, getSeasons, updateRanking } from "../../api";
+import { createContest, getContestInfo, getSeasons, updateRanking } from "../../api";
 import { RankingFormValues } from "./formInterfaces";
 
 interface Props {
@@ -26,14 +30,18 @@ interface Props {
 }
 
 const validationSchema = Yup.object().shape({
-  url: Yup.string()
+  seasonId: Yup.string().required("Seleccione una temporada"),
+  rankingUrl: Yup.string()
     .required("Ingrese una url de Vjudge")
     .matches(
       /^https:\/\/vjudge\.net\/contest\/.*[\w\0,9]/,
       "Url no coincide con torneo de Vjudge"
     ),
-  seasonId: Yup.string().required("Seleccione una temporada"),
-  date: Yup.date().nullable(true).required("Ingrese la fecha del concurso"),
+  name: Yup.string()
+    .required("Ingrese el nombre de la competencia")
+    .min(5, "El nombre debe tener por lo menos 5 carácteres"),
+  begin: Yup.date().nullable(true).required("Ingrese la fecha de inicio"),
+  end: Yup.date().nullable(true).required("Ingrese la fecha de fin"),
 });
 
 export const RankingForm = ({
@@ -42,27 +50,29 @@ export const RankingForm = ({
   revalidate,
 }: Props) => {
   const [loading, setLoading] = useState(false);
+  const [loadingScrapping, setLoadingScrapping] = useState(false);
   const [error, setError] = useState("");
   const { data: seasonsData } = useQuery(["seasons"], getSeasons, {
     retry: 1,
   });
-  const { handleSubmit, handleChange, values, setFieldValue, touched, errors } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      if(!!initialValues.url){
-        update(values)
-      }else{
-        create(values);
-      }
-    },
-  });
+  const { handleSubmit, handleChange, values, setFieldValue, touched, errors, validateField } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: (values) => {
+        if (!!initialValues.rankingUrl) {
+          update(values);
+        } else {
+          create(values);
+        }
+      },
+    });
 
   const create = (values: RankingFormValues) => {
     setLoading(true);
     setError("");
     const token = Cookies.get("token") || "";
-    addRankingToSeason(values, token)
+    createContest(values, token)
       .then((res) => {
         setLoading(false);
         revalidate();
@@ -78,7 +88,12 @@ export const RankingForm = ({
     setLoading(true);
     setError("");
     const token = Cookies.get("token") || "";
-    updateRanking(values.id!, values, token)
+    const body = {
+      name: values.name,
+      beginning: new Date(values.begin),
+      end: new Date(values.end),
+    }
+    updateRanking(values.id!, body, token)
       .then((res) => {
         setLoading(false);
         revalidate();
@@ -90,13 +105,33 @@ export const RankingForm = ({
       });
   };
 
+  const firstScrapping = () => {
+    touched.rankingUrl = true
+    validateField("rankingUrl")
+    if(errors.rankingUrl || !values.rankingUrl) return;
+    setLoadingScrapping(true)
+    getContestInfo(values.rankingUrl)
+    .then(res => {
+      const { name, begin, end } = res;
+      setFieldValue('name', name)
+      setFieldValue('begin', new Date(begin))
+      setFieldValue('end', new Date(end))
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setLoadingScrapping(false)
+    })
+  };
+
   return (
     <Box>
       <Typography
         variant="h2"
         sx={{ px: 3, py: 2, backgroundColor: "#0ba7ce", color: "white" }}
       >
-        {initialValues.url ? "Editar" : "Crear"} ranking
+        {initialValues.rankingUrl ? "Editar" : "Crear"} competencia
       </Typography>
       <form
         onSubmit={handleSubmit}
@@ -109,40 +144,6 @@ export const RankingForm = ({
       >
         <TextField
           sx={{ width: "90%", mb: 2 }}
-          name="url"
-          label="Url de Vjudge*"
-          value={values.url}
-          onChange={handleChange}
-          error={touched.url && !!errors.url}
-          helperText={touched.url && errors.url}
-          disabled={!!initialValues.url}
-        />
-
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Stack
-            display="flex"
-            flexDirection="row"
-            sx={{ width: "90%", mb: 2 }}
-          >
-            <DesktopDatePicker
-              label="Fecha del concurso*"
-              inputFormat="MM/DD/YYYY"
-              value={values.date}
-              onChange={(value) => setFieldValue("date", value)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  sx={{ width: "100%", margin: "0px 0px" }}
-                  error={touched.date && !!errors.date}
-                  helperText={touched.date && `${errors.date || ""}`}
-                />
-              )}
-            />
-          </Stack>
-        </LocalizationProvider>
-
-        <TextField
-          sx={{ width: "90%", mb: 2 }}
           name="seasonId"
           label="Temporada*"
           value={values.seasonId}
@@ -150,7 +151,7 @@ export const RankingForm = ({
           onChange={handleChange}
           error={touched.seasonId && !!errors.seasonId}
           helperText={touched.seasonId && errors.seasonId}
-          disabled={!!initialValues.url}
+          disabled={!!initialValues.rankingUrl}
         >
           {seasonsData?.map((season) => (
             <MenuItem key={season.id} value={season.id}>
@@ -159,15 +160,78 @@ export const RankingForm = ({
           ))}
         </TextField>
 
+        <TextField
+          sx={{ width: "90%", mb: 2 }}
+          name="rankingUrl"
+          label="Url de Vjudge*"
+          value={values.rankingUrl}
+          onChange={handleChange}
+          error={touched.rankingUrl && !!errors.rankingUrl}
+          helperText={touched.rankingUrl && errors.rankingUrl}
+          disabled={!!initialValues.rankingUrl}
+        />
+
+        <Box sx={{ width: "90%", mb: 2 }}>
+          <Button
+            fullWidth
+            color="primary"
+            variant="contained"
+            sx={{ bgcolor: "#0ba7ce", color: "#fff" }}
+            onClick={firstScrapping}
+          >
+            {loadingScrapping ? (
+              <CircularProgress color="inherit" size={15} />
+            ) : (
+              "Scrapping"
+            )}
+          </Button>
+        </Box>
+
+        <TextField
+          sx={{ width: "90%", mb: 2 }}
+          name="name"
+          label="Nombre*"
+          value={values.name}
+          onChange={handleChange}
+          error={touched.name && !!errors.name}
+          helperText={touched.name && errors.name}
+        />
+
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <Stack sx={{ width: "90%", mb: 2 }}>
+            <DateTimePicker
+              label="Fecha de inicio*"
+              value={values.begin}
+              onChange={(value) => setFieldValue("begin", value)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  sx={{ width: "100%", margin: "0px 0px", mb: 2 }}
+                  error={touched.begin && !!errors.begin}
+                  helperText={touched.begin && `${errors.begin || ""}`}
+                />
+              )}
+            />
+
+            <DateTimePicker
+              label="Fecha de fin*"
+              value={values.end}
+              onChange={(value) => setFieldValue("end", value)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  sx={{ width: "100%", margin: "0px 0px" }}
+                  error={touched.end && !!errors.end}
+                  helperText={touched.end && `${errors.end || ""}`}
+                />
+              )}
+            />
+          </Stack>
+        </LocalizationProvider>
+
         {!!error && (
           <Alert severity="error" sx={{ width: "90%", mt: 2 }}>
             <AlertTitle>{error}</AlertTitle>
-          </Alert>
-        )}
-
-        {!!loading && (
-          <Alert severity="warning" sx={{ width: "90%", mt: 2 }}>
-            <AlertTitle>Esta acción puede tardar unos segundos</AlertTitle>
           </Alert>
         )}
 

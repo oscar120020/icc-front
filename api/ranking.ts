@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { RankingFormValues } from "../components/form/formInterfaces";
-import { RankingResponse } from "../interfaces/rankingsResponse";
+import { RankingFormValues, UpdateCompetition } from "../components/form/formInterfaces";
+import { ContestInfoResponse, RankingResponse } from "../interfaces/rankingsResponse";
 import { Ranking, SeasonCreatedResponse } from "../interfaces/seasonsResponse";
 import { rankingApi } from ".";
 
@@ -13,15 +13,14 @@ export const getAllRanking = async () => {
   }
 };
 
-export const addRankingToSeason = async (
+export const createContest = async (
   body: RankingFormValues,
   token: string
 ) => {
-  const { seasonId, url, date } = body;
   try {
-    const response = await rankingApi.put<{ msg: string }>(
-      `season/ranking/${seasonId}`,
-      { rankingUrl: url, date },
+    const response = await rankingApi.post<{ msg: string }>(
+      `season/ranking`,
+      body,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,20 +32,40 @@ export const addRankingToSeason = async (
     if (axios.isAxiosError(error) && error instanceof AxiosError) {
       throw new Error((error as any).response?.data.message);
     } else {
-      throw new Error("Error al crear ranking - intente más tarde");
+      throw new Error("Error al crear competencia - intente más tarde");
+    }
+  }
+};
+
+export const addRanking = async (rankingId: string, token: string) => {
+  try {
+    const response = await rankingApi.put<{message: string}>(
+      `ranking/finilized/${rankingId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error instanceof AxiosError) {
+      throw new Error((error as any).response?.data.message);
+    } else {
+      throw new Error("Error al agregar ranking - intente más tarde");
     }
   }
 };
 
 export const updateRanking = async (
   rankingId: string,
-  body: RankingFormValues,
+  body: UpdateCompetition,
   token: string
 ) => {
   try {
     const response = await rankingApi.put<RankingResponse>(
       `ranking/${rankingId}`,
-      {date: body.date},
+      body,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,5 +108,16 @@ export const getRankingById = async (id: string) => {
     return response.data;
   } catch (error) {
     throw new Error("Error al cargar el ranking");
+  }
+}
+
+export const getContestInfo = async (url: string) => {
+  try {
+    const response = await rankingApi.get<ContestInfoResponse>('/ranking/scrapping', {
+      params: {url}
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Error al cargar datos del concurso");
   }
 }

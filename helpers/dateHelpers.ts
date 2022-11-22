@@ -2,13 +2,13 @@ export const getDatePlusOneDay = (date: Date, plus: number) => {
   return new Date(new Date(date).setDate(new Date(date).getDate() + plus));
 };
 
-export const IsDateHigherThanNow = (date: Date): boolean => {
-  return new Date(`${date} 16:30:00`) > new Date();
+export const IsDateHigherThanNow = (date: Date | string): boolean => {
+  return new Date(date) > new Date();
 };
 
-export const IsDateBetweenEvent = (date: Date): boolean => {
-  const startDate = new Date(`${date} 15:00:00`)
-  const endDate = new Date(`${date} 16:30:00`)
+export const IsDateBetweenEvent = (date1: Date | string, date2: Date | string): boolean => {
+  const startDate = new Date(date1)
+  const endDate = new Date(date2)
 
   if (
     new Date() >= startDate &&
@@ -18,3 +18,11 @@ export const IsDateBetweenEvent = (date: Date): boolean => {
   }
   return false
 };
+
+export const timestampFormater = (time: string) => {
+  return new Date(time)
+}
+
+export const getTime = (date: Date | string) => {
+  return new Date(date).toLocaleTimeString()
+}
