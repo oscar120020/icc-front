@@ -3,20 +3,15 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import {
-  getAdminUsers,
   getOrganizer,
-  removeAdmin,
   removeOrganizer,
 } from "../../api";
 import {
-  AdminUserFormValues,
-  EventFormValues,
   OrganizerFormValues,
 } from "../../components/form/formInterfaces";
-import { CustomModal, AdminUserForm } from "../../components/form";
+import { CustomModal } from "../../components/form";
 import { AdminLayout } from "../../components/layouts";
 import { CustomToolbar } from "../../components/maretial-ui/CustomToolbar";
-import Cookie from "js-cookie";
 import Cookies from "js-cookie";
 import { ConfirmationAlert } from "../../components/ui/ConfirmationAlert";
 import { OrganizerUserForm } from "../../components/form/OrganizerUserForm";
