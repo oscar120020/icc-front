@@ -81,6 +81,7 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
     const ranking = await getRankingById(rankingId);
     return {
       props: { ranking },
+      revalidate: 86400
     };
   } catch (error) {
     return { redirect: { permanent: false, destination: "/seasons" } };

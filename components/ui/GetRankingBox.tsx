@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Alert, AlertTitle, Box, Button, CircularProgress, Typography } from "@mui/material";
 import { addRanking } from "../../api";
 import Cookies from "js-cookie";
+import { RankingResponse } from "../../interfaces/rankingsResponse";
+import { IsDateHigherThanNow } from "../../helpers/dateHelpers";
 
 interface RankResponse {
   msg: string;
@@ -10,12 +12,12 @@ interface RankResponse {
 
 interface Props {
   close: () => void;
-  rankId: string;
+  rank: RankingResponse | undefined;
 }
 
 export const GetRankingBox = ({
   close,
-  rankId
+  rank
 }: Props) => {
   const [loading, setLoading] = useState(false);
 
@@ -24,10 +26,18 @@ export const GetRankingBox = ({
     isError: false
   });
 
-  const updateWithRanking = (rankingId: string) => {
+  const updateWithRanking = (rank: RankingResponse) => {
+    if(IsDateHigherThanNow(rank.end)){
+      setRankResponse({
+        msg: "No se puede cargar el ranking porque el challenge no ha terminado.",
+        isError: true
+      });
+      return;
+    }
+    
     setLoading(true)
     const token = Cookies.get("token") || "";
-    addRanking(rankingId, token)
+    addRanking(rank.id, token)
       .then((res) => {
         setRankResponse({
           isError: false,
@@ -46,7 +56,7 @@ export const GetRankingBox = ({
   };
 
   const handleScrapping = () => {
-    updateWithRanking(rankId)
+    updateWithRanking(rank!)
   }
 
   return (

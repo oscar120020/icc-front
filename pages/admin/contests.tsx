@@ -24,6 +24,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { timestampFormater } from "../../helpers/dateHelpers";
 import { GetRankingBox } from "../../components/ui/GetRankingBox";
+import { RankingResponse } from "../../interfaces/rankingsResponse";
+import PlagiarismIcon from '@mui/icons-material/Plagiarism';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 const initialValues: RankingFormValues = {
   rankingUrl: "",
@@ -48,7 +51,7 @@ const Rankings = () => {
       retry: 1,
     }
   );
-  const [rankId, setRankId] = useState("");
+  const [rank, setRank] = useState<RankingResponse>();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
@@ -95,8 +98,8 @@ const Rankings = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Cargar ranking">
-            <IconButton onClick={() => openModalToGetRank(params.row.id)}>
-              <CloudDownloadIcon color="primary" />
+            <IconButton onClick={() => openModalToGetRank(params.row.actions.rank)}>
+              <ManageSearchIcon color="primary" />
             </IconButton>
           </Tooltip>
         </Stack>
@@ -114,12 +117,13 @@ const Rankings = () => {
       season: ranking.season.name,
       actions: {
         seasonId: ranking.season.id,
+        rank: ranking
       },
     };
   });
 
-  const openModalToGetRank = (id: string) => {
-    setRankId(id);
+  const openModalToGetRank = (rank: RankingResponse) => {
+    setRank(rank);
     setOpenAddRank(true);
   };
 
@@ -177,7 +181,7 @@ const Rankings = () => {
           sx={{ backgroundColor: "#0ba7ce", color: "white" }}
           onClick={openModalToCreate}
         >
-          Crear ranking
+          Crear competencia
         </Button>
       </Box>
       <Box sx={{ height: 400, width: "100%" }}>
@@ -207,7 +211,7 @@ const Rankings = () => {
         />
       </CustomModal>
       <CustomModal open={openAddRank} handleClose={handleCloseAddRankModal}>
-        <GetRankingBox close={handleCloseAddRankModal} rankId={rankId} />
+        <GetRankingBox close={handleCloseAddRankModal} rank={rank} />
       </CustomModal>
     </AdminLayout>
   );

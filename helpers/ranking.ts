@@ -2,7 +2,8 @@ import { RankingResponse } from "../interfaces/rankingsResponse";
 import { RakingGlobal } from "../interfaces/seasonResponse";
 
 export const getNewerRanking = (ranking: RankingResponse[]) => {
-  return ranking.sort(
+  const valid = ranking.filter(rank => rank.scores.length > 0)
+  return valid.sort(
     (a, b) => new Date(b.beginning).getTime() - new Date(a.beginning).getTime()
   )[0];
 };
