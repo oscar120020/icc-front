@@ -16,7 +16,7 @@ export interface RankingFormValues {
 
 export interface UpdateCompetition {
   name: string;
-  begin: Date;
+  beginning: Date;
   end: Date;
 }
 

@@ -48,14 +48,24 @@ const Rankings = () => {
       retry: 1,
     }
   );
-  const [rankId, setRankId] = useState("")
+  const [rankId, setRankId] = useState("");
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     { field: "name", headerName: "Nombre de competencia", width: 230 },
     { field: "url", headerName: "Url de la competencia", width: 230 },
-    { field: "begining", headerName: "Fecha de inicio", width: 230 },
-    { field: "end", headerName: "Fecha de fin", width: 230 },
+    {
+      field: "begining",
+      headerName: "Fecha de inicio",
+      width: 230,
+      renderCell: (params) => (params.row.begining as Date).toLocaleString(),
+    },
+    {
+      field: "end",
+      headerName: "Fecha de fin",
+      width: 230,
+      renderCell: (params) => (params.row.end as Date).toLocaleString(),
+    },
     { field: "season", headerName: "Temporada", width: 250 },
     {
       field: "actions",
@@ -109,9 +119,9 @@ const Rankings = () => {
   });
 
   const openModalToGetRank = (id: string) => {
-    setRankId(id)
-    setOpenAddRank(true)
-  }
+    setRankId(id);
+    setOpenAddRank(true);
+  };
 
   const openModalToEdit = (values: RankingFormValues) => {
     setCurrentValues(values);
@@ -197,10 +207,7 @@ const Rankings = () => {
         />
       </CustomModal>
       <CustomModal open={openAddRank} handleClose={handleCloseAddRankModal}>
-        <GetRankingBox
-          close={handleCloseAddRankModal}
-          rankId={rankId}
-        />
+        <GetRankingBox close={handleCloseAddRankModal} rankId={rankId} />
       </CustomModal>
     </AdminLayout>
   );

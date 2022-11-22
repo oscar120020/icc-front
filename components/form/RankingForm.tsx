@@ -90,7 +90,7 @@ export const RankingForm = ({
     const token = Cookies.get("token") || "";
     const body = {
       name: values.name,
-      begin: new Date(values.begin),
+      beginning: new Date(values.begin),
       end: new Date(values.end),
     }
     updateRanking(values.id!, body, token)

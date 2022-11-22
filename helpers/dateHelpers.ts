@@ -20,7 +20,7 @@ export const IsDateBetweenEvent = (date1: Date | string, date2: Date | string): 
 };
 
 export const timestampFormater = (time: string) => {
-  return new Date(time).toLocaleString()
+  return new Date(time)
 }
 
 export const getTime = (date: Date | string) => {
