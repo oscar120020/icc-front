@@ -107,9 +107,7 @@ const Calendar = () => {
               startDate: event.beginning,
               endDate: event.end,
               type:  eventType(event),
-              rankUrl: event.url,
-              rankId: event.id,
-              rankAvialable: !!event.scores.length
+              rank: event,
             }))}
           >
             <ViewState
