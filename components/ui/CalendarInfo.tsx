@@ -9,6 +9,10 @@ import {
 } from "../../helpers/dateHelpers";
 import { getFullDate } from "../../helpers/getDateFormat";
 import { CalendarOptions, GoogleCalendar } from "datebook";
+import ShareIcon from "@mui/icons-material/Share";
+import { RankingResponse } from "../../interfaces/rankingsResponse";
+import ICCLogo from "../../assets/icc/Asset 5@2x.png";
+import { ordinal_suffix_of } from "../../helpers/ranking";
 
 interface Props {
   selectedDate: CalendarData;
@@ -19,11 +23,9 @@ export interface CalendarData {
   startDate: Date;
   endDate: Date;
   type: string;
-  rankUrl: string;
-  rankId: string;
-  rankAvialable: boolean;
+  rank: RankingResponse;
+  number: number;
 }
-
 
 export const CalendarInfo = ({ selectedDate }: Props) => {
   const [googleCalendarUrl, setGoogleCalendarUrl] = useState("");
@@ -48,15 +50,21 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
     [selectedDate.endDate]
   );
 
+  const isMobile = useMemo(
+    () =>
+      /iPhone|iPad|iPod|Android|IEMobile|WPDesktop/i.test(navigator.userAgent),
+    []
+  );
+
   const handleClick = () => {
-    router.push(`seasons/ranking/${selectedDate.rankId}`);
+    router.push(`seasons/ranking/${selectedDate.rank.id}`);
   };
 
   useEffect(() => {
     const config: CalendarOptions = {
       title: selectedDate.title,
       location: "Santiago De Los Caballeros, República Dominicana",
-      description: selectedDate.rankUrl,
+      description: selectedDate.rank.url,
       start: new Date(selectedDate.startDate),
       end: new Date(selectedDate.endDate),
     };
@@ -66,8 +74,30 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
 
   const openGoogleEvent = () => {
     window.open(
-      !isEventNow ? googleCalendarUrl : selectedDate.rankUrl
-      , "_black");
+      !isEventNow ? googleCalendarUrl : selectedDate.rank.url,
+      "_black"
+    );
+  };
+
+  const handleShare = async () => {
+    const { title, endDate, startDate, rank } = selectedDate;
+
+    const imageBlob = await (await fetch("/Asset 5@2x.png")).blob();
+    const files = [
+      new File([imageBlob], "Icc-logo.png", { type: imageBlob.type }),
+    ];
+
+    const shareData = {
+      title: `${title}.`,
+      text: `${ordinal_suffix_of(
+        selectedDate.number
+      )} evento del intellisys coding challenge. Inicia el ${new Date(
+        startDate
+      ).toLocaleString()} y termina el ${new Date(endDate).toLocaleString()}.`,
+      url: rank.url,
+      files,
+    };
+    navigator.share(shareData);
   };
 
   return (
@@ -83,7 +113,9 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
         <Typography variant="h2" color="primary">
           {selectedDate.title}
         </Typography>
-        <Typography variant="h6">{getFullDate(selectedDate.startDate)}</Typography>
+        <Typography variant="h6">
+          {getFullDate(selectedDate.startDate)}
+        </Typography>
         <Typography color="GrayText" variant="body1">
           {startHour} - {endHour}
         </Typography>
@@ -102,7 +134,7 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
             sx={{ bgcolor: "#0ba7ce", color: "white", margin: "15px 0" }}
             size="large"
             color="primary"
-            disabled={!selectedDate.rankAvialable || isHigher}
+            disabled={!selectedDate.rank.scores.length || isHigher}
             onClick={handleClick}
           >
             Ver resultados
@@ -120,6 +152,18 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
           </Button>
         )}
       </Box>
+      {isMobile && (
+        <Button
+          fullWidth
+          sx={{ bgcolor: "#0ba7ce", color: "white", margin: "5px 0 15px 0" }}
+          size="large"
+          color="primary"
+          onClick={handleShare}
+        >
+          Compartir&nbsp;
+          <ShareIcon fontSize="small" />
+        </Button>
+      )}
       <Box sx={{ margin: { xs: "30px auto", sm: "0 30px", lg: "30px 0" } }}>
         <Image
           src="/Asset 5@2x.png"

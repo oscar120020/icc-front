@@ -121,14 +121,13 @@ const Calendar = () => {
         <Paper sx={{ flex: 1 }}>
           <Scheduler
             locale="es-ES"
-            data={data?.map((event) => ({
+            data={data?.map((event, i) => ({
               title: event.name,
               startDate: event.beginning,
               endDate: event.end,
               type:  eventType(event),
-              rankUrl: event.url,
-              rankId: event.id,
-              rankAvialable: !!event.scores.length
+              rank: event,
+              number: i + 1
             }))}
           >
             <ViewState
