@@ -24,7 +24,6 @@ export interface CalendarData {
   endDate: Date;
   type: string;
   rank: RankingResponse;
-  number: number;
 }
 
 export const CalendarInfo = ({ selectedDate }: Props) => {
@@ -80,22 +79,10 @@ export const CalendarInfo = ({ selectedDate }: Props) => {
   };
 
   const handleShare = async () => {
-    const { title, endDate, startDate, rank } = selectedDate;
-
-    const imageBlob = await (await fetch("/Asset 5@2x.png")).blob();
-    const files = [
-      new File([imageBlob], "Icc-logo.png", { type: imageBlob.type }),
-    ];
+    const { rank } = selectedDate;
 
     const shareData = {
-      title: `${title}.`,
-      text: `${ordinal_suffix_of(
-        selectedDate.number
-      )} evento del intellisys coding challenge. Inicia el ${new Date(
-        startDate
-      ).toLocaleString()} y termina el ${new Date(endDate).toLocaleString()}.`,
-      url: rank.url,
-      files,
+      url: `${router.basePath}?id=${rank.id}`,
     };
     navigator.share(shareData);
   };

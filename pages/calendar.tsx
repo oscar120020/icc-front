@@ -13,7 +13,10 @@ import { DefaultLayout } from "../components/layouts";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getAllRanking } from "../api";
-import { IsDateBetweenEvent, IsDateHigherThanNow } from "../helpers/dateHelpers";
+import {
+  IsDateBetweenEvent,
+  IsDateHigherThanNow,
+} from "../helpers/dateHelpers";
 import { CalendarData, CalendarInfo } from "../components/ui/CalendarInfo";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { RankingResponse } from "../interfaces/rankingsResponse";
@@ -45,18 +48,16 @@ const Calendar = () => {
   });
 
   useEffect(() => {
-    if(!!router.query.id){
-      const queryEvent = data?.find(rank => rank.id === router.query.id);
-      if(!!queryEvent){
+    if (!!router.query.id) {
+      const queryEvent = data?.find((rank) => rank.id === router.query.id);
+      if (!!queryEvent) {
         setSelectedDate({
           title: queryEvent.name,
           startDate: new Date(queryEvent.beginning),
           endDate: new Date(queryEvent.end),
-          type:  eventType(queryEvent),
-          rankUrl: queryEvent.url,
-          rankId: queryEvent.id,
-          rankAvialable: !!queryEvent.scores.length
-        })
+          type: eventType(queryEvent),
+          rank: queryEvent,
+        });
       }
     }
   }, [router, data]);
@@ -67,19 +68,28 @@ const Calendar = () => {
   };
 
   const eventType = (event: RankingResponse) => {
-    if(IsDateBetweenEvent(event.beginning, event.end)){
-      return "now"
+    if (IsDateBetweenEvent(event.beginning, event.end)) {
+      return "now";
     }
-    if(IsDateHigherThanNow(event.beginning)){
-      return "work"
+    if (IsDateHigherThanNow(event.beginning)) {
+      return "work";
     }
-    return "private"
-  }
+    return "private";
+  };
 
   return (
     <DefaultLayout
       title={"Calendario | Intellisys Coding Challenge"}
-      pageDescription={"Calendario de eventos"}
+      pageDescription={
+        !!selectedDate
+          ? `${selectedDate.title}, desde ${new Date(
+              selectedDate.startDate
+            ).toLocaleString()} hasta ${new Date(
+              selectedDate.endDate
+            ).toLocaleString()}`
+          : "Calendario de eventos"
+      }
+      imageFullUrl={`${process.env.NEXT_PUBLIC_HOST_NAME}/Asset 5@2x.png`}
     >
       <Box
         sx={{
@@ -125,9 +135,8 @@ const Calendar = () => {
               title: event.name,
               startDate: event.beginning,
               endDate: event.end,
-              type:  eventType(event),
+              type: eventType(event),
               rank: event,
-              number: i + 1
             }))}
           >
             <ViewState
