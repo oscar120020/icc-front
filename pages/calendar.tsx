@@ -10,13 +10,14 @@ import {
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import { Box, Paper, Typography } from "@mui/material";
 import { DefaultLayout } from "../components/layouts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getAllRanking } from "../api";
 import { IsDateBetweenEvent, IsDateHigherThanNow } from "../helpers/dateHelpers";
 import { CalendarData, CalendarInfo } from "../components/ui/CalendarInfo";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { RankingResponse } from "../interfaces/rankingsResponse";
+import { useRouter } from "next/router";
 
 const resources = [
   {
@@ -38,9 +39,27 @@ interface EventClick {
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<CalendarData>();
+  const router = useRouter();
   const { data, error, isLoading } = useQuery(["rankings"], getAllRanking, {
     retry: 1,
   });
+
+  useEffect(() => {
+    if(!!router.query.id){
+      const queryEvent = data?.find(rank => rank.id === router.query.id);
+      if(!!queryEvent){
+        setSelectedDate({
+          title: queryEvent.name,
+          startDate: new Date(queryEvent.beginning),
+          endDate: new Date(queryEvent.end),
+          type:  eventType(queryEvent),
+          rankUrl: queryEvent.url,
+          rankId: queryEvent.id,
+          rankAvialable: !!queryEvent.scores.length
+        })
+      }
+    }
+  }, [router, data]);
 
   const handleEventClick = ({ data }: EventClick) => {
     setSelectedDate(data);
