@@ -36,13 +36,17 @@ export const SeasonContent = ({globalRanking, individualRanking}: Props) => {
         Rankings individuales
       </Typography>
       <Grid container>
-        {individualRanking.rankings.map((ranking, index) => (
-          <IndivualRankingCard
-            key={ranking.id}
-            individualRanking={ranking}
-            index={index + 1}
-          />
-        ))}
+        {individualRanking.rankings.map((ranking, index) => {
+          if(ranking.scores.length > 0){
+            return (
+              <IndivualRankingCard
+                key={ranking.id}
+                individualRanking={ranking}
+                index={index + 1}
+              />
+            )
+          }
+        })}
       </Grid>
     </>
   );
