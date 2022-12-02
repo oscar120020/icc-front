@@ -19,7 +19,7 @@ const initialValues: ContestantFormValues = {
 };
 
 const Contestants = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<ContestantFormValues>(initialValues);

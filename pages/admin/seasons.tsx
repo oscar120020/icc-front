@@ -19,7 +19,7 @@ const initialValues: SeasonFormValues = {
 };
 
 const Seasons = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<SeasonFormValues>(initialValues);

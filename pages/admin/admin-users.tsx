@@ -19,7 +19,7 @@ const initialValues: AdminUserFormValues = {
 };
 
 const AdminUsers = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [selectedAdminId, setSelectedAdminId] = useState('')

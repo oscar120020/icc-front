@@ -37,7 +37,7 @@ const initialValues: RankingFormValues = {
 };
 
 const Rankings = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [open, setOpen] = useState(false);
   const [currentValues, setCurrentValues] =
     useState<RankingFormValues>(initialValues);

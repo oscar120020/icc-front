@@ -4,7 +4,7 @@ import { SidebarSection } from "./SidebarSection";
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import ArchiveIcon from '@mui/icons-material/Archive';
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -36,6 +36,7 @@ export const SidebarAdmin = () => {
           </Tooltip>
       </Box>
       <Divider/>
+      <SidebarSection title="Tablero" iconSidebar={<DashboardIcon />} to="/admin" />
       <SidebarSection title="Temporadas" iconSidebar={<ArchiveIcon />} to="/admin/seasons" />
       <SidebarSection title="Competencias" iconSidebar={<EmojiEventsOutlinedIcon />} to="/admin/contests" />
       <SidebarSection title="Usuarios" iconSidebar={<GroupOutlinedIcon />}>
