@@ -14,13 +14,15 @@ import StarsIcon from "@mui/icons-material/Stars";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { RakingGlobal } from "../../interfaces/seasonResponse";
 import { StatsItem } from "./StatsItem";
+import NumbersIcon from '@mui/icons-material/Numbers';
 
 interface Props {
   ranking: RakingGlobal;
   index: number;
+  isGlobal?: boolean;
 }
 
-export default function RankingCard({ ranking, index }: Props) {
+export default function RankingCard({ ranking, index, isGlobal }: Props) {
   const classes = useStyles();
 
   return (
@@ -55,13 +57,35 @@ export default function RankingCard({ ranking, index }: Props) {
               </Typography>
             </Box>
             <Container className={classes.downContainer}>
-              <StatsItem 
+              {isGlobal && (
+                <>
+                  <StatsItem
+                    label={`${ranking.rank}`}
+                    icon={<NumbersIcon color="primary" />}
+                    iconMeaning="Sumatoria de rankings"
+                  />
+                  <Box
+                    sx={{
+                      width: "1px",
+                      height: "20px",
+                      backgroundColor: "#00000033",
+                    }}
+                  />
+                </>
+              )}
+              <StatsItem
                 label={`${ranking.score}`}
                 icon={<StarsIcon color="primary" />}
                 iconMeaning="Problemas resueltos"
               />
-              <Box sx={{ width: "1px", height: "20px", backgroundColor: "#00000033" }} />
-              <StatsItem 
+              <Box
+                sx={{
+                  width: "1px",
+                  height: "20px",
+                  backgroundColor: "#00000033",
+                }}
+              />
+              <StatsItem
                 label={`${ranking.penalty}`}
                 icon={<CancelIcon color="primary" />}
                 iconMeaning="Penalidad"

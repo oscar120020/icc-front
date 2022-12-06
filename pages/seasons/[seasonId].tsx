@@ -1,21 +1,45 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { useRef, useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
-import dynamic from "next/dynamic";
-import { useRef } from "react";
+import { useRouter } from "next/router";
+import { Box, Typography } from "@mui/material";
 import { getGlobalRaking, getSeasonById } from "../../api";
 import { DefaultLayout } from "../../components/layouts";
 import { EmptySection } from "../../components/ui/EmptySection";
 import { SeasonContent } from "../../components/season/SeasonContent";
-import { EmptyImage } from "../../components/SVG/Empty";
 import { getDateFormat } from "../../helpers/getDateFormat";
 import { SeasonProps } from "../../interfaces/seasonResponse";
-import { useRouter } from "next/router";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import { InfoRanking } from "../../components/ui/InfoRanking";
+import CloseIcon from "@mui/icons-material/Close";
 
 const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
   const firstmoth = useRef(getDateFormat(individualRanking.beginning));
   const secondMoth = useRef(getDateFormat(individualRanking.end));
+  const [infoClass, setInfoClass] = useState("");
+  const [infoContent, setInfoContent] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const inter = setInterval(() => {
+      setInfoClass("info-ball");
+      setTimeout(() => {
+        setInfoClass("");
+      }, 5000);
+    }, 10000);
+
+    return () => {
+      clearInterval(inter);
+    };
+  }, []);
+
+  const handleOpen = () => {
+    setInfoContent(true);
+  };
+
+  const handleClose = () => {
+    setInfoContent(false);
+  };
 
   return (
     <DefaultLayout
@@ -44,7 +68,7 @@ const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
           <Typography
             variant="h6"
             color="primary"
-            sx={{ textDecoration: "underline", cursor: "pointer" }}
+            sx={{ textDecoration: "underline", cursor: "pointer", ml: 2 }}
             onClick={() => router.back()}
           >
             Regresar
@@ -58,6 +82,45 @@ const SeasonId = ({ individualRanking, globalRanking }: SeasonProps) => {
             individualRanking={individualRanking}
           />
         )}
+      </Box>
+      <Box
+        sx={{
+          position: "fixed",
+          width: 80,
+          height: 80,
+          bgcolor: "#0ba7cec2",
+          border: "1px solid white",
+          borderRadius: 100,
+          right: 20,
+          bottom: 20,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 999,
+          transition: "all .3s",
+          cursor: infoContent ? "" : "pointer"
+        }}
+        className={infoContent ? "info-content" : infoClass}
+        onClick={handleOpen}
+      >
+        {infoContent ? (
+          <InfoRanking />
+        ) : (
+          <PriorityHighIcon color="info" sx={{ fontSize: 50 }} />
+        )}
+      </Box>
+      <Box
+        sx={{
+          display: infoContent ? "flex" : "none",
+          position: "fixed",
+          right: 25,
+          bottom: 400 - 15,
+          cursor: "pointer",
+          zIndex: 1999,
+        }}
+        onClick={() => setInfoContent(false)}
+      >
+        <CloseIcon color="primary" fontSize="medium" />
       </Box>
     </DefaultLayout>
   );

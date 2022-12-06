@@ -44,6 +44,7 @@ export default function RankingId({ ranking }: RankingProps) {
               alignSelf: "right",
               textDecoration: "underline",
               cursor: "pointer",
+              ml: 2
             }}
             onClick={() => router.back()}
           >

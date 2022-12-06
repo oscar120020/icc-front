@@ -29,7 +29,7 @@ export const SeasonContent = ({globalRanking, individualRanking}: Props) => {
       >
         Ranking Global
       </Typography>
-      <Ranking globalRanking={globalRanking} />
+      <Ranking isGlobal globalRanking={globalRanking} />
 
       {/* Individual Ranking */}
       <Typography variant="h2" color="info" sx={{ mt: 8, mb: 3 }}>

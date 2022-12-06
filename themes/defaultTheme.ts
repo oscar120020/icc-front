@@ -11,7 +11,7 @@ export const defaultTheme = createTheme({
       main: '#D3DB14'
     },
     info: {
-      main: '#dbdbdb'
+      main: '#fff'
     }
   },
   typography: {

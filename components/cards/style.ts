@@ -76,7 +76,7 @@ export const useStyles = makeStyles({
     flex: 1,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   scoreInfo: {

@@ -11,7 +11,11 @@ const RankingCard = dynamic(() => import("../cards/RankingCard"), {
   ssr: false,
 });
 
-export default function Ranking({ globalRanking }: RankingProps) {
+interface Props extends RankingProps {
+  isGlobal?: boolean;
+}
+
+export default function Ranking({ globalRanking, isGlobal }: Props) {
   const classes = useStyles();
   return (
     <>
@@ -19,7 +23,7 @@ export default function Ranking({ globalRanking }: RankingProps) {
         {globalRanking.map((ranking, index) => {
           {
             if (index < 3) {
-              return <RankingCard key={ranking.competitor.userName} ranking={ranking} index={index + 1}/>;
+              return <RankingCard isGlobal={isGlobal} key={ranking.competitor.userName} ranking={ranking} index={index + 1}/>;
             }
           }
         })}
@@ -27,7 +31,15 @@ export default function Ranking({ globalRanking }: RankingProps) {
 
       <Box sx={{ display: "flex", flexDirection: "column", marginTop: 3 }}>
         <Container sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Box className={classes.containerParams}>
+          <Box className={classes.containerParams} sx={{display: {xs: "none", sm:"flex"}}}>
+            {
+              isGlobal && (
+                <>
+                  <Typography variant="body1" color="GrayText" >rank</Typography>
+                  <Box sx={{ width: "1px", height: "20px", backgroundColor: "#00000033", margin: '0 1.5vw' }} />
+                </>
+              )
+            }
             <Typography variant="body1" color="GrayText" >Puntos</Typography>
             <Box sx={{ width: "1px", height: "20px", backgroundColor: "#00000033", margin: '0 1.5vw' }} />
             <Typography variant="body1" color="GrayText" >Penalidad</Typography>
@@ -42,6 +54,7 @@ export default function Ranking({ globalRanking }: RankingProps) {
                   ranking={ranking}
                   index={index + 1}
                   key={index}
+                  isGlobal={isGlobal}
                 />
               );
             }
