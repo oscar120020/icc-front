@@ -49,18 +49,6 @@ export default function RankingSecondaryCard({
             flexDirection: { xs: "column", sm: "row" },
           }}
         >
-          {isGlobal && (
-            <Box
-              sx={{
-                marginRight: { xs: "0", sm: "2.5vw" },
-                width: {xs: 80, sm: 50},
-              }}
-              className={classes.infoContent}
-            >
-              <NumbersIcon color="primary" />
-              <Typography variant="h6">{ranking.rank}</Typography>
-            </Box>
-          )}
           <Box
             sx={{
               marginRight: { xs: "0", sm: "2.5vw" },
@@ -81,6 +69,18 @@ export default function RankingSecondaryCard({
             <CancelIcon color="primary" />
             <Typography variant="h6">{ranking.penalty}</Typography>
           </Box>
+          {isGlobal && (
+            <Box
+              sx={{
+                marginRight: { xs: "0", sm: "2.5vw" },
+                width: {xs: 80, sm: 50},
+              }}
+              className={classes.infoContent}
+            >
+              <NumbersIcon color="primary" />
+              <Typography variant="h6">{ranking.rank}</Typography>
+            </Box>
+          )}
         </Box>
       </Container>
     </Card>
