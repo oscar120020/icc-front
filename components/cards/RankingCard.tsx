@@ -57,22 +57,6 @@ export default function RankingCard({ ranking, index, isGlobal }: Props) {
               </Typography>
             </Box>
             <Container className={classes.downContainer}>
-              {isGlobal && (
-                <>
-                  <StatsItem
-                    label={`${ranking.rank}`}
-                    icon={<NumbersIcon color="primary" />}
-                    iconMeaning="Sumatoria de rankings"
-                  />
-                  <Box
-                    sx={{
-                      width: "1px",
-                      height: "20px",
-                      backgroundColor: "#00000033",
-                    }}
-                  />
-                </>
-              )}
               <StatsItem
                 label={`${ranking.score}`}
                 icon={<StarsIcon color="primary" />}
@@ -90,6 +74,22 @@ export default function RankingCard({ ranking, index, isGlobal }: Props) {
                 icon={<CancelIcon color="primary" />}
                 iconMeaning="Penalidad"
               />
+              {isGlobal && (
+                <>
+                  <Box
+                    sx={{
+                      width: "1px",
+                      height: "20px",
+                      backgroundColor: "#00000033",
+                    }}
+                  />
+                  <StatsItem
+                    label={`${ranking.rank}`}
+                    icon={<NumbersIcon color="primary" />}
+                    iconMeaning="Sumatoria de rankings"
+                  />
+                </>
+              )}
             </Container>
           </Box>
         </CardContent>

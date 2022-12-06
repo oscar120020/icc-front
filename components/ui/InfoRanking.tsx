@@ -12,7 +12,7 @@ export const InfoRanking = () => {
         fontWeight="bold"
         sx={{ mb: 2, fontSize: 20 }}
       >
-        Criterio de posicionamiento
+        Criterios de posicionamiento
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <StarsIcon color="primary" sx={{ mr: 1 }} />
@@ -23,14 +23,14 @@ export const InfoRanking = () => {
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <CancelIcon color="primary" sx={{ mr: 1 }} />
         <Typography variant="body1">
-          Sumatoria total de penalidad acumulada en cada competencia (mientras
+          Sumatoria total de penalidad acumulada (mientras
           menor sea, mejor).
         </Typography>
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <NumbersIcon color="primary" sx={{ mr: 1 }} />
         <Typography variant="body1">
-          Suma de todas las posiciones en la que quedó el concursante (mientras
+          Sumatoria de las posiciones que obtuvo el concursante (mientras
           menor sea, mejor).
         </Typography>
       </Box>
