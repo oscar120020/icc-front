@@ -10,6 +10,10 @@ interface Props {
 
 export const PastContest = ({ rankings }: Props) => {
   const lastRanking = useRef(getNewerRanking(rankings)).current;
+
+  if (!lastRanking) {
+    return <></>;
+  }
   
   return (
     <>
